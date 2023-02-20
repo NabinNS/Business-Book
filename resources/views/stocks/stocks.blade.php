@@ -98,14 +98,13 @@
                     </div>
                     <div>
                         <h6 class="m-1 d-inline">Stock Value:</h6>
-            
+
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-between m-1">
                     <button class="btn-custom-grid2 grid2-edit" type="button" data-bs-toggle="modal"
                         data-bs-target="#EditPartyModal">Edit <i class="fa fa-edit"></i></button>
-                    <button class="btn-custom-grid2 grid2-download">Download <i class="fa fa-download"></i></button>
                     <button class="btn-custom-grid2 grid2-delete">Delete <i class="fa fa-trash"></i></button>
                 </div>
             </div>
