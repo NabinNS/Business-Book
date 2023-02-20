@@ -13,7 +13,7 @@
 }
 .grid-item-2 {
     grid-column: span 1;
-    height: 100px;
+    height: 115px;
     overflow: auto;
 }
 .grid-item-2::-webkit-scrollbar {
@@ -21,7 +21,7 @@
 }
 .grid-item-3 {
     grid-row: span 1;
-    height: 570px;
+    height: 555px;
     overflow: scroll;
 }
 .hide {
@@ -29,6 +29,9 @@
 }
 .btn-size {
     min-width: 110px;
+}
+.Cus-btn-size {
+    min-width: 145px;
 }
 .btn-custom {
     padding: 0.375rem 0.75rem;
@@ -52,8 +55,8 @@
 .under-border {
     border-bottom: 3px solid #0067ac;
 }
-#additionalinfo:hover,
-#otherinfo:hover {
+.topicadditionalinfo:hover,
+.topicotherinfo:hover {
     cursor: pointer;
     transform: scale(1.1);
 }
@@ -103,4 +106,30 @@ select:focus {
 .selectcompany {
     padding: 18.5px;
     font-size: 16px;
+}
+#ledgertable tbody tr {
+    cursor: pointer;
+}
+.btn-custom-grid2 {
+    padding: 0.2rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+.grid2-edit {
+    background-color: #009e60;
+}
+.grid2-download {
+    background-color: #c0c0c0;
+}
+.grid2-delete {
+    background-color: red;
+}
+.highlight {
+    background-color: red;
 }

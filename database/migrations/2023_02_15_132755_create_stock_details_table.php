@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('account_remaining_balances', function (Blueprint $table) {
-            $table->increments('accbalance_id');
+        Schema::create('stock_details', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('stock_name');
+            $table->integer('limit')->nullable();
+            $table->bigInteger('purchase_price')->nullable();
+            $table->bigInteger('sales_price')->nullable();
+            $table->bigInteger('opening_balance');
+            $table->string('category');
             $table->date('date');
-            $table->integer('amount');
-            $table->unsignedInteger('company_details_id');
-            $table->foreign('company_details_id')->references('id')->on('company_details')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account_remaining_balances');
+        Schema::dropIfExists('stock_details');
     }
 };

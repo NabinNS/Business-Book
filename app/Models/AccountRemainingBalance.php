@@ -9,9 +9,10 @@ class AccountRemainingBalance extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'date','company_name','amount','company_details_id'
+        'date','amount','company_details_id'
     ];
-    public function companyInformation(){
-        return $this->belongsTo(CompanyInformation::class);
+    protected $primaryKey = 'accbalance_id';
+    public function companyDetail(){
+        return $this->belongsTo(CompanyDetails::class);
     }   
 }

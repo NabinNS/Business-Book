@@ -8,29 +8,22 @@
     <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
     <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/account.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/stock.css') }}" />
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
     </script>
     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
         crossorigin="anonymous"></script>
 
-    {{-- selectize cdn for selecting and searching in the textfield --}}
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
-    integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
-    integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  ></script>
+    {{-- select2 cdn for selecting and searching in the textfield --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
@@ -60,19 +53,19 @@
                     <i class="bx bxs-chevron-down arrow"></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="#">Accounts</a></li>
+                    <li><a class="link_name" href="/parties">Accounts</a></li>
                     <li><a href="/parties">Parties</a></li>
-                    <li><a href="#">Customers</a></li>
+                    <li><a href="/customers">Customers</a></li>
                 </ul>
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="#">
+                    <a href="/stocks/categories">
                         <i class='bx bx-line-chart'></i>
                         <span class="link_name">Stock</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Stock</a></li>
+                        <li><a class="link_name" href="/stocks/categories">Stock</a></li>
                     </ul>
                 </div>
             </li>
@@ -181,11 +174,10 @@
             $('.alert').fadeOut(1000, function() {
                 $(this).alert('close');
             });
-            $('.text-danger').fadeOut(1000, function() {
-                $(this).alert('close');
-            });
+
         }, 4000);
     </script>
+
     @stack('scripts')
 
 

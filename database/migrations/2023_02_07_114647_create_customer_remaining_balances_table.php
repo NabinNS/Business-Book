@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('account_remaining_balances', function (Blueprint $table) {
-            $table->increments('accbalance_id');
+        Schema::create('customer_remaining_balances', function (Blueprint $table) {
+            $table->increments('cusbalance_id');
             $table->date('date');
             $table->integer('amount');
-            $table->unsignedInteger('company_details_id');
-            $table->foreign('company_details_id')->references('id')->on('company_details')->onDelete('cascade');
+            $table->unsignedInteger('customer_detail_id');
+            $table->foreign('customer_detail_id')->references('id')->on('customer_details')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account_remaining_balances');
+        Schema::dropIfExists('customer_remaining_balances');
     }
 };

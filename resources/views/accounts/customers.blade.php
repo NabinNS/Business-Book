@@ -22,7 +22,7 @@
         <div class="grid-item grid-item-1">
 
             <div class="shadow p-3 mb-4 bg-white bottom-radius border border-2 border-danger">
-                <h6 class="text-center font">Parties list</h6>
+                <h6 class="text-center font">Customers list</h6>
             </div>
             <div class="d-flex">
                 <div class="container">
@@ -39,10 +39,99 @@
                     </div>
                 </div>
                 <div class="container addbutton">
-                    <button class="btn-custom btn-size ms-5" type="button" data-bs-toggle="modal"
-                        data-bs-target="#AddPartyModal">Add Party</button>
+                    <button class="btn-custom Cus-btn-size ms-5" type="button" data-bs-toggle="modal"
+                        data-bs-target="#AddCustomerModal">Add Customer</button>
                 </div>
             </div>
+
+            <!-- Modal to add new customer-->
+            <div class="modal fade" id="AddCustomerModal" tabindex="-1" aria-labelledby="AddCutomerModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-center font" id="exampleModalLabel">Add Customer</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            </button>
+                        </div>
+                        <form method="get" action="{{ route('addnewcustomer') }}">
+                            <div class="modal-body">
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput"
+                                        placeholder="name@example.com" name="customername">
+                                    <label for="floatingInput">Customer Name</label>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-floating mb-3">
+                                            <input type="number" class="form-control" id="floatingInput"
+                                                placeholder="Vat Number" name="vatnumber">
+                                            <label for="floatingInput">Vat Number</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating mb-3">
+                                            <input type="number" class="form-control" id="floatingInput"
+                                                placeholder="Phone Number" name="phonenumber">
+                                            <label for="floatingInput">Phone Number</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-around m-3">
+                                    <h6 class="topicadditionalinfo under-border">Additional Information</h6>
+                                    <h6 class="topicotherinfo">Other Information</h6>
+                                </div>
+
+                                <div class="additionalinfo">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="floatingInput"
+                                                    placeholder="Address" name="address">
+                                                <label for="floatingInput">Address</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="floatingInput"
+                                                    placeholder="Email" name="emailaddress">
+                                                <label for="floatingInput">Email Address</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="otherinfo hide">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-floating mb-3">
+                                                <input type="number" class="form-control" id="floatingInput"
+                                                    placeholder="Opening Balance" name="openingbalance">
+                                                <label for="floatingInput">Opening Balance</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-floating mb-3">
+                                                <input type="date" class="form-control" id="datepicker"
+                                                    placeholder="As of" name="date">
+                                                <label for="floatingInput">As of</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save Customer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
 
             {{-- table to show summary of accounts --}}
             <div>
@@ -54,12 +143,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($accountremainingbalances as $accountremainingbalance)
+                        @foreach ($customerremainingbalances as $customerremainingbalance)
                             <tr>
 
-                                <td><a href="{{ route('viewLedger', $accountremainingbalance->company_name) }}"
-                                        class="aremainingbalance"> {{ $accountremainingbalance->company_name }} </a></td>
-                                <td>{{ $accountremainingbalance->accountRemainingBalance->amount }}</td>
+                                <td><a href="{{ route('viewCustomerLedger', $customerremainingbalance->customer_name) }}"
+                                        class="aremainingbalance"> {{ $customerremainingbalance->customer_name }} </a></td>
+                                <td>{{ $customerremainingbalance->customerRemainingBalance->amount }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -71,34 +160,34 @@
             <div class="mx-2">
                 <div class="d-flex justify-content-between">
                     <div>
-                        <h6 class="m-1 d-inline">Company Name:</h6>
-                        <h6 class="d-inline">{{ $companyDetail->company_name }}</h6>
+                        <h6 class="m-1 d-inline">Customer Name:</h6>
+                        <h6 class="d-inline">{{ $customerDetail->customer_name }}</h6>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between">
                     <div>
                         <h6 class="m-1 d-inline">Email Address:</h6>
-                        <p class="d-inline">{{ $companyDetail->email_address }}</p>
+                        <p class="d-inline">{{ $customerDetail->email_address }}</p>
                     </div>
                     <div>
                         <h6 class="m-1 d-inline">Address:</h6>
-                        <p class="d-inline">{{ $companyDetail->address }}</p>
+                        <p class="d-inline">{{ $customerDetail->address }}</p>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between">
                     <div>
                         <h6 class="m-1 d-inline">Vat Number:</h6>
-                        <p class="d-inline">{{ $companyDetail->vat_number }}</p>
+                        <p class="d-inline">{{ $customerDetail->vat_number }}</p>
                     </div>
                     <div>
                         <h6 class="m-1 d-inline">Phone Number:</h6>
-                        <p class="d-inline">{{ $companyDetail->phone_number }}</p>
+                        <p class="d-inline">{{ $customerDetail->phone_number }}</p>
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-between m-1">
                     <button class="btn-custom-grid2 grid2-edit" type="button" data-bs-toggle="modal"
-                        data-bs-target="#EditPartyModal">Edit <i class="fa fa-edit"></i></button>
+                        data-bs-target="#EditCustomerModal">Edit <i class="fa fa-edit"></i></button>
                     <button class="btn-custom-grid2 grid2-download">Download <i class="fa fa-download"></i></button>
                     <button class="btn-custom-grid2 grid2-delete">Delete <i class="fa fa-trash"></i></button>
                 </div>
@@ -120,9 +209,9 @@
                 </div>
                 <div>
                     <button type="button" class="btn btn-outline-success ms-2" data-bs-toggle="modal"
-                        data-bs-target="#AddPurchase">Purchase</button>
+                        data-bs-target="#AddSales">Sales</button>
                     <button type="button" class="btn btn-outline-danger ms-2" data-bs-toggle="modal"
-                        data-bs-target="#AddPayment">Payment</button>
+                        data-bs-target="#AddPayment">Cash In</button>
                 </div>
             </div>
 
@@ -139,10 +228,10 @@
                 </thead>
                 <tbody>
                     @php
-                        $balance = $companyDetail->opening_balance;
+                        $balance = $customerDetail->opening_balance;
                     @endphp
                     <tr>
-                        <td>{{ $companyDetail->date }}</td>
+                        <td>{{ $customerDetail->date }}</td>
                         <td>Opening Balance</td>
                         <td></td>
                         <td></td>
@@ -150,16 +239,16 @@
                         <td>{{ $balance }}</td>
 
                     </tr>
-                    @foreach ($accountledgers as $accountledger)
-                        <tr id="{{ $accountledger->acc_id }}" data-company-name="{{ $companyDetail->company_name }}">
+                    @foreach ($customerledgers as $customerledger)
+                        <tr id="{{ $customerledger->acc_id }}" data-company-name="{{ $customerledger->customer_name }}">
                             @php
-                                $balance += $accountledger->credit - $accountledger->debit;
+                                $balance += $customerledger->debit - $customerledger->credit;
                             @endphp
-                            <td>{{ $accountledger->date }}</td>
-                            <td>{{ $accountledger->particulars }}</td>
-                            <td>{{ $accountledger->receipt_no }}</td>
-                            <td>{{ $accountledger->debit }}</td>
-                            <td>{{ $accountledger->credit }}</td>
+                            <td>{{ $customerledger->date }}</td>
+                            <td>{{ $customerledger->particulars }}</td>
+                            <td>{{ $customerledger->receipt_no }}</td>
+                            <td>{{ $customerledger->debit }}</td>
+                            <td>{{ $customerledger->credit }}</td>
                             <td>{{ $balance }}</td>
                         </tr>
                     @endforeach
@@ -169,113 +258,25 @@
         </div>
     </div>
 
-    <!-- Modal to add new party-->
+    {{-- Modal for sales --}}
     <div>
-
-        <div class="modal fade" id="AddPartyModal" tabindex="-1" aria-labelledby="AddPartyModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title text-center font" id="exampleModalLabel">Add Party</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        </button>
-                    </div>
-                    <form method="get" action="{{ route('addnewparty') }}">
-                        <div class="modal-body">
-
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingInput"
-                                    placeholder="name@example.com" name="companyname">
-                                <label for="floatingInput">Company Name</label>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-floating mb-3">
-                                        <input type="number" class="form-control" id="floatingInput"
-                                            placeholder="Vat Number" name="vatnumber">
-                                        <label for="floatingInput">Vat Number</label>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating mb-3">
-                                        <input type="number" class="form-control" id="floatingInput"
-                                            placeholder="Phone Number" name="phonenumber">
-                                        <label for="floatingInput">Phone Number</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="d-flex justify-content-around m-3">
-                                <h6 class="topicadditionalinfo under-border">Additional Information</h6>
-                                <h6 class="topicotherinfo">Other Information</h6>
-                            </div>
-
-                            <div class="additionalinfo">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingInput"
-                                                placeholder="Address" name="address">
-                                            <label for="floatingInput">Address</label>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingInput"
-                                                placeholder="Email" name="emailaddress">
-                                            <label for="floatingInput">Email Address</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="otherinfo hide">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-floating mb-3">
-                                            <input type="number" class="form-control" id="floatingInput"
-                                                placeholder="Opening Balance" name="openingbalance">
-                                            <label for="floatingInput">Opening Balance</label>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-floating mb-3">
-                                            <input type="date" class="form-control" id="datepicker"
-                                                placeholder="As of" name="date">
-                                            <label for="floatingInput">As of</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save Party</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- Modal for purchase --}}
-    <div>
-        <div class="modal fade" id="AddPurchase" tabindex="-1" aria-labelledby="AddPurchaseModalLabel"
+        <div class="modal fade" id="AddSales" tabindex="-1" aria-labelledby="AddSalesModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title font text-success" id="exampleModalLabel">Goods Purchase Information</h5>
+                        <h5 class="modal-title font text-success" id="exampleModalLabel">Goods Sales Information</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
-                    <form method="get" action="{{ route('ledgerpurchase') }}" id="purchaserecordform">
+                    <form method="get" action="{{ route('ledgersales') }}" id="purchaserecordform">
                         <div class="modal-body">
                             <div class="input-group mb-3">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control fieldcompanyname" id="floatingInput"
-                                        placeholder="Company Name" name="companyname" readonly
-                                        value="{{ $companyDetail->company_name }}">
-                                    <label for="floatingInput">Company Name</label>
+                                        placeholder="Company Name" name="customername" readonly
+                                        value="{{ $customerDetail->customer_name }}">
+                                    <label for="floatingInput">Customer Name</label>
                                 </div>
                             </div>
                             <div class="row">
@@ -297,11 +298,11 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-floating">
-                                        <select class="form-select" id="floatingSelect" name="Purchasetype">
+                                        <select class="form-select" id="floatingSelect" name="Salestype">
                                             <option value="credit">Credit</option>
                                             <option value="cash">Cash</option>
                                         </select>
-                                        <label for="floatingSelect">Purchase Mode</label>
+                                        <label for="floatingSelect">Sales Mode</label>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -335,7 +336,7 @@
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-success">Save purchase</button>
+                                <button type="submit" class="btn btn-success">Save sales</button>
                             </div>
                     </form>
                 </div>
@@ -352,37 +353,14 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
-                    <form method="get" action="{{ route('cash') }}" id="cashrecordform">
+                    <form method="get" action="{{ route('customercash') }}" id="cashrecordform">
                         <div class="modal-body">
-
-
-                            {{-- <div class="input-group mb-3">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control fieldcompanyname" id="floatingInput"
-                                    placeholder="Company Name" name="companyname" readonly
-                                    value="{{ $companyDetail->company_name }}">
-                                <label for="floatingInput">Company Name</label>
-
-                                <select id="normalize" name="companyname" class="hide selectcompany" disabled>
-                                    @foreach ($accountremainingbalances as $companyname)
-                                        <option value="{{ $companyname->company_name }}">{{ $companyname->company_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="input-group-append">
-                                <button type="button"
-                                    class="btn btn-success rounded-0  p-3 changecompany">Change</button>
-                            </div>
-                        </div> --}}
-
-
                             <div class="input-group mb-3">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control fieldcompanyname" id="floatingInput"
-                                        placeholder="Company Name" name="companyname" readonly
-                                        value="{{ $companyDetail->company_name }}">
-                                    <label for="floatingInput">Company Name</label>
+                                        placeholder="Company Name" name="customername" readonly
+                                        value="{{ $customerDetail->customer_name }}">
+                                    <label for="floatingInput">Customer Name</label>
                                 </div>
                             </div>
                             <div class="row">
@@ -433,31 +411,31 @@
     </div>
     {{-- Modal for editing parties --}}
     <div>
-        <div class="modal fade" id="EditPartyModal" tabindex="-1" aria-labelledby="AddPartyModalLabel"
+        <div class="modal fade" id="EditCustomerModal" tabindex="-1" aria-labelledby="EditCustomerModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title text-center font" id="exampleModalLabel">Edit Party</h5>
+                        <h5 class="modal-title text-center font" id="exampleModalLabel">Edit Customer Detail</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
-                    <form method="get" action="{{ route('editcompany', $companyDetail->company_name) }}">
+                    <form method="get" action="{{ route('editcustomer', $customerDetail->customer_name) }}">
                         @csrf
                         <div class="modal-body">
-                            <input type="hidden" name="companyID" value="{{ $companyDetail->id }}">
+                            <input type="hidden" name="customerID" value="{{ $customerDetail->id }}">
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="floatingInput"
-                                    placeholder="name@example.com" name="companyname"
-                                    value="{{ $companyDetail->company_name }}">
-                                <label for="floatingInput">Company Name</label>
+                                    placeholder="name@example.com" name="customername"
+                                    value="{{ $customerDetail->customer_name }}">
+                                <label for="floatingInput">Customer Name</label>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <div class="form-floating mb-3">
                                         <input type="number" class="form-control" id="floatingInput"
                                             placeholder="Vat Number" name="vatnumber"
-                                            value="{{ $companyDetail->vat_number }}">
+                                            value="{{ $customerDetail->vat_number }}">
                                         <label for="floatingInput">Vat Number</label>
                                     </div>
                                 </div>
@@ -465,7 +443,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="number" class="form-control" id="floatingInput"
                                             placeholder="Phone Number" name="phonenumber"
-                                            value="{{ $companyDetail->phone_number }}">
+                                            value="{{ $customerDetail->phone_number }}">
                                         <label for="floatingInput">Phone Number</label>
                                     </div>
                                 </div>
@@ -481,7 +459,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="floatingInput"
                                                 placeholder="Address" name="address"
-                                                value="{{ $companyDetail->address }}">
+                                                value="{{ $customerDetail->address }}">
                                             <label for="floatingInput">Address</label>
                                         </div>
                                     </div>
@@ -489,7 +467,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="floatingInput"
                                                 placeholder="Email" name="emailaddress"
-                                                value="{{ $companyDetail->email_address }}">
+                                                value="{{ $customerDetail->email_address }}">
                                             <label for="floatingInput">Email Address</label>
                                         </div>
                                     </div>
@@ -501,14 +479,14 @@
                                         <div class="form-floating mb-3">
                                             <input type="number" class="form-control" id="floatingInput"
                                                 placeholder="Opening Balance" name="openingbalance"
-                                                value="{{ $companyDetail->opening_balance }}">
+                                                value="{{ $customerDetail->opening_balance }}">
                                             <label for="floatingInput">Opening Balance</label>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-floating mb-3">
                                             <input type="date" class="form-control" id="datepicker"
-                                                placeholder="As of" name="date" value="{{ $companyDetail->date }}">
+                                                placeholder="As of" name="date" value="{{ $customerDetail->date }}">
                                             <label for="floatingInput">As of</label>
                                         </div>
                                     </div>
@@ -518,7 +496,7 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Update Party </button>
+                            <button type="submit" class="btn btn-success">Update Customer </button>
                         </div>
                     </form>
                 </div>
@@ -539,7 +517,7 @@
                 $('#toogleSearchbar').hide();
                 $('.addbutton').hide();
             });
-
+            
 
             $("tr").dblclick(function() {
                 var id = $(this).attr("id");
@@ -548,7 +526,7 @@
 
                     window.location.href = '/parties/editledger/' + id + '/' + companyName;
                 } else {
-                    $('#EditPartyModal').modal('show');
+                    // $('#AddCustomerModal').modal('show');
                 }
             });
 
@@ -580,7 +558,7 @@
                 $('.addbutton').show();
             });
 
-            $('#AddPartyModal, #AddPayment, #AddPurchase').modal({
+            $('#AddCustomerModal, #AddPayment, #AddSales').modal({
                 backdrop: 'static',
             });
             // $('#otherinfo').click(function() {
@@ -607,7 +585,7 @@
                 $(".topicotherinfo").removeClass("under-border");
                 $(".additionalinfo").removeClass("hide");
             });
-            $('#AddPartyModal').on('hidden.bs.modal', function(e) {
+            $('#AddCustomerModal').on('hidden.bs.modal', function(e) {
                 $(this)
                     .find("input,textarea,select")
                     .val('')
@@ -617,7 +595,7 @@
                 $("#cashrecordform")[0].reset();
             });
 
-            $('#AddPurchase').on('hidden.bs.modal', function(e) {
+            $('#AddSales').on('hidden.bs.modal', function(e) {
                 $("#purchaserecordform")[0].reset();
             });
 
@@ -636,7 +614,7 @@
                 });
             });
 
-            $('select[name="Purchasetype"]').change(function() {
+            $('select[name="Salestype"]').change(function() {
                 if ($(this).val() == 'cash') {
                     $('.cashpayment').removeClass("hide");
                 } else {

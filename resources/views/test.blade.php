@@ -1,64 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Practise</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width = device-width, initial-scale = 1" />
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
-<style>
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+        crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
-    .Modalform{
-        width: 300px;
-        height: 50px;
-        position: relative;
-    }
-    .Modalform input{
-        width: 100%;
-        height: 100%;
-        background: transparent;
-        border: 2px solid #2ecc71;
-        border-radius: 10px;
-        outline: none;
-        padding: 0 10px;
-        font-size: 20px;
-    }
-    .Modalform label{
-        position: absolute;
-        top: 10px;
-        left: 15px;
-        color: black;
-        text-transform: capitalize;
-        font-size: 18px;
-        transition: top .3s;
-        padding: 0 5px;
-    }
-    .Modalform input:focus ~label{
-        top: -10px;
-        background-color: white;
-    }
 
-</style>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-    integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
-</script>
+    <select class="js-example-basic-single" name="state">
+        <option value="AL">Alabama</option>
+        ...
+        <option value="WY">Wyoming</option>
+    </select>
 
+    <script>
+        // $(document).ready(function() {
 
-</head>
-<body >
-    <div class="Modalform mt-4">
-        <input type="text">
-        <label for="">search</label> 
-    </div>     
-    <div class="Modalform mt-4">
-        <input type="text">
-        <label for="">search</label>
-        
-    </div>    
+        // });
+        // In your Javascript (external .js resource or <script> tag)
 
-</body>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+            // Open/Close select options
+            $("#input-field").on("focus", function() {
+                $("#select-options").show();
+            });
+            $("#input-field").on("blur", function() {
+
+                $("#select-options").hide();
+
+            });
+            // $("#input-field").click(function () {
+            //   $("#select-options").toggle();
+            // });
+
+            // Set selected value to input field
+            $("#select-options li").click(function() {
+                var value = $(this).attr("data-value");
+                $("#input-field").val(value);
+                $("#select-options").hide();
+            });
+
+            $("#input-field").on("input", function() {
+                var search = $(this).val().toLowerCase();
+                $("#select-options li").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(search) > -1);
+                });
+            });
+        });
+    </script>
+    </body>
+
 </html>
-

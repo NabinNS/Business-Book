@@ -15,10 +15,7 @@ class CompanyDetails extends Model
     {
         return $this->hasMany(AccountLedger::class);
     }
-    public function accountsSummary()
-    {
-        return $this->hasOne(AccountsSummary::class);
-    }
+
     public function accountRemainingBalance()
     {
         return $this->hasOne(AccountRemainingBalance::class);
