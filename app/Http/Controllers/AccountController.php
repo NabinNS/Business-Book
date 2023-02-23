@@ -157,7 +157,7 @@ class AccountController extends Controller
     public function addNewCustomer(Request $request)
     {
         $request->validate([
-            'customername' => 'required|unique:company_details,company_name',
+            'customername' => 'required',
             'vatnumber' => 'nullable|min:7|max:9',
             'phonenumber' => 'nullable|min:7',
             'emailaddress' => 'nullable|email'
@@ -234,7 +234,7 @@ class AccountController extends Controller
     {
 
         $request->validate([
-            'customername' => 'required|unique:company_details,company_name',
+            'customername' => 'required',
             'vatnumber' => 'nullable|min:7|max:9',
             'phonenumber' => 'nullable|min:7',
             'emailaddress' => 'nullable|email'

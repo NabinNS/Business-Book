@@ -18,9 +18,9 @@ return new class extends Migration
             $table->date('date');
             $table->string('particulars');
             $table->integer('receipt_no')->nullable();
-            $table->integer('quantity');
+            $table->integer('quantity')->nullable();
             $table->float('rate')->nullable();
-            $table->integer('issued_quantity');
+            $table->integer('issued_quantity')->nullable();
             $table->unsignedInteger('stock_detail_id');
             $table->foreign('stock_detail_id')->references('id')->on('stock_details')->onDelete('cascade');
             $table->timestamps();

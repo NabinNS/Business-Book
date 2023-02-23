@@ -19,8 +19,8 @@ return new class extends Migration
             $table->integer('limit')->nullable();
             $table->bigInteger('purchase_price')->nullable();
             $table->bigInteger('sales_price')->nullable();
-            $table->bigInteger('opening_balance');
-            $table->string('category');
+            $table->bigInteger('opening_balance')->nullable();
+            $table->string('category')->nullable();
             $table->date('date');
             $table->timestamps();
         });
