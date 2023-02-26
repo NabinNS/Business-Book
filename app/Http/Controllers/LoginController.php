@@ -28,12 +28,4 @@ class LoginController extends Controller
 
         return redirect("/")->with('error', 'Username or Password not matched');
     }
-    public function dashboard()
-    {
-        if (Auth::check()) {
-            return view('dashboard');
-        }
-
-        return redirect("/")->withSuccess('You are not allowed to access');
-    }
 }

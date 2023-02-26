@@ -158,4 +158,11 @@ class StockController extends Controller
         $stockledger = StockLedger::find($id);
         dd($stockledger);
     }
+    public function billingRecord(Request $request)
+    {
+        // dd($request->all());
+        foreach ($request->productname as $key => $item) {
+            dd([$request->productname[$key], $request->quantity[$key]]);
+        }
+    }
 }

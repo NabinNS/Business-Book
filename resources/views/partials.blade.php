@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('css/account.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/stock.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/bill.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}" />
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
@@ -25,6 +26,7 @@
     {{-- select2 cdn for selecting and searching in the textfield --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>

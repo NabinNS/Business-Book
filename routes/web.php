@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\LoginController;
@@ -22,13 +23,13 @@ use App\Mail\PasswordResetMail;
 Route::get('test', function () {
     return view('test');
 });
-Route::get('bill', function () {
-    return view('bill');
-});
+
+
+Route::get('/billingrecord',[StockController::class,'billingRecord']);
 //Starting of the routes
 Route::get('/', [LoginController::class, 'index'])->name('startingpoint');
 Route::post('/login', [LoginController::class, 'Login'])->name('login');
-Route::get('dashboard', [LoginController::class, 'dashboard'])->middleware('auth');
+Route::get('dashboard', [DashboardController::class, 'dashboard'])->middleware('auth');
 
 //Forget password routing code starts from here
 Route::get('/forgetpassword', [ForgotPasswordController::class, 'forgetPassword']);
@@ -66,6 +67,19 @@ Route::get('stock/sales', [StockController::class, 'stockSales'])->name('stocksa
 Route::get('stock/purchase', [StockController::class, 'stockPurchase'])->name('stockpurchase');
 Route::get('stocks/editstock/{stockname}',[StockController::class,'editStockDetails'])->name('editstock');
 Route::get('stocks/editstockledger/{id}/{stockname}',[StockController::class,'editStockLedgerDetails'])->name('editstockledgerdetails');
+//Bill
+Route::get('bill',[BillController::class,'BillPage'])->name('billpage');
+
+
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('stocks-list/{categoryname}', [StockController::class, 'stockHandler'])->name('stocks');
+//     Route::get('addnewstock', [StockController::class, 'addNewStock'])->name('addnewstock');
+//     Route::get('stock/viewStockledger/{stockname}', [StockController::class, 'viewStockLedger'])->name('viewStockLedger');
+//     Route::get('stock/sales', [StockController::class, 'stockSales'])->name('stocksales');
+//     Route::get('stock/purchase', [StockController::class, 'stockPurchase'])->name('stockpurchase');
+//     Route::get('stocks/editstock/{stockname}', [StockController::class, 'editStockDetails'])->name('editstock');
+//     Route::get('stocks/editstockledger/{id}/{stockname}', [StockController::class, 'editStockLedgerDetails'])->name('editstockledgerdetails');
+// });
 
 
 
