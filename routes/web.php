@@ -21,11 +21,13 @@ use App\Mail\PasswordResetMail;
 */
 // Testing route
 Route::get('test', function () {
+    
     return view('test');
 });
 
 
-Route::get('/billingrecord',[StockController::class,'billingRecord']);
+
+
 //Starting of the routes
 Route::get('/', [LoginController::class, 'index'])->name('startingpoint');
 Route::post('/login', [LoginController::class, 'Login'])->name('login');
@@ -46,8 +48,8 @@ Route::get('addnewparty', [AccountController::class, 'addNewParty'])->name('addn
 Route::get('cash', [AccountController::class, 'partiesCash'])->name('cash');
 Route::get('parties/purchaserecord', [AccountController::class, 'partiesPurchase'])->name('ledgerpurchase');
 Route::get('parties/viewledger/{companyname}', [AccountController::class, 'viewLedger'])->name('viewLedger');
-Route::get('parties/editledger/{id}/{companyname}',[AccountController::class,'editPartyLedgerDetails']);
-Route::get('parties/editparty/{companyname}',[AccountController::class,'editPartyDetails'])->name('editcompany');
+Route::get('parties/editledger/{id}/{companyname}', [AccountController::class, 'editPartyLedgerDetails']);
+Route::get('parties/editparty/{companyname}', [AccountController::class, 'editPartyDetails'])->name('editcompany');
 
 //Customer route
 Route::get('customers', [AccountController::class, 'customerhandler'])->name('customers');
@@ -55,20 +57,27 @@ Route::get('addnewcustomer', [AccountController::class, 'addNewCustomer'])->name
 Route::get('customers/viewledger/{customername}', [AccountController::class, 'viewCustomerLedger'])->name('viewCustomerLedger');
 Route::get('customers/cash', [AccountController::class, 'customerCash'])->name('customercash');
 Route::get('customers/salesrecord', [AccountController::class, 'customerSales'])->name('ledgersales');
-Route::get('customers/editparty/{customername}',[AccountController::class,'editCustomerDetails'])->name('editcustomer');
+Route::get('customers/editparty/{customername}', [AccountController::class, 'editCustomerDetails'])->name('editcustomer');
 //Stocks category route
-Route::get('stocks/categories',[StockController::class,'stockCategoryHandler'])->name('stockscategory');
-Route::get('stocks/addcategory',[StockController::class,'addCategory'])->name('addcategory');
+Route::get('stocks/categories', [StockController::class, 'stockCategoryHandler'])->name('stockscategory');
+Route::get('stocks/addcategory', [StockController::class, 'addCategory'])->name('addcategory');
 //Stocks route
-Route::get('stocks-list/{categoryname}',[StockController::class,'stockHandler'])->name('stocks');
+Route::get('stocks-list/{categoryname}', [StockController::class, 'stockHandler'])->name('stocks');
 Route::get('addnewstock', [StockController::class, 'addNewStock'])->name('addnewstock');
-Route::get('stock/viewStockledger/{stockname}', [StockController::class, 'viewStockLedger'])->name('viewStockLedger');
+Route::get('stock/viewStockledger/{categoryname}/{stockname}', [StockController::class, 'viewStockLedger'])->name('viewStockLedger');
 Route::get('stock/sales', [StockController::class, 'stockSales'])->name('stocksales');
 Route::get('stock/purchase', [StockController::class, 'stockPurchase'])->name('stockpurchase');
-Route::get('stocks/editstock/{stockname}',[StockController::class,'editStockDetails'])->name('editstock');
-Route::get('stocks/editstockledger/{id}/{stockname}',[StockController::class,'editStockLedgerDetails'])->name('editstockledgerdetails');
+Route::get('stocks/editstock/{stockname}', [StockController::class, 'editStockDetails'])->name('editstock');
+Route::get('stocks/editstockledger/{id}/{stockname}', [StockController::class, 'editStockLedgerDetails'])->name('editstockledgerdetails');
 //Bill
-Route::get('bill',[BillController::class,'BillPage'])->name('billpage');
+Route::get('bill/{billtype}', [BillController::class, 'BillPage'])->where('billtype', 'purchase|sales')->name('billpage');
+Route::get('/billingrecord/{billtype}', [BillController::class, 'billingRecord'])->name('billingrecord');
+Route::get('/returnback', [BillController::class, 'returnBack'])->name('returnback');
+
+
+
+
+
 
 
 // Route::middleware(['auth'])->group(function () {
@@ -80,15 +89,3 @@ Route::get('bill',[BillController::class,'BillPage'])->name('billpage');
 //     Route::get('stocks/editstock/{stockname}', [StockController::class, 'editStockDetails'])->name('editstock');
 //     Route::get('stocks/editstockledger/{id}/{stockname}', [StockController::class, 'editStockLedgerDetails'])->name('editstockledgerdetails');
 // });
-
-
-
-
-
-
-
-
-
-
-
-

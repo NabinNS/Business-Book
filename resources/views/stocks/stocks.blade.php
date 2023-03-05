@@ -53,8 +53,12 @@
                         @forelse ($stockremainingbalances as $stockremainingbalance)
                             <tr>
                                 <td>
-                                    <a href="{{ route('viewStockLedger', $stockremainingbalance->stock_name) }}"
+                                    {{-- <a href="{{ route('viewStockLedger',$stockremainingbalance->category, $stockremainingbalance->stock_name) }}"
+                                        class="aremainingbalance">{{ $stockremainingbalance->stock_name }}</a> --}}
+
+                                    <a href="{{ route('viewStockLedger', ['categoryname' => $stockremainingbalance->category, 'stockname' => $stockremainingbalance->stock_name]) }}"
                                         class="aremainingbalance">{{ $stockremainingbalance->stock_name }}</a>
+
                                 </td>
                                 <td>{{ $stockremainingbalance->stockRemainingBalance->quantity }}</td>
                             </tr>
@@ -230,15 +234,21 @@
                                             <label for="floatingInput">As of</label>
                                         </div>
                                     </div>
+
                                     <div class="col">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingInput"
-                                                placeholder="Category" name="category">
-                                            <label for="floatingInput">Category</label>
+                                        <div class="form-floating">
+                                            <select class="form-select" id="floatingSelect" name="categorytype">
+                                                @foreach ($stockCategories as $stockCategory)
+                                                    <option value="{{ $stockCategory->stock_category }}">
+                                                        {{ $stockCategory->stock_category }}</option>
+                                                @endforeach
+                                            </select>
+                                            <label for="floatingSelect">Category of product</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="otherinfo hide">
                                 <div class="row">
                                     <div class="col">
@@ -396,99 +406,103 @@
         </div>
     </div>
     {{-- Modal for editing product --}}
-    <div>
+    @if ($stockDetail)
+        <div>
 
-        <div class="modal fade" id="EditStockModal" tabindex="-1" aria-labelledby="AddStockModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title text-center font" id="exampleModalLabel">Edit Stock</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        </button>
+            <div class="modal fade" id="EditStockModal" tabindex="-1" aria-labelledby="AddStockModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-center font" id="exampleModalLabel">Edit Stock</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            </button>
+                        </div>
+                        <form method="get" action="{{ route('editstock', $stockDetail->stock_name) }}"
+                            id="EditStockForm">
+                            <div class="modal-body">
+                                <input type="hidden" name="stockID" value="{{ $stockDetail->id }}">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput"
+                                        placeholder="name@example.com" name="stockname"
+                                        value="{{ $stockDetail->stock_name }}">
+                                    <label for="floatingInput">Stock Name</label>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-around m-3">
+                                    <h6 class="topicadditionalinfo under-border">Stock</h6>
+                                    <h6 class="topicotherinfo">Pricing</h6>
+                                </div>
+
+                                <div class="additionalinfo">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-floating mb-3">
+                                                <input type="number" class="form-control" id="floatingInput"
+                                                    placeholder="Limit" name="limit"
+                                                    value="{{ $stockDetail->limit }}">
+                                                <label for="floatingInput">Limit</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-floating mb-3">
+                                                <input type="number" class="form-control" id="floatingInput"
+                                                    placeholder="Opening Balance" name="openingbalance"
+                                                    value="{{ $stockDetail->opening_balance }}">
+                                                <label for="floatingInput">Opening Balance</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-floating mb-3">
+                                                <input type="date" class="form-control" id="datepicker"
+                                                    placeholder="As of" name="date"value="{{ $stockDetail->date }}">
+                                                <label for="floatingInput">As of</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="floatingInput"
+                                                    placeholder="Category" name="category"
+                                                    value="{{ $stockDetail->category }}">
+                                                <label for="floatingInput">Category</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="otherinfo hide">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-floating mb-3">
+                                                <input type="number" class="form-control" id="floatingInput"
+                                                    placeholder="Purchase Price" name="purchaseprice"
+                                                    value="{{ $stockDetail->purchase_price }}">
+                                                <label for="floatingInput">Purchase Price</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-floating mb-3">
+                                                <input type="number" class="form-control" id="floatingInput"
+                                                    placeholder="Sales Price" name="salesprice"
+                                                    value="{{ $stockDetail->sales_price }}">
+                                                <label for="floatingInput">Sales Price</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Update Product</button>
+                            </div>
+                        </form>
                     </div>
-                    <form method="get" action="{{ route('editstock', $stockDetail->stock_name) }}" id="EditStockForm">
-                        <div class="modal-body">
-                            <input type="hidden" name="stockID" value="{{ $stockDetail->id }}">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingInput"
-                                    placeholder="name@example.com" name="stockname"
-                                    value="{{ $stockDetail->stock_name }}">
-                                <label for="floatingInput">Stock Name</label>
-                            </div>
-                            <hr>
-                            <div class="d-flex justify-content-around m-3">
-                                <h6 class="topicadditionalinfo under-border">Stock</h6>
-                                <h6 class="topicotherinfo">Pricing</h6>
-                            </div>
-
-                            <div class="additionalinfo">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-floating mb-3">
-                                            <input type="number" class="form-control" id="floatingInput"
-                                                placeholder="Limit" name="limit" value="{{ $stockDetail->limit }}">
-                                            <label for="floatingInput">Limit</label>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-floating mb-3">
-                                            <input type="number" class="form-control" id="floatingInput"
-                                                placeholder="Opening Balance" name="openingbalance"
-                                                value="{{ $stockDetail->opening_balance }}">
-                                            <label for="floatingInput">Opening Balance</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-floating mb-3">
-                                            <input type="date" class="form-control" id="datepicker"
-                                                placeholder="As of" name="date"value="{{ $stockDetail->date }}">
-                                            <label for="floatingInput">As of</label>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingInput"
-                                                placeholder="Category" name="category"
-                                                value="{{ $stockDetail->category }}">
-                                            <label for="floatingInput">Category</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="otherinfo hide">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-floating mb-3">
-                                            <input type="number" class="form-control" id="floatingInput"
-                                                placeholder="Purchase Price" name="purchaseprice"
-                                                value="{{ $stockDetail->purchase_price }}">
-                                            <label for="floatingInput">Purchase Price</label>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-floating mb-3">
-                                            <input type="number" class="form-control" id="floatingInput"
-                                                placeholder="Sales Price" name="salesprice"
-                                                value="{{ $stockDetail->sales_price }}">
-                                            <label for="floatingInput">Sales Price</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Update Product</button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 @endsection
 
 

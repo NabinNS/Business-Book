@@ -333,9 +333,13 @@
                                 </div>
                             </div>
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-success">Save purchase</button>
+                            <div class="modal-footer d-flex justify-content-between">
+                                <a href="{{ route('billpage', 'purchase') }}" class="btn btn-primary">Add Detail Transaction</a>
+                                <div>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-success">Save purchase</button>
+                                </div>
                             </div>
                     </form>
                 </div>
