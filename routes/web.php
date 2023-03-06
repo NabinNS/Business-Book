@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\ConfirmationLetterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\LoginController;
@@ -73,6 +74,11 @@ Route::get('stocks/editstockledger/{id}/{stockname}', [StockController::class, '
 Route::get('bill/{billtype}', [BillController::class, 'BillPage'])->where('billtype', 'purchase|sales')->name('billpage');
 Route::get('/billingrecord/{billtype}', [BillController::class, 'billingRecord'])->name('billingrecord');
 Route::get('/returnback', [BillController::class, 'returnBack'])->name('returnback');
+//Confirmation Letters route
+Route::get('/confirmationletters',[ConfirmationLetterController::class,'indexPage']);
+Route::get('/confirmationletters/{name}',[ConfirmationLetterController::class,'viewList']);
+Route::get('/confirmationletters/viewpartiesconfirmation/{name}',[ConfirmationLetterController::class,'viewPartiesConfirmation'])->name('viewpartiesconfirmation');
+Route::get('/confirmationletters/viewcustomersconfirmation/{name}',[ConfirmationLetterController::class,'viewCustomersConfirmation'])->name('viewcustomersconfirmation');
 
 
 

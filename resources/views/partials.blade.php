@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('css/stock.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/bill.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/confirmation.css') }}" />
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
@@ -52,7 +53,7 @@
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="">
+                    <a href="/parties">
                         <i class='bx bxs-user-account'></i>
                         <span class="link_name ">Accounts</span>
                     </a>
@@ -86,7 +87,7 @@
                 <ul class="sub-menu">
                     <li><a class="link_name" href="#">Reports</a></li>
                     <li><a href="#">VAT</a></li>
-                    <li><a href="#">Confirmation letters</a></li>
+                    <li><a href="/confirmationletters">Confirmation letters</a></li>
                     <li><a href="#">Comparision</a></li>
                 </ul>
             </li>

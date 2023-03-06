@@ -64,7 +64,7 @@
                     <th>Amount</th>
                 </tr>
                 <tr class="billbody">
-                    <td><input type="number" class="sn" placeholder="SN"></td>
+                    <td><input type="number" class="sn" placeholder="SN" readonly>#</td>
                     <td>
                         <select class="selectname select-productname" name="productname[]">
                             @foreach ($productnames as $productname)
