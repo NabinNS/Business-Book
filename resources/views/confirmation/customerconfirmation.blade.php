@@ -85,9 +85,9 @@
 
         <div class="c-below">
             <div class="d-flex justify-content-end">
-                <form method="post" action="{{ route('download.pdf', $customerDetail->customer_name) }}">
+                <form method="post" action="{{ route('customersdownload.pdf', $customerDetail->customer_name) }}">
                     @csrf
-                    <button type="submit" class="btn btn-info mt-2 me-4">Download</button>
+                    <button type="submit" class="btn btn-secondary mt-2 me-4">Download</button>
                 </form>
                 <button class="btn btn-danger mt-2 me-2" id="backButton">Back</button>
             </div>

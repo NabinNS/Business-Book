@@ -1,18 +1,62 @@
-{{-- @extends('partials')
-@section('printcontent') --}}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8" />
+    <style>
+        .align-label {
+            text-align: right;
+        }
+
+        .confirmationtable td,
+        .confirmationtable th {
+            border: 1px solid;
+        }
+
+        .confirmationtable {
+            margin: auto;
+            width: 50%;
+            border-collapse: collapse;
+        }
+
+        .ms-4 {
+            margin-left: 1.5rem;
+        }
+        .mt-5 {
+            margin-top: 3rem;
+        }
+
+        .left {
+            float: left;
+        }
+
+        .right {
+            float: right;
+        }
+    </style>
+
+
+
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+
+
 
     <div class="c-grid-item">
         <div class="mx-5 mt-5">
 
             <div class="d-flex justify-content-end m-2">
-                <p class="align-label me-3">Date:</p>
-                <p> {{ date('Y/m/d') }}</p>
+                <p class="align-label">Date: {{ date('Y/m/d') }}</p>
             </div>
 
             <p>To,</p>
             <p>To the Account Department</p>
-            <p>{{ $customerDetail->customer_name }}</p>
-            <p>PAN/VATNO:-{{ $customerDetail->vat_number }}</p>
+            <p>{{ $partyDetail->company_name }}</p>
+            <p>PAN/VATNO:-{{ $partyDetail->vat_number }}</p>
             <p class="ms-4">Subject: Confirmation of Account Closing Detail for Fiscal Year {{ $fiscalYear }}</p>
             <p>Dear Sir,</p>
             <p class="ms-4">In connection with captioned matter, we would like to inform you that as per as our
@@ -58,16 +102,19 @@
                 remain this balance as your acceptance.</p>
             <p>Thanking you</p>
             <p>Yours Faithfully,</p>
-            <div class="d-flex justify-content-between">
-                <div class="mt-5">
+            <div class="justify">
+                <div class="mt-5 left">
                     <p>Authorized Signatory</p>
                     <p>company name</p>
                 </div>
-                <div class="mt-5">
+                <div class="mt-5 right">
                     <p>Authorized Signatory</p>
-                    <p>{{ $customerDetail->customer_name }}</p>
+                    <p>{{ $partyDetail->company_name }}</p>
                 </div>
             </div>
         </div>
-    </div>
 
+    </div>
+</body>
+
+</html>

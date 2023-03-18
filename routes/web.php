@@ -30,7 +30,10 @@ Route::get('test', function () {
 
 
 
-Route::post('/download/{name}', [ConfirmationLetterController::class, 'pdfDownload'])->name('download.pdf');
+Route::post('/customerdownload/{name}', [ConfirmationLetterController::class, 'pdfCustomerDownload'])->name('customersdownload.pdf');
+Route::post('/partydownload/{name}', [ConfirmationLetterController::class, 'pdfPartyDownload'])->name('partiesdownload.pdf');
+Route::get('/partydownload/{name}', [ConfirmationLetterController::class, 'pdfPartyDownloadd']);
+
 //Starting of the routes
 Route::get('/', [LoginController::class, 'index'])->name('startingpoint');
 Route::post('/login', [LoginController::class, 'Login'])->name('login');

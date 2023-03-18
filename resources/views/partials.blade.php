@@ -37,6 +37,7 @@
 </head>
 
 <body>
+    
     <div class="sidebar">
         <div class="logo-details">
             <i class='bx bx-book-add'></i>
@@ -190,6 +191,5 @@
 
 
 </body>
-
 
 </html>
