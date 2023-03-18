@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AccountRemainingBalance;
 use App\Models\CompanyDetails;
 use App\Models\CustomerDetail;
+use PDF;
 use Illuminate\Http\Request;
 
 class ConfirmationLetterController extends Controller
@@ -28,21 +29,36 @@ class ConfirmationLetterController extends Controller
     public function viewPartiesConfirmation($name)
     {
         $currentYear = date('Y');
-        $fiscalYear = ($currentYear) . '/' . ($currentYear+1);
+        $fiscalYear = ($currentYear) . '/' . ($currentYear + 1);
         $partyDetail = CompanyDetails::where('company_name', $name)->firstOrFail();
         $remainingBalance = $partyDetail->accountRemainingBalance->amount;
         $partyLedgers = $partyDetail->accountLedger;
         $totalAmtWithVat = $partyLedgers->sum('credit');
-        return view('confirmation.partiesconfirmation', compact('totalAmtWithVat', 'partyDetail','fiscalYear','remainingBalance'));
+        return view('confirmation.partiesconfirmation', compact('totalAmtWithVat', 'partyDetail', 'fiscalYear', 'remainingBalance'));
     }
     public function viewCustomersConfirmation($name)
     {
+
         $currentYear = date('Y');
-        $fiscalYear = ($currentYear) . '/' . ($currentYear+1);
-        $customerDetail = CustomerDetail::where('customer_name',$name)->firstOrFail();
+        $fiscalYear = ($currentYear) . '/' . ($currentYear + 1);
+        $customerDetail = CustomerDetail::where('customer_name', $name)->firstOrFail();
         $remainingBalance = $customerDetail->customerRemainingBalance->amount;
         $customerLedger = $customerDetail->customerledger;
         $totalAmtWithVat = $customerLedger->sum('debit');
-        return view('confirmation.customerconfirmation',compact('totalAmtWithVat','remainingBalance','customerDetail','fiscalYear'));
+        return view('confirmation.customerconfirmation', compact('totalAmtWithVat', 'remainingBalance', 'customerDetail', 'fiscalYear'));
+    }
+
+    public function pdfDownload($name)
+    {
+        $currentYear = date('Y');
+        $fiscalYear = ($currentYear) . '/' . ($currentYear + 1);
+        $customerDetail = CustomerDetail::where('customer_name', $name)->firstOrFail();
+        $remainingBalance = $customerDetail->customerRemainingBalance->amount;
+        $customerLedger = $customerDetail->customerledger;
+        $totalAmtWithVat = $customerLedger->sum('debit');
+
+        $pdf = PDF::loadView('confirmation.pdf-confirmation', compact('totalAmtWithVat', 'remainingBalance', 'customerDetail', 'fiscalYear'))->setOptions(['defaultFont' => 'sans-serif']);
+        // return $pdf->download('pdfview.pdf');
+        return $pdf->download($customerDetail->customer_name . '.pdf');
     }
 }

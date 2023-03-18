@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('css/bill.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/confirmation.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vat.css') }}" />
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
@@ -86,9 +87,8 @@
                 </div>
                 <ul class="sub-menu">
                     <li><a class="link_name" href="#">Reports</a></li>
-                    <li><a href="#">VAT</a></li>
+                    <li><a href="/vat">VAT</a></li>
                     <li><a href="/confirmationletters">Confirmation letters</a></li>
-                    <li><a href="#">Comparision</a></li>
                 </ul>
             </li>
 
@@ -153,6 +153,7 @@
         </ul>
     </div>
     <section class="home-section">
+       
 
         <nav class="bg-white grid-item pb-2 mb-2">
             <div class="d-flex align-items-center justify-content-between">

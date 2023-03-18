@@ -1,0 +1,15 @@
+.vat-layout {
+    background-color: white;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    height: 20%;
+}
+.accordion-button:not(.collapsed) {
+    background-color: transparent;
+}
+/* Change background color of the selected accordion item */
+.accordion-item.show .accordion-button {
+    background-color: #e7f2f8;
+}
+.accordion-button:not(.collapsed):focus {
+    box-shadow: none;
+}

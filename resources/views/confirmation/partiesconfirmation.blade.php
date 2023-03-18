@@ -84,7 +84,7 @@
 
         <div class="c-below">
             <div class="d-flex justify-content-end">
-                <button class="btn btn-info mt-2 me-4">Print</button>
+                <button class="btn btn-info mt-2 me-4" id="downloadButton">Download</button>
                 <button class="btn btn-danger mt-2 me-2" id="backButton">Back</button>
             </div>
         </div>
@@ -103,6 +103,10 @@
             $('#backButton').click(function() {
                 window.history.back();
             });
+            $('#downloadButton').click(function(){
+                
+            });
         });
+
     </script>
 @endpush

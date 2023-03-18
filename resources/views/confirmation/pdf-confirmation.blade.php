@@ -1,19 +1,5 @@
-@extends('partials')
-@section('content')
-    @if ($errors->any())
-        <div class="custom-float-alert fixed-top alert alert-danger" role="alert">
-            <ul class="errorstyle">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    @if (Session::has('success'))
-        <div class="custom-float-alert fixed-top alert alert-success" role="alert">
-            {{ Session::get('success') }}
-        </div>
-    @endif
+{{-- @extends('partials')
+@section('printcontent') --}}
 
     <div class="c-grid-item">
         <div class="mx-5 mt-5">
@@ -29,9 +15,11 @@
             <p>PAN/VATNO:-{{ $customerDetail->vat_number }}</p>
             <p class="ms-4">Subject: Confirmation of Account Closing Detail for Fiscal Year {{ $fiscalYear }}</p>
             <p>Dear Sir,</p>
-            <p class="ms-4">In connection with captioned matter, we would like to inform you that as per as our account
+            <p class="ms-4">In connection with captioned matter, we would like to inform you that as per as our
+                account
                 record
-                the credit balance and sales values for the year as follows. We would very much appreciate your cooperation
+                the credit balance and sales values for the year as follows. We would very much appreciate your
+                cooperation
                 in confirming the following information. Our records indicate the following:</p>
 
             <table class="confirmationtable">
@@ -81,32 +69,5 @@
                 </div>
             </div>
         </div>
-
-
-        <div class="c-below">
-            <div class="d-flex justify-content-end">
-                <form method="post" action="{{ route('download.pdf', $customerDetail->customer_name) }}">
-                    @csrf
-                    <button type="submit" class="btn btn-info mt-2 me-4">Download</button>
-                </form>
-                <button class="btn btn-danger mt-2 me-2" id="backButton">Back</button>
-            </div>
-        </div>
-
-
     </div>
 
-
-
-
-@endsection
-
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#backButton').click(function() {
-                window.history.back();
-            });
-        });
-    </script>
-@endpush

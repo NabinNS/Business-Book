@@ -50,21 +50,21 @@
 
             <table class="table table-bordered mt-4">
                 <colgroup>
-                    <col style="width: 5%;">
+                  
                     <col style="width: 60%;">
                     <col style="width: 10%;">
                     <col style="width: 10%;">
                     <col style="width: 10%;">
                 </colgroup>
                 <tr class="billhead">
-                    <th>SN</th>
+        
                     <th>Particular</th>
                     <th>Quantity</th>
                     <th>Rate</th>
                     <th>Amount</th>
                 </tr>
                 <tr class="billbody">
-                    <td><input type="number" class="sn" placeholder="SN" readonly>#</td>
+                  
                     <td>
                         <select class="selectname select-productname" name="productname[]">
                             @foreach ($productnames as $productname)
@@ -116,6 +116,7 @@
 
 
             </div>
+       
             <div class="d-flex justify-content-end m-2 mt-4">
 
                 <button type="submit" class="btn btn-success mt-5 m-2">Save</button>

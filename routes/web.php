@@ -5,8 +5,10 @@ use App\Http\Controllers\BillController;
 use App\Http\Controllers\ConfirmationLetterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\VatController;
 use Illuminate\Support\Facades\Route;
 use App\Mail\PasswordResetMail;
 
@@ -22,13 +24,13 @@ use App\Mail\PasswordResetMail;
 */
 // Testing route
 Route::get('test', function () {
-    
+
     return view('test');
 });
 
 
 
-
+Route::post('/download/{name}', [ConfirmationLetterController::class, 'pdfDownload'])->name('download.pdf');
 //Starting of the routes
 Route::get('/', [LoginController::class, 'index'])->name('startingpoint');
 Route::post('/login', [LoginController::class, 'Login'])->name('login');
@@ -75,10 +77,13 @@ Route::get('bill/{billtype}', [BillController::class, 'BillPage'])->where('billt
 Route::get('/billingrecord/{billtype}', [BillController::class, 'billingRecord'])->name('billingrecord');
 Route::get('/returnback', [BillController::class, 'returnBack'])->name('returnback');
 //Confirmation Letters route
-Route::get('/confirmationletters',[ConfirmationLetterController::class,'indexPage']);
-Route::get('/confirmationletters/{name}',[ConfirmationLetterController::class,'viewList']);
-Route::get('/confirmationletters/viewpartiesconfirmation/{name}',[ConfirmationLetterController::class,'viewPartiesConfirmation'])->name('viewpartiesconfirmation');
-Route::get('/confirmationletters/viewcustomersconfirmation/{name}',[ConfirmationLetterController::class,'viewCustomersConfirmation'])->name('viewcustomersconfirmation');
+Route::get('/confirmationletters', [ConfirmationLetterController::class, 'indexPage']);
+Route::get('/confirmationletters/{name}', [ConfirmationLetterController::class, 'viewList']);
+Route::get('/confirmationletters/viewpartiesconfirmation/{name}', [ConfirmationLetterController::class, 'viewPartiesConfirmation'])->name('viewpartiesconfirmation');
+Route::get('/confirmationletters/viewcustomersconfirmation/{name}', [ConfirmationLetterController::class, 'viewCustomersConfirmation'])->name('viewcustomersconfirmation');
+//VAT Route
+Route::get('/vat', [VatController::class, 'indexPage']);
+Route::get('pdfview', [ItemController::class, 'pdfview']);
 
 
 
