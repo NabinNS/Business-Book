@@ -64,3 +64,11 @@
 span.select2-selection.select2-selection--single {
     outline: none;
 }
+.months-heading{
+    color: #004f83;
+    border-bottom: 3px solid #004f83;
+    padding: 7px;
+    text-align: center;
+    width: 400px;
+    margin-top: 70px;
+}

@@ -13,7 +13,7 @@ class AccountLedger extends Model
         'date','receipt_no','particulars','debit','credit','company_details_id'
     ];
    
-    public function companyDetail(){
+    public function companyDetails(){
         return $this->belongsTo(CompanyDetails::class);
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\VatBillController;
 use App\Http\Controllers\VatController;
 use Illuminate\Support\Facades\Route;
 use App\Mail\PasswordResetMail;
@@ -30,8 +31,7 @@ Route::get('test', function () {
 
 
 
-Route::post('/customerdownload/{name}', [ConfirmationLetterController::class, 'pdfCustomerDownload'])->name('customersdownload.pdf');
-Route::post('/partydownload/{name}', [ConfirmationLetterController::class, 'pdfPartyDownload'])->name('partiesdownload.pdf');
+
 Route::get('/partydownload/{name}', [ConfirmationLetterController::class, 'pdfPartyDownloadd']);
 
 //Starting of the routes
@@ -84,10 +84,15 @@ Route::get('/confirmationletters', [ConfirmationLetterController::class, 'indexP
 Route::get('/confirmationletters/{name}', [ConfirmationLetterController::class, 'viewList']);
 Route::get('/confirmationletters/viewpartiesconfirmation/{name}', [ConfirmationLetterController::class, 'viewPartiesConfirmation'])->name('viewpartiesconfirmation');
 Route::get('/confirmationletters/viewcustomersconfirmation/{name}', [ConfirmationLetterController::class, 'viewCustomersConfirmation'])->name('viewcustomersconfirmation');
+Route::post('/customerdownload/{name}', [ConfirmationLetterController::class, 'pdfCustomerDownload'])->name('customersdownload.pdf');
+Route::post('/partydownload/{name}', [ConfirmationLetterController::class, 'pdfPartyDownload'])->name('partiesdownload.pdf');
 //VAT Route
 Route::get('/vat', [VatController::class, 'indexPage']);
-Route::get('pdfview', [ItemController::class, 'pdfview']);
-
+//Purchase And Sales Bill
+Route::get('/purchasebillmonths',[VatBillController::class,'purchaseMonths']);
+Route::get('/salesbillmonths',[VatBillController::class,'salesMonths']);
+Route::get('/purchasebilldetail/{month}',[VatBillController::class,'purchaseDetails'])->name('purchaseDetail');
+Route::get('/salesbilldetail/{month}',[VatBillController::class,'salesDetails'])->name('salesDetail');
 
 
 

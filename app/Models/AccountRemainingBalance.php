@@ -12,7 +12,7 @@ class AccountRemainingBalance extends Model
         'date','amount','company_details_id'
     ];
     protected $primaryKey = 'accbalance_id';
-    public function companyDetail(){
+    public function companyDetails(){
         return $this->belongsTo(CompanyDetails::class);
     }   
 }

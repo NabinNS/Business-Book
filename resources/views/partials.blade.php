@@ -103,8 +103,8 @@
                 </div>
                 <ul class="sub-menu">
                     <li><a class="link_name" href="#">Vat Bills</a></li>
-                    <li><a href="#">Purchase</a></li>
-                    <li><a href="#">Sales</a></li>
+                    <li><a href="/purchasebillmonths">Purchase</a></li>
+                    <li><a href="/salesbillmonths">Sales</a></li>
                 </ul>
             </li>
 
