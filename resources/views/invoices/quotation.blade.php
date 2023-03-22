@@ -17,15 +17,15 @@
 
 
     <div class="c-grid-item ">
-        <form action="" method="GET">
-            <div>
-                <div class="p-3 mb-4 bg-white bottom-radius border border-2 border-danger">
-                    <h6 class="text-center font">Quotation</h6>
-                </div>
 
+        <div>
+            <div class="p-3 mb-4 bg-white bottom-radius border border-2 border-danger">
+                <h6 class="text-center font">Quotation</h6>
+            </div>
+            <form action="{{ route('savequotation') }}" method="GET">
                 <div>
                     <label class="me-3">Name:</label>
-                    <input type="text" class="align-name" placeholder="Name of the company" name="name">
+                    <input type="text" class="align-name p-1" placeholder="Name of the company" name="name">
                 </div>
 
                 <div class="d-flex justify-content-end m-2">
@@ -69,18 +69,18 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            
+        </div>
 
-            <div class="c-below">
-                <div class="d-flex justify-content-end p-1">
-                    <form method="post" action="">
-                        @csrf
-                        <button type="submit" class="btn btn-secondary mt-2 me-4">Save</button>
-                    </form>
-                    <button class="btn btn-danger mt-2 me-2" id="backButton">Back</button>
-                </div>
+
+        <div class="c-below">
+            <div class="d-flex justify-content-end p-1">
+                <form method="post" action="">
+                    @csrf
+                    <button type="submit" class="btn btn-secondary mt-2 me-4">Save</button>
+                </form>
+                <button class="btn btn-danger mt-2 me-2" id="backButton">Back</button>
             </div>
+        </div>
         </form>
     </div>
 
@@ -116,15 +116,11 @@
             var quantityField = $('input[name="quantity[]"]');
             var amountField = $('input[name="amount"]');
             var totalField = $('input[name="total"]');
-            var discountPercentField = $('input[name="discountpercent"]');
-            var discountAmtField = $('input[name="discountamt"]');
-            var taxableamt = $('input[name="taxableamt"]');
-            var tax = $('input[name="tax"]');
-            var totalAmt = $('input[name="totalamt"]');
+
 
 
             // Add a change event listener to parent element
-            parent.on('keyup', ' input[name="discountpercent"], input[name="rate[]"], input[name="quantity[]"]',
+            parent.on('keyup', 'input[name="rate[]"], input[name="quantity[]"]',
                 function() {
 
                     // Get the values of rate and quantity fields in the current row
@@ -134,6 +130,7 @@
 
                     // Calculate the amount and update the amount field in the current row
                     var amountValue = rateValue * quantityValue;
+                
                     currentRow.find('input[name="amount"]').val(amountValue);
 
                     // Calculate and update the total value
@@ -143,17 +140,6 @@
                     });
                     totalField.val(totalValue);
 
-                    var discountPercentage = discountPercentField.val() || 0;
-                    var discountValue = discountPercentage / 100 * totalValue;
-                    discountAmtField.val(discountValue);
-
-                    var taxableValue = totalValue - discountValue;
-                    taxableamt.val(taxableValue);
-                    var taxValue = taxableValue * 13 / 100;
-                    tax.val(taxValue);
-
-                    var totalAmtValue = taxableValue + taxValue;
-                    totalAmt.val(totalAmtValue);
 
                 });
             $('#backButton').click(function() {

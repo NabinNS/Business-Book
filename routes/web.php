@@ -96,6 +96,10 @@ Route::get('/purchasebilldetail/{month}',[VatBillController::class,'purchaseDeta
 Route::get('/salesbilldetail/{month}',[VatBillController::class,'salesDetails'])->name('salesDetail');
 //Inovices Route
 Route::get('/quotation',[InvoiceController::class,'quotation']);
+Route::get('/savequotation',[InvoiceController::class,'saveQuotation'])->name('savequotation');
+Route::get('/updatequotation',[InvoiceController::class,'updateQuotation'])->name('updatequotation');
+Route::get('/quotationrecord',[InvoiceController::class,'quotationRecord'])->name('quotationrecord');
+Route::get('/quotationrecorddetail/{billno}/{customername}',[InvoiceController::class,'quotationRecordDetail'])->name('quotationrecorddetail');
 
 
 

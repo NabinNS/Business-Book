@@ -28,6 +28,8 @@
     {{-- select2 cdn for selecting and searching in the textfield --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
   
    
       
@@ -57,6 +59,7 @@
                 <div class="iocn-link">
                     <a href="/parties">
                         <i class='bx bxs-user-account'></i>
+                        
                         <span class="link_name ">Accounts</span>
                     </a>
                     <i class="bx bxs-chevron-down arrow"></i>
@@ -90,6 +93,7 @@
                     <li><a class="link_name" href="#">Reports</a></li>
                     <li><a href="/vat">VAT</a></li>
                     <li><a href="/confirmationletters">Confirmation letters</a></li>
+                    <li><a href="/quotationrecord">Quotations Record</a></li>
                 </ul>
             </li>
 

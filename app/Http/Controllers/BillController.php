@@ -91,10 +91,6 @@ class BillController extends Controller
             return redirect('/customers/viewledger/' . $request->billingname)->with('success', 'Sales bill recorded successfully');
         }
     }
-    public function returnBack()
-    {
-       
-    }
 
 
 
