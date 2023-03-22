@@ -33,7 +33,28 @@ class InvoiceController extends Controller
         }
         return redirect('/quotation')->with('success', 'Quotation saved successfully');
     }
-
+    public function updateQuotation(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'billno' => 'required',
+            'product' => 'required',
+            'quantity' => 'required',
+            'rate' => 'required'
+        ]);
+        Quotation::where('bill_no', $request->billno)->delete();
+        foreach ($request->product as $key => $value) {
+            Quotation::create([
+                'customer_name' => $request->name,
+                'bill_no' =>  $request->billno,
+                'date' => $request->date ?? Carbon::now(),
+                'product_name' => $value,
+                'quantity' => $request->quantity[$key],
+                'rate' => $request->rate[$key]
+            ]);
+        }
+        return redirect('/quotationrecord')->with('success', 'Quotation updated successfully');
+    }
     public function quotationRecord()
     {
         $quotations = Quotation::select('bill_no', 'customer_name')
