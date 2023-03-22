@@ -19,7 +19,11 @@
             <div class="p-3 mb-4 bg-white bottom-radius border border-2 border-danger">
                 <h6 class="text-center font">Quotation Records</h6>
             </div>
-           
+            <div class="d-flex justify-content-end m-2 mb-3">
+                <div class="form-group">
+                    <input type="text" class="form-control search" placeholder="Search" />
+                </div>
+            </div>
             <table class="table table-bordered mt-4" id="listingtable">
                 <colgroup>
                     <col style="width: 60%;">
@@ -27,14 +31,12 @@
                     <col style="width: 10%;">
                 </colgroup>
                 <thead>
-
-                
-                <tr class="billhead">
-                    <th>Customer Name</th>
-                    <th>Bill No</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
+                    <tr class="billhead">
+                        <th>Customer Name</th>
+                        <th>Bill No</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
                 <tbody>
                     @foreach ($quotations as $quotation)
                         <tr>
@@ -49,12 +51,15 @@
             </table>
         </div>
     </div>
-
-
-
 @endsection
 @push('scripts')
     <script>
-
+        $(".search").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#listingtable tbody tr").filter(function() {
+                $(this).toggle($(this).find("td").text().toLowerCase().indexOf(
+                    value) > -1)
+            });
+        });
     </script>
 @endpush
