@@ -119,7 +119,7 @@
                 <ul class="sub-menu">
                     <li><a class="link_name" href="#">Invoices</a></li>
                     <li><a href="#">Estimate</a></li>
-                    <li><a href="#">Quotation</a></li>
+                    <li><a href="/quotation">Quotation</a></li>
                     <li><a href="#">Pricing</a></li>
                 </ul>
             </li>

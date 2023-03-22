@@ -17,6 +17,9 @@
 .align-input {
     width: 15%;
 }
+.align-name {
+    width: 40%;
+}
 .align-input-fordiscount {
     width: 10%;
 }
@@ -71,4 +74,7 @@ span.select2-selection.select2-selection--single {
     text-align: center;
     width: 400px;
     margin-top: 70px;
+}
+.quo-margin-below{
+    margin: 225px 0px 20px 0px;
 }

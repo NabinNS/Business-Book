@@ -5,6 +5,7 @@ use App\Http\Controllers\BillController;
 use App\Http\Controllers\ConfirmationLetterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StockController;
@@ -93,6 +94,8 @@ Route::get('/purchasebillmonths',[VatBillController::class,'purchaseMonths']);
 Route::get('/salesbillmonths',[VatBillController::class,'salesMonths']);
 Route::get('/purchasebilldetail/{month}',[VatBillController::class,'purchaseDetails'])->name('purchaseDetail');
 Route::get('/salesbilldetail/{month}',[VatBillController::class,'salesDetails'])->name('salesDetail');
+//Inovices Route
+Route::get('/quotation',[InvoiceController::class,'quotation']);
 
 
 
