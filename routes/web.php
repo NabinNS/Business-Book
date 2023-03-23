@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\ConfirmationLetterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DaybookController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ItemController;
@@ -101,6 +102,8 @@ Route::get('/updatequotation',[InvoiceController::class,'updateQuotation'])->nam
 Route::get('/quotationrecord',[InvoiceController::class,'quotationRecord'])->name('quotationrecord');
 Route::get('/quotationrecorddetail/{billno}/{customername}',[InvoiceController::class,'quotationRecordDetail'])->name('quotationrecorddetail');
 Route::get('/downloadquotation/{billno}/{customername}',[InvoiceController::class,'pdfQuotation'])->name('downloadquotation');
+//Daybook Route
+Route::get('/daybook',[DaybookController::class,'daybookPage']);
 
 
 

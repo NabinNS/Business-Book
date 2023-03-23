@@ -122,18 +122,18 @@
                 </div>
                 <ul class="sub-menu">
                     <li><a class="link_name" href="#">Invoices</a></li>
-                    <li><a href="#">Estimate</a></li>
+             
                     <li><a href="/quotation">Quotation</a></li>
-                    <li><a href="#">Pricing</a></li>
+                 
                 </ul>
             </li>
             <li>
-                <a href="#">
+                <a href="/daybook">
                     <i class='bx bxs-book-alt'></i>
                     <span class="link_name">DayBook</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">DayBook</a></li>
+                    <li><a class="link_name" href="/daybook">DayBook</a></li>
                 </ul>
             </li>
             <li>
