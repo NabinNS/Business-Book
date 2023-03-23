@@ -100,6 +100,7 @@ Route::get('/savequotation',[InvoiceController::class,'saveQuotation'])->name('s
 Route::get('/updatequotation',[InvoiceController::class,'updateQuotation'])->name('updatequotation');
 Route::get('/quotationrecord',[InvoiceController::class,'quotationRecord'])->name('quotationrecord');
 Route::get('/quotationrecorddetail/{billno}/{customername}',[InvoiceController::class,'quotationRecordDetail'])->name('quotationrecorddetail');
+Route::get('/downloadquotation/{billno}/{customername}',[InvoiceController::class,'pdfQuotation'])->name('downloadquotation');
 
 
 

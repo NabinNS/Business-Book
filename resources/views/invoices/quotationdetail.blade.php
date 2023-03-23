@@ -36,7 +36,7 @@
                 </div>
                 <div class="d-flex justify-content-end m-2">
                     <label class="align-label me-3">Date:</label>
-                    <input type="date" class="align-input" placeholder="Date" name="date">
+                    <input type="date" class="align-input" placeholder="Date" name="date" value="{{ $date }}">
                 </div>
 
                 <table class="table table-bordered mt-4">

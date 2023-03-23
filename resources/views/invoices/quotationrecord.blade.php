@@ -43,8 +43,7 @@
                             <td><a href="{{ route('quotationrecorddetail', ['billno' => $quotation->bill_no, 'customername' => $quotation->customer_name]) }}"
                                     class="aremainingbalance">{{ $quotation->customer_name }}</a></td>
                             <td>{{ $quotation->bill_no }}</td>
-                            <td><i class="fa fa-download" aria-hidden="true"></i>
-                            </td>
+                            <td><a href="{{ route('downloadquotation', ['billno' => $quotation->bill_no, 'customername' => $quotation->customer_name]) }}"><i class="fa fa-download" aria-hidden="true"></i></a></td>
                         </tr>
                     @endforeach
                 </tbody>

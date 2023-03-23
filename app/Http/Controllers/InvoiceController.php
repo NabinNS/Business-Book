@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Quotation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use PDF;
 
 class InvoiceController extends Controller
 {
@@ -66,6 +67,16 @@ class InvoiceController extends Controller
     public function quotationRecordDetail($billno, $customername)
     {
         $quotationdetails = Quotation::where('bill_no', $billno)->get();
-        return view('invoices.quotationdetail', compact('quotationdetails', 'billno', 'customername'));
+        $date = Quotation::where('bill_no', $billno)->pluck('date')->firstOrFail(); 
+        return view('invoices.quotationdetail', compact('quotationdetails', 'billno', 'customername','date'));
+    }
+    public function pdfQuotation($billno, $customername)
+    {
+        $quotationdetails = Quotation::where('bill_no', $billno)->get();
+        $date = Quotation::where('bill_no', $billno)->pluck('date')->firstOrFail();    
+        // return view('invoices.pdfquotation', compact('quotationdetails', 'billno', 'customername','date'));
+
+        $pdf = PDF::loadView('invoices.pdfquotation', compact('quotationdetails', 'billno', 'customername','date'))->setOptions(['defaultFont' => 'sans-serif']);
+        return $pdf->download($customername . '.pdf');
     }
 }
