@@ -25,7 +25,7 @@
             <div class="d-flex justify-content-between">
                 <div>
                     <div class="input-group">
-                        <select class="custom-select select-sizing">
+                        <select class="custom-select select-sizing" name="option">
                             <option value="All">All Transaction</option>
                             <option value="Purchase">Purchase</option>
                             <option value="Sales">Sales</option>
@@ -39,13 +39,13 @@
                                 From
                             </button>
                         </div>
-                        <input type="date" name="from"/>
+                        <input type="date" name="from" value="{{ $startDate }}" />
                         <div class="input-group-append">
                             <button class="btn-custom bg-secondary" id="toogleSearchbar">
                                 To
                             </button>
                         </div>
-                        <input type="date" name="to"/>
+                        <input type="date" name="to" value="{{ $endDate }}" />
                         <div class="input-group-append">
                             <button class="btn-custom ms-1" id="toogleSearchbar">
                                 Search
@@ -56,19 +56,48 @@
             </div>
 
             <table class="table mt-3 table-bordered">
+                <colgroup>
+                    <col style="width: 10%;">
+                    <col style="width: 35%;">
+                    <col style="width: 25%;">
+                    <col style="width: 15%;">
+                    <col style="width: 20%;">
+                </colgroup>
                 <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Voucher No</th>
-                    <th>Amount</th>
-                  </tr>
+                    <tr>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Voucher No</th>
+                        <th>Amount</th>
+                    </tr>
                 </thead>
                 <tbody>
+                    <tbody>
+                       
+                        @foreach ($sortedDetails as $detail)
+                            <tr>
+                                <td>{{ $detail->date }}</td>
+                                @if ($detail instanceof App\Models\AccountLedger)
+                                    <td>{{ $detail->companyDetails->company_name }}</td>
+                                    <td>{{ $detail->particulars }}</td>
+                                @else
+                                    <td>{{ $detail->customerDetail->customer_name }}</td>
+                                    <td>{{ $detail->particulars }}</td>
+                                @endif
+                                <td>{{ $detail->receipt_no }}</td>
+                                <td>{{ $detail->debit ?? $detail->credit }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    
                 
-                </tbody>
-              </table>
+            </table>
+            <div class="d-flex justify-content-end">
+                {{  $sortedDetails->links()  }}
+                {{-- {{  $customerDetails->links()  }} --}}
+            </div>
+
         </div>
 
 
