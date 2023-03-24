@@ -104,6 +104,7 @@ Route::get('/quotationrecorddetail/{billno}/{customername}',[InvoiceController::
 Route::get('/downloadquotation/{billno}/{customername}',[InvoiceController::class,'pdfQuotation'])->name('downloadquotation');
 //Daybook Route
 Route::get('/daybook',[DaybookController::class,'daybookPage']);
+Route::get('/viewdaybook',[DaybookController::class,'viewDayBook']);
 
 
 
