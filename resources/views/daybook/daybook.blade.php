@@ -101,6 +101,34 @@
                 {{ $sortedDetails->links() }}
             </div>
 
+            <table class="table mt-3 table-bordered">
+                <colgroup>
+                    <col style="width: 25%;">
+                    <col style="width: 25%;">
+                    <col style="width: 25%;">
+                    <col style="width: 25%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Total Purchase</th>
+                        <th>Total Sales</th>
+                        <th>Total Cash Paid</th>
+                        <th>Total Cash Received</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tbody>
+                    <tr>
+                        <td>Rs {{ $totalPurchase }}</td>
+                        <td>Rs {{ $totalSales }}</td>
+                        <td>Rs {{ $totalCashPaid }}</td>
+                        <td>Rs {{ $totalCashReceived }}</td>
+                    </tr>
+                </tbody>
+
+
+            </table>
+
         </div>
 
 

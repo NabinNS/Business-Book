@@ -23,7 +23,7 @@ class DaybookController extends Controller
 
         $mergedDetails = $partyDetails->union($customerDetails);
         $sortedDetails = $mergedDetails->orderBy('date')->paginate(10);
-        return view('daybook.daybook', compact('sortedDetails', 'startDate', 'endDate'));
+        return view('daybook.daybook', compact('sortedDetails', 'startDate', 'endDate','totalPurchase','totalCashPaid','totalSales','totalCashReceived'));
     }
     public function viewDayBook(Request $request)
     {
