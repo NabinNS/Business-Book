@@ -34,15 +34,17 @@ class DaybookController extends Controller
             $customerDetails = CustomerLedger::whereBetween('date', [$startDate, $endDate]);
             $mergedDetails = $partyDetails->union($customerDetails);
             $sortedDetails = $mergedDetails->orderBy('date')->paginate(10);
+            $sortedDetails->appends(['from' => $startDate, 'to' => $endDate]);
         }
         elseif($request->option == "Purchase"){
             $mergedDetails = AccountLedger::whereBetween('date', [$startDate, $endDate]);
             $sortedDetails = $mergedDetails->orderBy('date')->paginate(10);
+            $sortedDetails->appends(['from' => $startDate, 'to' => $endDate]);
         }
         else{
             $mergedDetails = CustomerLedger::whereBetween('date', [$startDate, $endDate]);
             $sortedDetails = $mergedDetails->orderBy('date')->paginate(10);
-
+            $sortedDetails->appends(['from' => $startDate, 'to' => $endDate]);
         }
         return view('daybook.daybook', compact('sortedDetails', 'startDate', 'endDate'));
     }
