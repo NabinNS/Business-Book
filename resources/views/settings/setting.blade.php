@@ -74,8 +74,52 @@
 
             </form>
 
-          
-            
+            <form id="business-info-form" class="hide">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Company Name">
+                            <label for="floatingInput">Company Name</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="floatingPassword" placeholder="Vat No">
+                            <label for="floatingPassword">VAT No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Address">
+                            <label for="floatingInput">Address</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" id="floatingPassword" placeholder="Phone Number">
+                            <label for="floatingPassword">Phone Number</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Logo of company</label>
+                    <input class="form-control" type="file" id="formFile" name="logo" accept="image/*">
+
+                </div>
+
+
+                <div class="d-flex justify-content-start mt-4">
+
+                    <button class="btn btn-primary me-2">Update</button>
+                    <button class="btn btn-danger" id="backButton">Cancel</button>
+                </div>
+
+
+
+
+            </form>
         </div>
     </div>
 
