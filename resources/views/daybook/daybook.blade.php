@@ -35,6 +35,7 @@
                             </select>
                         </div>
                     </div>
+
                     <div>
                         <div class="input-group">
                             <div class="input-group-append">
@@ -137,9 +138,5 @@
 
 @endsection
 @push('scripts')
-    <script>
-        $(document).ready(function() {
-
-        });
-    </script>
+    <script></script>
 @endpush

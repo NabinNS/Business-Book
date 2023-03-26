@@ -137,12 +137,13 @@
                 </ul>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('setting',Auth::user()->id ) }}">
                     <i class="bx bx-cog"></i>
                     <span class="link_name">Setting</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">Setting</a></li>
+                    <li><a class="link_name" href="{{ route('setting',Auth::user()->id ) }}">Setting</a></li>
+                  
                 </ul>
             </li>
             <li>

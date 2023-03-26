@@ -58,3 +58,12 @@
     width: 50%;
     border-collapse: collapse;
   }
+  .setting-heading{
+    border-bottom: 3px solid #004f83;
+    text-align: center;
+    
+  }
+  .setting-pointer{
+    cursor: pointer;
+    
+  }

@@ -9,6 +9,7 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\VatBillController;
 use App\Http\Controllers\VatController;
@@ -105,7 +106,9 @@ Route::get('/downloadquotation/{billno}/{customername}',[InvoiceController::clas
 //Daybook Route
 Route::get('/daybook',[DaybookController::class,'daybookPage']);
 Route::get('/viewdaybook',[DaybookController::class,'viewDayBook']);
-
+//Setting Route
+Route::get('/setting/{id}',[SettingController::class,'settingPage'])->name('setting');
+Route::post('/setting/update/{id}',[SettingController::class,'updateUser'])->name('updatesetting');
 
 
 
