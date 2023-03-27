@@ -25,7 +25,7 @@
                 <h6 class="me-4 mb-5 setting-heading setting-pointer" data-target="account-form">Account</h6>
                 <h6 class="mb-5 setting-pointer" data-target="business-info-form">Business Info</h6>
             </div>
-            <form id="account-form" method="post" action="{{ route('updatesetting',$user->id) }}">
+            <form id="account-form" method="post" action="{{ route('updatesetting', $user->id) }}">
                 @csrf
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="floatingInput" placeholder="Name"
@@ -36,13 +36,14 @@
                     <div class="col">
                         <div class="form-floating mb-3">
                             <input type="password" class="form-control" id="floatingInput" placeholder="Password"
-                                value="{{ $user->password }}" name="password">
+                                name="password">
                             <label for="floatingInput">Password</label>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="floatingPassword" placeholder="Location" value="{{ $user->location }}" name="location">
+                            <input type="text" class="form-control" id="floatingPassword" placeholder="Location"
+                                value="{{ $user->location }}" name="location">
                             <label for="floatingPassword">Location</label>
                         </div>
                     </div>
@@ -57,7 +58,8 @@
                     </div>
                     <div class="col">
                         <div class="form-floating">
-                            <input type="number" class="form-control" id="floatingPassword" placeholder="Phone Number" value="{{ $user->phone_number }}" name="phone">
+                            <input type="number" class="form-control" id="floatingPassword" placeholder="Phone Number"
+                                value="{{ $user->phone_number }}" name="phone">
                             <label for="floatingPassword">Phone Number</label>
                         </div>
                     </div>
@@ -68,23 +70,20 @@
                     <button class="btn btn-primary me-2">Update</button>
                     <button class="btn btn-danger" id="backButton">Cancel</button>
                 </div>
-
-
-
-
             </form>
 
-            <form id="business-info-form" class="hide">
+            <form id="business-info-form" class="hide" method="post" enctype="multipart/form-data" action="{{ route('updatecompany',1) }}">
+                @csrf
                 <div class="row">
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="Company Name">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Company Name" name="name">
                             <label for="floatingInput">Company Name</label>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="floatingPassword" placeholder="Vat No">
+                            <input type="text" class="form-control" id="floatingPassword" placeholder="Vat No" name="vatno">
                             <label for="floatingPassword">VAT No</label>
                         </div>
                     </div>
@@ -92,13 +91,13 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="Address">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Address" name="address">
                             <label for="floatingInput">Address</label>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-floating">
-                            <input type="number" class="form-control" id="floatingPassword" placeholder="Phone Number">
+                            <input type="number" class="form-control" id="floatingPassword" placeholder="Phone Number" name="phone">
                             <label for="floatingPassword">Phone Number</label>
                         </div>
                     </div>
