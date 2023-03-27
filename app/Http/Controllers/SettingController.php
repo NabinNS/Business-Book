@@ -12,7 +12,8 @@ class SettingController extends Controller
     public function settingPage($id)
     {
         $user = User::find($id);
-        return view('settings.setting', compact('user'));
+        $userCompany = UserCompany::first();
+        return view('settings.setting', compact('user','userCompany'));
     }
     public function updateUser($id, Request $request)
     {

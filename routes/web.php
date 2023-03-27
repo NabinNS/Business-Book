@@ -9,6 +9,7 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\VatBillController;
@@ -110,7 +111,9 @@ Route::get('/viewdaybook',[DaybookController::class,'viewDayBook']);
 Route::get('/setting/{id}',[SettingController::class,'settingPage'])->name('setting');
 Route::post('/setting/update/{id}',[SettingController::class,'updateUser'])->name('updatesetting');
 Route::post('/setting/updatecompany/{id}',[SettingController::class,'updateCompany'])->name('updatecompany');
-
+//order route
+Route::get('/order',[OrderController::class,'orderList']);
+Route::get('/orderdetails/{companyname}',[OrderController::class,'orderDetail']);
 
 
 

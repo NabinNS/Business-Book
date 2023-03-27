@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/confirmation.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/vat.css') }}" />
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
     </script>
@@ -30,16 +30,16 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-  
-   
-      
+
+
+
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <body>
-    
+
     <div class="sidebar">
         <div class="logo-details">
             <i class='bx bx-book-add'></i>
@@ -59,7 +59,7 @@
                 <div class="iocn-link">
                     <a href="/parties">
                         <i class='bx bxs-user-account'></i>
-                        
+
                         <span class="link_name ">Accounts</span>
                     </a>
                     <i class="bx bxs-chevron-down arrow"></i>
@@ -122,9 +122,9 @@
                 </div>
                 <ul class="sub-menu">
                     <li><a class="link_name" href="#">Invoices</a></li>
-             
+
                     <li><a href="/quotation">Quotation</a></li>
-                 
+
                 </ul>
             </li>
             <li>
@@ -137,13 +137,22 @@
                 </ul>
             </li>
             <li>
-                <a href="{{ route('setting',Auth::user()->id ) }}">
+                <a href="/order">
+                    <i class='bx bx-cart'></i>
+                    <span class="link_name">Order</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="/order">Order</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{{ route('setting', Auth::user()->id) }}">
                     <i class="bx bx-cog"></i>
                     <span class="link_name">Setting</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="{{ route('setting',Auth::user()->id ) }}">Setting</a></li>
-                  
+                    <li><a class="link_name" href="{{ route('setting', Auth::user()->id) }}">Setting</a></li>
+
                 </ul>
             </li>
             <li>
@@ -159,7 +168,7 @@
         </ul>
     </div>
     <section class="home-section">
-       
+
 
         <nav class="bg-white grid-item pb-2 mb-2">
             <div class="d-flex align-items-center justify-content-between">
