@@ -114,6 +114,7 @@ Route::post('/setting/updatecompany/{id}',[SettingController::class,'updateCompa
 //order route
 Route::get('/order',[OrderController::class,'orderList']);
 Route::get('/orderdetails/{companyname}',[OrderController::class,'orderDetail']);
+Route::post('/saveorderdetails/{companyname}',[OrderController::class,'saveOrderDetail'])->name('saveorder');
 
 
 

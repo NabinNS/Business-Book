@@ -20,4 +20,8 @@ class CompanyDetails extends Model
     {
         return $this->hasOne(AccountRemainingBalance::class);
     }
+    public function order()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
