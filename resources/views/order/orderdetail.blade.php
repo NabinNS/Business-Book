@@ -52,7 +52,12 @@
                     <tr>
                         <td>{{ $orderName->name }}</td>
                         <td>{{ $orderName->quantity }}</td>
-                        <td><i class="fa fa-edit"></i><i class="fa fa-trash"></i></td>
+                        <td>
+                            {{-- <button type="button" data-bs-toggle="modal" data-bs-target="#EditOrderModal"><i
+                                    class="fa fa-edit"></i></button> --}}
+                            <a href="/deleteorder/{{ $orderName->id }}" class="text-danger"><i class="fa fa-trash cursor-pointer"></i></a>
+
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -62,7 +67,42 @@
 
             <a href="{{ route('sendorder', $companyname) }}"><button class="btn btn-secondary">Send Order</button></a>
         </div>
+
+        {{-- editing modal --}}
+
+        <div>
+            <div class="modal fade" id="EditOrderModal" tabindex="-1" aria-labelledby="AddPartyModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-center font" id="exampleModalLabel">Edit Order</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            </button>
+                        </div>
+                        <form action="">
+                            <div class="form-floating mb-3 mx-3 mt-3">
+                                <input type="text" class="form-control" placeholder="Product name" name="productname">
+                                <label for="floatingInput">Product Name</label>
+                            </div>
+                            <div class="form-floating mb-3 mx-3">
+                                <input type="text" class="form-control" placeholder="Quantity" name="quantity">
+                                <label for="floatingInput">Quantity</label>
+                            </div>
+                        </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Update Party </button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+
 
 
 @endsection
@@ -72,6 +112,8 @@
             $('#backButton').click(function() {
                 window.history.back();
             });
+
+
         });
     </script>
 @endpush

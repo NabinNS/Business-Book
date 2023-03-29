@@ -116,6 +116,7 @@ Route::get('/order',[OrderController::class,'orderList']);
 Route::get('/orderdetails/{companyname}',[OrderController::class,'orderDetail']);
 Route::post('/saveorderdetails/{companyname}',[OrderController::class,'saveOrderDetail'])->name('saveorder');
 Route::get('/sendorder/{companyname}',[OrderController::class,'orderMail'])->name('sendorder');
+Route::get('/deleteorder/{id}',[OrderController::class,'destroy']);
 
 
 
