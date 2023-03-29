@@ -55,7 +55,8 @@
                         <td>
                             {{-- <button type="button" data-bs-toggle="modal" data-bs-target="#EditOrderModal"><i
                                     class="fa fa-edit"></i></button> --}}
-                            <a href="/deleteorder/{{ $orderName->id }}" class="text-danger"><i class="fa fa-trash cursor-pointer"></i></a>
+                            <a href="/deleteorder/{{ $orderName->id }}" class="text-danger"><i
+                                    class="fa fa-trash cursor-pointer"></i></a>
 
                         </td>
                     </tr>

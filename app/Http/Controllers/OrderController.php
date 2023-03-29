@@ -39,5 +39,11 @@ class OrderController extends Controller
         $companyInformation->order()->delete();
         return back()->with('success', 'We have e-mailed your password reset link!');
     }
+    public function destroy($id)
+    {
+        $orderName = Order::findOrFail($id);
+        $orderName->delete();
 
+        return redirect()->back();
+    }
 }
