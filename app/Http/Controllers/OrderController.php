@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderMail;
 use App\Models\CompanyDetails;
 use Illuminate\Http\Request;
+use Mail;
 
 class OrderController extends Controller
 {
@@ -29,4 +31,11 @@ class OrderController extends Controller
         return redirect('/orderdetails/' . $companyname)->with('success', 'Order record successfull');
         
     }
+    public function orderMail($companyname){
+        $companyInformation = CompanyDetails::where('company_name', $companyname)->firstOrFail();
+        $orderNames = $companyInformation->order;
+        Mail::to("nabin@gmail.com")->send(new OrderMail($orderNames));
+        return back()->with('success', 'We have e-mailed your password reset link!');
+    }
+    
 }

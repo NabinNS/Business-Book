@@ -21,7 +21,7 @@
         <div class="d-flex justify-content-center">
 
 
-            <form class="m-3" action="{{ route('saveorder',$companyname) }}" method="post">
+            <form class="m-3" action="{{ route('saveorder', $companyname) }}" method="post">
                 @csrf
                 <div class="row">
                     <div class="col">
@@ -32,9 +32,9 @@
                     </div>
                     <div class="col">
                         <button class="btn btn-primary">Save</button>
-                        <button class="btn btn-danger">Cancel</button>
+                        <button class="btn btn-danger" id="backButton" type="button">Cancel</button>
                     </div>
-                   
+
                 </div>
             </form>
         </div>
@@ -44,6 +44,7 @@
                 <tr>
                     <th>Name of product</th>
                     <th>Quantity</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,14 +52,26 @@
                     <tr>
                         <td>{{ $orderName->name }}</td>
                         <td>{{ $orderName->quantity }}</td>
+                        <td><i class="fa fa-edit"></i><i class="fa fa-trash"></i></td>
                     </tr>
                 @endforeach
             </tbody>
-          </table>
+        </table>
+
+        <div class="d-flex justify-content-center">
+
+            <a href="{{ route('sendorder', $companyname) }}"><button class="btn btn-secondary">Send Order</button></a>
+        </div>
     </div>
 
 
 @endsection
 @push('scripts')
-    <script></script>
+    <script>
+        $(document).ready(function() {
+            $('#backButton').click(function() {
+                window.history.back();
+            });
+        });
+    </script>
 @endpush
