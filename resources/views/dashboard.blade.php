@@ -26,6 +26,15 @@
             </div>
         </div>
         <hr>
+        <div class="d-flex justify-content-between">
+            <div>
+                <h6>chart</h6>
+            </div>
+            <div>
+                
+            </div>
+
+        </div>
         
 
 

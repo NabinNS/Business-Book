@@ -10,7 +10,7 @@ class AccountLedger extends Model
     use HasFactory;
     protected $primaryKey = 'acc_id';
     protected $fillable = [
-        'date','receipt_no','particulars','debit','credit','company_details_id'
+        'date','receipt_no','particulars','debit','credit','company_details_id','cheque_status'
     ];
    
     public function companyDetails(){

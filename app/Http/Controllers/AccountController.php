@@ -24,12 +24,12 @@ class AccountController extends Controller
             $accountledgers = $companyDetail->accountLedger;
             return view('accounts.parties', compact('accountremainingbalances', 'companyDetail', 'accountledgers'));
         } else {
-            return view('accounts.emptyparty',['request'=>'party']);
+            return view('accounts.emptyparty', ['request' => 'party']);
         }
     }
     public function addNewParty(Request $request)
     {
-       
+
         $request->validate([
             'companyname' => 'required|unique:company_details,company_name',
             'vatnumber' => 'nullable|min:7|max:9',
@@ -55,20 +55,25 @@ class AccountController extends Controller
     }
     public function partiesCash(Request $request)
     {
-
         $request->validate([
             'companyname' => 'required|exists:company_details,company_name',
             'amount' => 'required'
         ]);
         $companyInformation = CompanyDetails::where('company_name', $request->companyname)->firstOrFail();
         $companyInformation->accountRemainingBalance()->decrement('amount', $request->amount);
-        $companyInformation->accountLedger()->create([
+
+        $data = [
             'date' => $request->date ?? Carbon::now(),
             'receipt_no' => $request->voucherno,
             'particulars' => $request->type,
-            'debit' => $request->amount
+            'debit' => $request->amount,
+        ];
 
-        ]);
+        if ($request->type == 'cheque') {
+
+            $data['cheque_status'] = 'unsettled';
+        }
+        $companyInformation->accountLedger()->create($data);
 
         return redirect('/parties/viewledger/' . $request->companyname)->with('success', 'Cash payment recorded successfully');
     }
@@ -149,9 +154,8 @@ class AccountController extends Controller
             $customerledgers = $customerDetail->customerledger;
 
             return view('accounts.customers', compact('customerremainingbalances', 'customerDetail', 'customerledgers'));
-        }
-        else{
-            return view('accounts.emptyparty',['request'=>'customer']);
+        } else {
+            return view('accounts.emptyparty', ['request' => 'customer']);
         }
     }
     public function addNewCustomer(Request $request)
@@ -195,12 +199,17 @@ class AccountController extends Controller
         ]);
         $customerDetail = CustomerDetail::where('customer_name', $request->customername)->firstOrFail();
         $customerDetail->customerRemainingBalance()->decrement('amount', $request->amount);
-        $customerDetail->customerledger()->create([
+        $data = [
             'date' => $request->date ?? Carbon::now(),
             'receipt_no' => $request->voucherno,
             'particulars' => $request->type,
             'credit' => $request->amount
-        ]);
+        ];
+        if ($request->type == 'cheque') {
+
+            $data['cheque_status'] = 'unsettled';
+        }
+        $customerDetail->customerledger()->create($data);
 
         return redirect('/customers/viewledger/' . $request->customername)->with('success', 'Cash payment recorded successfully');
     }

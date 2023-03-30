@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('particulars');
             $table->float('debit')->nullable();
             $table->float('credit')->nullable();
+            $table->string('cheque_status')->nullable();
             $table->unsignedInteger('customer_detail_id');
             $table->foreign('customer_detail_id')->references('id')->on('customer_details')->onDelete('cascade');
             $table->timestamps();
