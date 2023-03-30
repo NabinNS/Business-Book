@@ -1,7 +1,5 @@
 @extends('partials')
 @section('content')
-
-
     <div class="dash-background">
 
         <div class="d-flex justify-content-between mt-3">
@@ -30,16 +28,44 @@
             <div>
                 <h6>chart</h6>
             </div>
-            <div>
-                
+            <div class="dash-cheque">
+                <h6 class="text-center mt-1"><u>Cheque Details</u></h6>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($unsettledCheques as $cheque)
+                            @if ($cheque->debit)
+                                <tr class="text-danger">
+                                    <td>{{ $cheque->date }}</td>
+                                    <td> {{ $cheque->companyDetails->company_name }} </td>
+                                    <td> {{ $cheque->debit }}</td>
+                                </tr>
+                            @else
+                                <tr class="text-success">
+                                    <td>{{ $cheque->date }}</td>
+                                    <td> {{ $cheque->CustomerDetail->customer_name }}</td>
+                                    <td> {{ $cheque->credit }}</td>
+                                </tr>
+                            @endif
+                        @endforeach
+                    </tbody>
+                </table>
+
+
+
             </div>
 
         </div>
-        
+
 
 
     </div>
-
 @endsection
 @push('scripts')
     {{-- <script script script src="{{ asset('js/script.js') }}"></script> --}}
