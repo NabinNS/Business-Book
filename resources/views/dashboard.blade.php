@@ -25,8 +25,9 @@
         </div>
         <hr>
         <div class="d-flex justify-content-between">
-            <div>
-                <h6>chart</h6>
+            <div class="dash-chart">
+                <canvas id="myChart"></canvas>
+
             </div>
             <div class="dash-cheque">
                 <h6 class="text-center mt-1"><u>Cheque Details</u></h6>
@@ -68,5 +69,79 @@
     </div>
 @endsection
 @push('scripts')
-    {{-- <script script script src="{{ asset('js/script.js') }}"></script> --}}
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var purchaseData = {!! $purchaseData !!};
+        var salesData = {!! $salesData !!};
+        var cashOutData = {!! $cashOutData !!};
+        var cashInData = {!! $cashInData !!};
+
+        var labels = purchaseData.map(function(item) {
+            return item.month_name;
+        });
+
+        var purchaseTotals = purchaseData.map(function(item) {
+            return item.total;
+        });
+
+        var salesTotals = salesData.map(function(item) {
+            return item.total;
+        });
+
+        var cashOutTotals = cashOutData.map(function(item) {
+            return item.total;
+        });
+
+        var cashInTotals = cashInData.map(function(item) {
+            return item.total;
+        });
+
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                        label: 'Purchases',
+                        data: purchaseTotals,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1,
+
+                    },
+                    {
+                        label: 'Sales',
+                        data: salesTotals,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1,
+
+                    },
+                    {
+                        label: 'Cash Out',
+                        data: cashOutTotals,
+                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        borderWidth: 1,
+
+                    },
+                    {
+                        label: 'Cash In',
+                        data: cashInTotals,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1,
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
 @endpush

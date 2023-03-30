@@ -18,7 +18,7 @@
     align-items: center;
     flex-direction: column;
 }
-.dash-cheque{
+.dash-cheque {
     background-color: white;
     max-height: 285px;
     width: 35%;
@@ -32,12 +32,19 @@
     display: none;
 }
 .dash-cheque .table th:nth-child(2) {
-    width: 60%; /* set the width of the name column to 60% */
-  }
-  
-  .dash-cheque .table td:nth-child(2) {
-    text-overflow: ellipsis; /* add the ellipsis when text is too long */
-    white-space: nowrap; /* prevent the text from wrapping */
-    overflow: hidden; /* hide the overflowed content */
-  }
-  
+    width: 60%;
+}
+
+.dash-cheque .table td:nth-child(2) {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.dash-chart {
+    background-color: white;
+    max-height: 285px;
+    width: 65%;
+    margin: 0px 10px 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px 0px rgb(0 0 0 / 20%);
+}
