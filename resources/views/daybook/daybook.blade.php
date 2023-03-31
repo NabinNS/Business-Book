@@ -30,8 +30,8 @@
                         <div class="input-group">
                             <select class="custom-select select-sizing" name="option">
                                 <option value="All">All Transaction</option>
-                                <option value="Purchase">Purchase</option>
-                                <option value="Sales">Sales</option>
+                                <option value="Parties">Parties Transaction</option>
+                                <option value="Customer">Customer Transaction</option>
                             </select>
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                     @foreach ($sortedDetails as $detail)
                         <tr>
                             <td>{{ $detail->date }}</td>
-                            @if ($detail instanceof App\Models\AccountLedger)
+                            @if ($detail)
                                 <td>{{ $detail->companyDetails->company_name }}</td>
                                 <td>{{ $detail->particulars }}</td>
                             @else

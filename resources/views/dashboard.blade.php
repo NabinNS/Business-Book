@@ -30,7 +30,7 @@
             </div>
             <div class="dash-cheque">
                 <h6 class="text-center mt-1"><u>Cheque Details</u></h6>
-                <table class="table">
+                <table class="table table-hover" id="chequetable">
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -41,13 +41,14 @@
                     <tbody>
                         @foreach ($unsettledCheques as $cheque)
                             @if ($cheque->debit)
-                                <tr class="text-danger">
+                                <tr class="text-danger" data-from="company" data-record-id="{{ $cheque->acc_id }}">
                                     <td>{{ $cheque->date }}</td>
                                     <td> {{ $cheque->companyDetails->company_name }} </td>
                                     <td> {{ $cheque->debit }}</td>
                                 </tr>
                             @else
-                                <tr class="text-success">
+                                <tr class="text-success" data-from="customer"
+                                    data-record-id="{{ $cheque->customerledger_id }}">
                                     <td>{{ $cheque->date }}</td>
                                     <td> {{ $cheque->CustomerDetail->customer_name }}</td>
                                     <td> {{ $cheque->credit }}</td>
@@ -192,5 +193,49 @@
                 }
             }
         });
+        $(document).on('click', '.dash-cheque tr', function() {
+    // Get the record ID from the data attribute
+    var recordId = $(this).data('record-id');
+    var from = $(this).data('from');
+    var $row = $(this); // Store a reference to the row
+    // Show a confirmation dialog
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, settle it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Send an AJAX request to the server to update the record
+            $.ajax({
+                url: '/update-record/' + from +'/'+ recordId,
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Handle the response from the server
+                    console.log(response);
+                    // Remove the row from the table
+                    $row.remove();
+                    Swal.fire(
+                      'Settled!',
+                      'The record has been settled.',
+                      'success'
+                    )
+                },
+                error: function(xhr) {
+                    // Handle errors
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+    });
+});
+
+        
     </script>
 @endpush

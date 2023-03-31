@@ -55,12 +55,13 @@ class DashboardController extends Controller
 
             // unsettled cheque results
             $companyCheque = AccountLedger::where('cheque_status', 'unsettled')
-                ->select('date', 'debit', 'company_details_id')
+                ->select('acc_id','date', 'debit', 'company_details_id')
                 ->get();
             $customerCheque = CustomerLedger::where('cheque_status', 'unsettled')
-                ->select('date', 'credit', 'customer_detail_id')
+                ->select('customerledger_id','date', 'credit', 'customer_detail_id')
                 ->get();
             $unsettledCheques = $companyCheque->concat($customerCheque)->sortBy('date');
+            // dd($unsettledCheques);
             //unsettled bill results
             $customerBills = CustomerLedger::where('bill_status', 'unpaid')
                 ->select('date', 'receipt_no','debit', 'customer_detail_id')
@@ -77,5 +78,22 @@ class DashboardController extends Controller
         }
 
         return redirect("/")->withSuccess('You are not allowed to access');
+    }
+    public function updateRecord($from, $id)
+    {
+        if($from == 'customer'){
+            $record = CustomerLedger::find($id);
+        }
+        else{
+            $record = AccountLedger::find($id);
+        }
+        
+        if ($record) {
+            $record->cheque_status = 'settled';
+            $record->save();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'error' => 'Record not found']);
+        }
     }
 }

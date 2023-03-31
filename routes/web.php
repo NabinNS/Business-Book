@@ -42,6 +42,7 @@ Route::get('/partydownload/{name}', [ConfirmationLetterController::class, 'pdfPa
 Route::get('/', [LoginController::class, 'index'])->name('startingpoint');
 Route::post('/login', [LoginController::class, 'Login'])->name('login');
 Route::get('dashboard', [DashboardController::class, 'dashboard'])->middleware('auth');
+Route::post('/update-record/{from}/{id}', [DashboardController::class, 'updateRecord']);
 
 //Forget password routing code starts from here
 Route::get('/forgetpassword', [ForgotPasswordController::class, 'forgetPassword']);
