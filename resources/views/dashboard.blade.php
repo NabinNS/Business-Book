@@ -24,10 +24,9 @@
             </div>
         </div>
         <hr>
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between row m-3">
             <div class="dash-chart">
                 <canvas id="myChart"></canvas>
-
             </div>
             <div class="dash-cheque">
                 <h6 class="text-center mt-1"><u>Cheque Details</u></h6>
@@ -58,6 +57,36 @@
                     </tbody>
                 </table>
 
+
+
+            </div>
+
+        </div>
+
+        <div class="d-flex justify-content-between mt-3">
+            <div class="dash-bill">
+                <h6 class="text-center mt-1"><u>Unpaid Bill Details</u></h6>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Bill No</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>1</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="dash-stock">
 
 
             </div>

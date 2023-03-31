@@ -72,7 +72,7 @@
                 </div>
             </form>
 
-            <form id="business-info-form" class="hide" method="post" enctype="multipart/form-data" action="{{ route('updatecompany',1) }}">
+            {{-- <form id="business-info-form" class="hide" method="post" enctype="multipart/form-data" action="{{ route('updatecompany',1) }}">
                 @csrf
                 <div class="row">
                     <div class="col">
@@ -122,7 +122,7 @@
 
 
 
-            </form>
+            </form> --}}
         </div>
     </div>
 
