@@ -13,7 +13,7 @@ class SettingController extends Controller
     {
         $user = User::find($id);
         $userCompany = UserCompany::first();
-        return view('settings.setting', compact('user','userCompany'));
+        return view('settings.setting', compact('user', 'userCompany'));
     }
     public function updateUser($id, Request $request)
     {
@@ -58,23 +58,32 @@ class SettingController extends Controller
             $userCompany->phone_number = $request->phone;
             $userCompany->logo_path = $logo;
             $userCompany->save();
-        } else {
-            // Create a new user company record
-            $logo = $request->logo;
-            if ($request->hasFile('logo')) {
-                $logo = time() . '-' . $request->name . '.' . $request->logo->extension();
-                $request->logo->move(public_path('images'), $logo);
-            }
-
-            $userCompany = new UserCompany;
-            $userCompany->company_name = $request->name;
-            $userCompany->address = $request->address;
-            $userCompany->vat_no = $request->vatno;
-            $userCompany->phone_number = $request->phone;
-            $userCompany->logo_path = $logo;
-            $userCompany->save();
         }
 
         return redirect('setting/' . $id)->with('success', 'User update successful');
+    }
+    public function addCompany(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'vatno' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+        ]);
+        $logo = $request->logo;
+        if ($request->hasFile('logo')) {
+            $logo = time() . '-' . $request->name . '.' . $request->logo->extension();
+            $request->logo->move(public_path('images'), $logo);
+        }
+
+        $userCompany = new UserCompany;
+        $userCompany->company_name = $request->name;
+        $userCompany->address = $request->address;
+        $userCompany->vat_no = $request->vatno;
+        $userCompany->phone_number = $request->phone;
+        $userCompany->logo_path = $logo;
+        $userCompany->save();
+        
+        return redirect()->back();
     }
 }
