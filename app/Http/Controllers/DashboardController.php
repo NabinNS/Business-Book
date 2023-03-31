@@ -6,6 +6,8 @@ use App\Models\AccountLedger;
 use App\Models\AccountRemainingBalance;
 use App\Models\CustomerLedger;
 use App\Models\CustomerRemainingBalance;
+use App\Models\StockDetail;
+use App\Models\StockRemainingBalance;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -59,12 +61,19 @@ class DashboardController extends Controller
                 ->select('date', 'credit', 'customer_detail_id')
                 ->get();
             $unsettledCheques = $companyCheque->concat($customerCheque)->sortBy('date');
-            //unseeted bill results
+            //unsettled bill results
             $customerBills = CustomerLedger::where('bill_status', 'unpaid')
                 ->select('date', 'receipt_no','debit', 'customer_detail_id')
                 ->get();
+            //low limit results
+            $stocks = StockRemainingBalance::join('stock_details', 'stock_remaining_balances.stock_detail_id', '=', 'stock_details.id')
+            ->select('stock_details.stock_name', 'stock_remaining_balances.quantity', 'stock_details.limit')
+            ->whereRaw('stock_details.limit - stock_remaining_balances.quantity > 0')
+            ->get();
 
-            return view('dashboard', compact('customers', 'parties', 'purchases', 'sales', 'unsettledCheques', 'purchaseData', 'salesData', 'cashOutData', 'cashInData','customerBills'));
+
+
+            return view('dashboard', compact('customers', 'parties', 'purchases', 'sales', 'unsettledCheques', 'purchaseData', 'salesData', 'cashOutData', 'cashInData','customerBills','stocks'));
         }
 
         return redirect("/")->withSuccess('You are not allowed to access');

@@ -89,7 +89,25 @@
 
             </div>
             <div class="dash-stock">
-
+                <h6 class="text-center mt-1"><u>Low Stock Details</u></h6>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Limit</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($stocks as $stock)
+                            <tr class="text-danger">
+                                <td>{{ $stock->stock_name }}</td>
+                                <td> {{ $stock->quantity }} </td>
+                                <td> {{ $stock->limit }} </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
 
             </div>
 

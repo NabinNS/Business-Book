@@ -38,11 +38,6 @@
     width: 60%;
 }
 
-.dash-cheque .table td:nth-child(2) {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-}
 .dash-chart {
     background-color: white;
     flex: 0 0 55.33333%;
@@ -70,8 +65,8 @@
     width: 60%;
 }
 
-.dash-bill .table td:nth-child(2) {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+.dash-stock .table th:nth-child(1) {
+    width: 60%;
 }
+
+
