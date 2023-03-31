@@ -193,49 +193,49 @@
                 }
             }
         });
-        $(document).on('click', '.dash-cheque tr', function() {
-    // Get the record ID from the data attribute
-    var recordId = $(this).data('record-id');
-    var from = $(this).data('from');
-    var $row = $(this); // Store a reference to the row
-    // Show a confirmation dialog
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, settle it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Send an AJAX request to the server to update the record
-            $.ajax({
-                url: '/update-record/' + from +'/'+ recordId,
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    // Handle the response from the server
-                    console.log(response);
-                    // Remove the row from the table
-                    $row.remove();
-                    Swal.fire(
-                      'Settled!',
-                      'The record has been settled.',
-                      'success'
-                    )
-                },
-                error: function(xhr) {
-                    // Handle errors
-                    console.log(xhr.responseText);
+        
+        $(document).on('click', '.dash-cheque tbody tr', function() {
+            // Get the record ID from the data attribute
+            var recordId = $(this).data('record-id');
+            var from = $(this).data('from');
+            var $row = $(this);
+
+            // Show a confirmation dialog
+            Swal.fire({
+                title: 'Has this cheque been settled?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, it has'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Send an AJAX request to the server to update the record
+                    $.ajax({
+                        url: '/update-record/' + from + '/' + recordId,
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            $row.remove(); 
+                            Swal.fire(
+                                'Settled!',
+                                'The record has been settled.',
+                                'success'
+                            )
+                        },
+                        error: function(xhr) {
+                            Swal.fire(
+                                'Error!',
+                                'Something went wrong!',
+                                'error'
+                            )
+                        }
+                    });
                 }
             });
-        }
-    });
-});
-
-        
+        });
     </script>
 @endpush
