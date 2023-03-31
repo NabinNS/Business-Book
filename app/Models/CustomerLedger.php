@@ -10,7 +10,7 @@ class CustomerLedger extends Model
     use HasFactory;
 
     protected $fillable = [
-        'date','receipt_no','particulars','debit','credit','customer_id','cheque_status'
+        'date','receipt_no','particulars','debit','credit','customer_id','cheque_status','bill_status'
     ];
     protected $primaryKey = 'customerledger_id';
     public function CustomerDetail(){

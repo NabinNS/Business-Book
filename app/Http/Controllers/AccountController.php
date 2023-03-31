@@ -225,7 +225,8 @@ class AccountController extends Controller
             'date' => $request->date ?? Carbon::now(),
             'receipt_no' => $request->billno,
             'particulars' => 'sales by ' . $request->Salestype,
-            'debit' => $request->amount
+            'debit' => $request->amount,
+            'bill_status' => $request->Salestype == "cash" ? "paid" : "unpaid"
         ]);
 
         if ($request->Salestype == "cash") {
