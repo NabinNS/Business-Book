@@ -76,12 +76,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                        </tr>
+                        @foreach ($customerBills as $customerBill)
+                            <tr class="text-success">
+                                <td>{{ $customerBill->date }}</td>
+                                <td> {{ $customerBill->CustomerDetail->customer_name }} </td>
+                                <td> {{ $customerBill->receipt_no }}</td>
+                                <td> {{ $customerBill->debit }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
 

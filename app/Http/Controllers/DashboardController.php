@@ -16,8 +16,6 @@ class DashboardController extends Controller
     {
         if (Auth::check()) {
             $currentYear = date('Y');
-
-
             //Dashboard summary results 
             $parties = AccountRemainingBalance::all()->sum('amount');
             $customers = CustomerRemainingBalance::all()->sum('amount');
@@ -61,9 +59,12 @@ class DashboardController extends Controller
                 ->select('date', 'credit', 'customer_detail_id')
                 ->get();
             $unsettledCheques = $companyCheque->concat($customerCheque)->sortBy('date');
+            //unseeted bill results
+            $customerBills = CustomerLedger::where('bill_status', 'unpaid')
+                ->select('date', 'receipt_no','debit', 'customer_detail_id')
+                ->get();
 
-
-            return view('dashboard', compact('customers', 'parties', 'purchases', 'sales', 'unsettledCheques', 'purchaseData', 'salesData', 'cashOutData', 'cashInData'));
+            return view('dashboard', compact('customers', 'parties', 'purchases', 'sales', 'unsettledCheques', 'purchaseData', 'salesData', 'cashOutData', 'cashInData','customerBills'));
         }
 
         return redirect("/")->withSuccess('You are not allowed to access');
