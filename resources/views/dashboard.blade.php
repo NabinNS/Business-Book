@@ -65,7 +65,8 @@
         </div>
 
         <div class="d-flex justify-content-between mt-3">
-            <div class="dash-bill">
+            <div class="dash-bill col-md-6 mb-3">
+                <!-- your bill table here -->
                 <h6 class="text-center mt-1"><u>Unpaid Bill Details</u></h6>
                 <table class="table table-hover" id="billtable">
                     <thead>
@@ -87,32 +88,49 @@
                         @endforeach
                     </tbody>
                 </table>
-
             </div>
-            <div class="dash-stock">
-                <h6 class="text-center mt-1"><u>Low Stock Details</u></h6>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Quantity</th>
-                            <th>Limit</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($stocks as $stock)
-                            <tr class="text-danger">
-                                <td>{{ $stock->stock_name }}</td>
-                                <td> {{ $stock->quantity }} </td>
-                                <td> {{ $stock->limit }} </td>
+            <div class="d-flex flex-column col-md-6">
+                <div class="dash-stock mb-3">
+                    <!-- your stock table here -->
+                    <h6 class="text-center mt-1"><u>Low Stock Details</u></h6>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Limit</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-
+                        </thead>
+                        <tbody>
+                            @foreach ($stocks as $stock)
+                                <tr class="text-danger">
+                                    <td>{{ $stock->stock_name }}</td>
+                                    <td> {{ $stock->quantity }} </td>
+                                    <td> {{ $stock->limit }} </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div class="dash-inventory">
+                    <!-- your inventory details here -->
+                    @php
+                        $totalValue = 0;
+                    @endphp
+                    @foreach ($stockDetails as $stock)
+                        @php
+                            $price = $stock->purchase_price;
+                            $balance = $stock->stockRemainingBalance->quantity;
+                            $totalValue += $price * $balance;
+                        @endphp
+                    @endforeach
+                    <h6 class="text-center mt-1"><u>Total Inventory Value</u></h6>
+                    <h5 class="text-center text-success">Rs {{ $totalValue }}</h5>
+                </div>
             </div>
-
         </div>
+
+
 
 
 
@@ -254,7 +272,7 @@
                 if (result.isConfirmed) {
                     // Send an AJAX request to the server to update the record
                     $.ajax({
-                        url: 'dashboard/update-billrecord/'+recordId,
+                        url: 'dashboard/update-billrecord/' + recordId,
                         method: 'POST',
                         data: {
                             _token: '{{ csrf_token() }}'

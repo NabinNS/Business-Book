@@ -71,10 +71,9 @@ class DashboardController extends Controller
                 ->select('stock_details.stock_name', 'stock_remaining_balances.quantity', 'stock_details.limit')
                 ->whereRaw('stock_details.limit - stock_remaining_balances.quantity > 0')
                 ->get();
-
-
-
-            return view('dashboard', compact('customers', 'parties', 'purchases', 'sales', 'unsettledCheques', 'purchaseData', 'salesData', 'cashOutData', 'cashInData', 'customerBills', 'stocks'));
+            //stock value in company
+            $stockDetails = StockDetail::all();            
+            return view('dashboard', compact('customers', 'parties', 'purchases', 'sales', 'unsettledCheques', 'purchaseData', 'salesData', 'cashOutData', 'cashInData', 'customerBills', 'stocks','stockDetails'));
         }
 
         return redirect("/")->withSuccess('You are not allowed to access');

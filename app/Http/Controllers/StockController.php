@@ -80,6 +80,9 @@ class StockController extends Controller
             'quantity' => $request->purchasequantity,
             'rate' => $request->rate,
         ]);
+        $stockInformation->purchase_price = $request->rate;
+        $stockInformation->save();
+
         return redirect('stock/viewStockledger/' . $request->productname)->with('success', 'Purchase of goods recorded successfully');
     }
     public function viewStockLedger($stockname)

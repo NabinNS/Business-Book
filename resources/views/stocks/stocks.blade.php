@@ -53,7 +53,7 @@
                         @forelse ($stockremainingbalances as $stockremainingbalance)
                             <tr>
                                 <td>
-                                   
+
 
                                     <a href="{{ route('viewStockLedger', ['stockname' => $stockremainingbalance->stock_name]) }}"
                                         class="aremainingbalance">{{ $stockremainingbalance->stock_name }}</a>
@@ -99,6 +99,8 @@
                         </div>
                         <div>
                             <h6 class="m-1 d-inline">Stock Value:</h6>
+                            <h6 class="d-inline">
+                                {{ $stockDetail->stockRemainingBalance->quantity * $stockDetail->purchase_price }}</h6>
                         </div>
                     </div>
                 @endif
@@ -171,7 +173,6 @@
                     @endif
                 </tbody>
             </table>
-
         </div>
 
     </div>
@@ -445,7 +446,7 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-floating mb-3">
-                                               
+
                                             </div>
                                         </div>
                                     </div>

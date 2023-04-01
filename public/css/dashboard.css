@@ -31,7 +31,7 @@
     flex: 0 0 41.66667%;
     max-width: 41.66667%;
 }
-.dash-cheque::-webkit-scrollbar {
+.dash-cheque::-webkit-scrollbar, .dash-bill::-webkit-scrollbar,.dash-stock::-webkit-scrollbar, .dash-inventory::-webkit-scrollbar {
     display: none;
 }
 .dash-cheque .table th:nth-child(2) {
@@ -47,19 +47,30 @@
 }
 .dash-bill {
     background-color: white;
-    height: 385px;
-    width: 60%;
+    height: 402px;
+    width: 53.5%;
     margin: 0px 10px 10px 20px;
     border-radius: 10px;
     box-shadow: 0px 5px 10px 0px rgb(0 0 0 / 20%);
+    overflow: scroll;
 }
 .dash-stock {
     background-color: white;
-    height: 385px;
-    width: 46%;
+    height: 300px;
+    width: 81.5%;
     margin: 0px 10px 10px 20px;
     border-radius: 10px;
     box-shadow: 0px 5px 10px 0px rgb(0 0 0 / 20%);
+    overflow: scroll;
+}
+.dash-inventory {
+    background-color: white;
+    height: 85px;
+    width: 81.5%;
+    margin: 0px 10px 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px 0px rgb(0 0 0 / 20%);
+    overflow: scroll;
 }
 .dash-bill .table th:nth-child(2) {
     width: 50%;
