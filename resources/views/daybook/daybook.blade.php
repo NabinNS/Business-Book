@@ -22,6 +22,29 @@
             <div class="p-3 mb-4 bg-white bottom-radius border border-2 border-danger">
                 <h6 class="text-center font">Day Book</h6>
             </div>
+
+            <div class="d-flex justify-content-between mt-3">
+                <div class="dash-topcard ">
+                    <h5 class="text-center text-success">Rs {{ $totalCashReceived }}</h5>
+                    <h6 class="text-center">Total Cash Received</h6>
+                </div>
+                <div class="dash-topcard ">
+
+                    <h5 class="text-center text-danger">Rs {{ $totalCashPaid }}</h5>
+                    <h6 class="text-center">Total Cash Paid</h6>
+                </div>
+                <div class="dash-topcard ">
+
+                    <h5 class="text-center text-warning">Rs {{ $totalPurchase }}</h5>
+                    <h6 class="text-center">Total Purchase</h6>
+                </div>
+                <div class="dash-topcard ">
+
+                    <h5 class="text-center text-info">Rs {{ $totalSales }}</h5>
+                    <h6 class="text-center">Total Sales</h6>
+                </div>
+            </div>
+            <hr class="mb-3">
             <form action="/viewdaybook" method="get">
                 @csrf
                 <div class="d-flex justify-content-between">
@@ -83,11 +106,11 @@
                     @foreach ($sortedDetails as $detail)
                         <tr>
                             <td>{{ $detail->date }}</td>
-                            @if ($detail)
+                            @if ($detail->company_details_id)
                                 <td>{{ $detail->companyDetails->company_name }}</td>
                                 <td>{{ $detail->particulars }}</td>
                             @else
-                                <td>{{ $detail->customerDetail->customer_name }}</td>
+                                <td>{{ $detail->CustomerDetail->customer_name }}</td>
                                 <td>{{ $detail->particulars }}</td>
                             @endif
                             <td>{{ $detail->receipt_no }}</td>
@@ -95,40 +118,9 @@
                         </tr>
                     @endforeach
                 </tbody>
-
-
             </table>
-            <div class="d-flex justify-content-end">
-                {{ $sortedDetails->links() }}
-            </div>
-
-            <table class="table mt-3 table-bordered">
-                <colgroup>
-                    <col style="width: 25%;">
-                    <col style="width: 25%;">
-                    <col style="width: 25%;">
-                    <col style="width: 25%;">
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th>Total Purchase</th>
-                        <th>Total Sales</th>
-                        <th>Total Cash Paid</th>
-                        <th>Total Cash Received</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <tbody>
-                    <tr>
-                        <td>Rs {{ $totalPurchase }}</td>
-                        <td>Rs {{ $totalSales }}</td>
-                        <td>Rs {{ $totalCashPaid }}</td>
-                        <td>Rs {{ $totalCashReceived }}</td>
-                    </tr>
-                </tbody>
 
 
-            </table>
 
         </div>
 

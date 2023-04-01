@@ -9,7 +9,7 @@ class StockDetail extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'stock_name','limit','purchase_price','sales_price','opening_balance','category','date'
+        'stock_name','limit','purchase_price','sales_price','opening_balance','date'
     ];
 
     public function stockledger()

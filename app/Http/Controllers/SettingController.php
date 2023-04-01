@@ -34,7 +34,7 @@ class SettingController extends Controller
         ]);
         return redirect('setting/' . $id)->with('success', 'User update successful');
     }
-    public function updateCompany($id, Request $request)
+    public function updateCompany(Request $request)
     {
         $request->validate([
             'name' => 'required',
@@ -59,8 +59,8 @@ class SettingController extends Controller
             $userCompany->logo_path = $logo;
             $userCompany->save();
         }
-
-        return redirect('setting/' . $id)->with('success', 'User update successful');
+  
+        return redirect()->back()->with('success', 'Company update successful');
     }
     public function addCompany(Request $request)
     {
@@ -84,6 +84,6 @@ class SettingController extends Controller
         $userCompany->logo_path = $logo;
         $userCompany->save();
         
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Company created successfully');
     }
 }

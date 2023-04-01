@@ -95,8 +95,8 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Limit</th>
                             <th>Quantity</th>
+                            <th>Limit</th>
                         </tr>
                     </thead>
                     <tbody>

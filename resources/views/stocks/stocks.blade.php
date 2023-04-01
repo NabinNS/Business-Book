@@ -53,10 +53,9 @@
                         @forelse ($stockremainingbalances as $stockremainingbalance)
                             <tr>
                                 <td>
-                                    {{-- <a href="{{ route('viewStockLedger',$stockremainingbalance->category, $stockremainingbalance->stock_name) }}"
-                                        class="aremainingbalance">{{ $stockremainingbalance->stock_name }}</a> --}}
+                                   
 
-                                    <a href="{{ route('viewStockLedger', ['categoryname' => $stockremainingbalance->category, 'stockname' => $stockremainingbalance->stock_name]) }}"
+                                    <a href="{{ route('viewStockLedger', ['stockname' => $stockremainingbalance->stock_name]) }}"
                                         class="aremainingbalance">{{ $stockremainingbalance->stock_name }}</a>
 
                                 </td>
@@ -91,10 +90,6 @@
                             <h6 class="m-1 d-inline">Purchase price:</h6>
                             <h6 class="d-inline">{{ $stockDetail->purchase_price }}</h6>
                         </div>
-                        <div>
-                            <h6 class="m-1 d-inline">Category:</h6>
-                            <h6 class="d-inline">{{ $stockDetail->category }}</h6>
-                        </div>
                     </div>
                     <div class="d-flex justify-content-between">
                         <div>
@@ -104,7 +99,6 @@
                         </div>
                         <div>
                             <h6 class="m-1 d-inline">Stock Value:</h6>
-
                         </div>
                     </div>
                 @endif
@@ -232,18 +226,6 @@
                                             <input type="date" class="form-control" id="datepicker"
                                                 placeholder="As of" name="date">
                                             <label for="floatingInput">As of</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="col">
-                                        <div class="form-floating">
-                                            <select class="form-select" id="floatingSelect" name="categorytype">
-                                                @foreach ($stockCategories as $stockCategory)
-                                                    <option value="{{ $stockCategory->stock_category }}">
-                                                        {{ $stockCategory->stock_category }}</option>
-                                                @endforeach
-                                            </select>
-                                            <label for="floatingSelect">Category of product</label>
                                         </div>
                                     </div>
                                 </div>
@@ -463,10 +445,7 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-floating mb-3">
-                                                <input type="text" class="form-control" id="floatingInput"
-                                                    placeholder="Category" name="category"
-                                                    value="{{ $stockDetail->category }}">
-                                                <label for="floatingInput">Category</label>
+                                               
                                             </div>
                                         </div>
                                     </div>

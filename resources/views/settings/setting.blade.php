@@ -72,7 +72,7 @@
                 </div>
             </form>
             @if($userCompany)
-            <form id="business-info-form" class="hide" method="post" enctype="multipart/form-data" action="{{ route('updatecompany',$userCompany->id) }}">
+            <form id="business-info-form" class="hide" method="post" enctype="multipart/form-data" action="{{ route('updatecompany') }}">
                 @csrf
                 <div class="row">
                     <div class="col">

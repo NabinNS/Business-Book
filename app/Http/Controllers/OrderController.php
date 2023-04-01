@@ -37,7 +37,7 @@ class OrderController extends Controller
         $orderNames = $companyInformation->order;
         Mail::to("nabin@gmail.com")->send(new OrderMail($orderNames));
         $companyInformation->order()->delete();
-        return back()->with('success', 'We have e-mailed your password reset link!');
+        return back()->with('success', 'We have e-mailed your order to concern party');
     }
     public function destroy($id)
     {

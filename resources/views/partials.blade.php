@@ -73,12 +73,12 @@
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="/stocks/categories">
+                    <a href="/stocks-list">
                         <i class='bx bx-line-chart'></i>
                         <span class="link_name">Stock</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="/stocks/categories">Stock</a></li>
+                        <li><a class="link_name" href="/stocks-list">Stock</a></li>
                     </ul>
                 </div>
             </li>

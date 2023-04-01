@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\StockCategory;
+
 use App\Models\StockDetail;
 use App\Models\StockLedger;
 use Carbon\Carbon;
@@ -11,51 +11,11 @@ use Illuminate\Http\Request;
 class StockController extends Controller
 {
 
-    public function stockCategoryHandler()
+    public function stockHandler()
     {
-        $stockCategories = StockCategory::orderBy('stock_category')->get();
-        return view('stocks.stockscategory', compact('stockCategories'));
-        // $accountremainingbalances = CompanyDetails::orderBy('company_name')->get();
-        //     $companyDetail = CompanyDetails::find($accountremainingbalances->first()->id);
-        //     $accountledgers = $companyDetail->accountLedger;
-        //     return view('accounts.parties', compact('accountremainingbalances', 'companyDetail', 'accountledgers'));
 
+        $stockremainingbalances = StockDetail::orderBy('stock_name')->get();
 
-        //         $accountremainingbalances = CompanyDetails::orderBy('company_name')->get();
-
-        // if ($accountremainingbalances->isNotEmpty()) {
-        //   $companyDetail = CompanyDetails::find($accountremainingbalances->first()->id);
-        //   $accountledgers = $companyDetail->accountLedger;
-        // } else {
-        //   $companyDetail = null;
-
-
-        //   $accountledgers = null;
-        // }
-
-        // return view('accounts.parties', compact('accountremainingbalances', 'companyDetail', 'accountledgers'));
-
-    }
-    public function addCategory(Request $request)
-    {
-        $request->validate([
-            'categoryname' => 'required|unique:stock_categories,stock_category',
-        ]);
-
-        StockCategory::create([
-            'stock_category' => $request->categoryname
-        ]);
-        return redirect('stocks/categories' . $request->companyname)->with('success', 'New stock category added successfully');
-    }
-    public function stockHandler($categoryname)
-    {
-        if($categoryname == 'AllProduct'){
-            $stockremainingbalances = StockDetail::orderBy('stock_name')->get();
-        }
-        else{
-            $stockremainingbalances = StockDetail::orderBy('stock_name')->where('category', $categoryname)->get();
-        }
-        $stockCategories = StockCategory::orderBy('stock_category')->get();
         $stockDetail = null;
         $stockledgers = null;
 
@@ -63,7 +23,7 @@ class StockController extends Controller
             $stockDetail = StockDetail::find($stockremainingbalances->first()->id);
             $stockledgers = $stockDetail->stockLedger;
         }
-        return view('stocks.stocks', compact('stockremainingbalances', 'stockDetail', 'stockledgers', 'stockCategories'));
+        return view('stocks.stocks', compact('stockremainingbalances', 'stockDetail', 'stockledgers'));
     }
     public function addNewStock(Request $request)
     {
@@ -77,7 +37,6 @@ class StockController extends Controller
             'limit' => $request->limit ?? 0,
             'opening_balance' => $request->openingbalance ?? 0,
             'date' => $request->date ?? Carbon::now(),
-            'category' => $request->categorytype,
             'purchase_price' => $request->purchaseprice ?? 0,
             'sales_price' => $request->purchaseprice ?? 0
         ]);
@@ -88,7 +47,7 @@ class StockController extends Controller
             'quantity' => $request->openingbalance ?? 0
         ]);
 
-        return redirect('stock/viewStockledger/'.$request->categorytype.'/' . $request->stockname)->with('success', 'New stock added successfully');
+        return redirect('stock/viewStockledger/' . $request->stockname)->with('success', 'New stock added successfully');
     }
     public function stockSales(Request $request)
     {
@@ -104,7 +63,7 @@ class StockController extends Controller
             'receipt_no' => $request->billno,
             'issued_quantity' => $request->issuedquantity
         ]);
-        return redirect('stock/viewStockledger/'.$stockInformation->category.'/' . $request->productname)->with('success', 'Sales of goods recorded successfully');
+        return redirect('stock/viewStockledger/' . $request->productname)->with('success', 'Sales of goods recorded successfully');
     }
     public function stockPurchase(Request $request)
     {
@@ -121,20 +80,17 @@ class StockController extends Controller
             'quantity' => $request->purchasequantity,
             'rate' => $request->rate,
         ]);
-        return redirect('stock/viewStockledger/'.$stockInformation->category.'/'. $request->productname)->with('success', 'Purchase of goods recorded successfully');
+        return redirect('stock/viewStockledger/' . $request->productname)->with('success', 'Purchase of goods recorded successfully');
     }
-    public function viewStockLedger( $categoryname, $stockname)
+    public function viewStockLedger($stockname)
     {
-        if($categoryname == 'AllProduct'){
-            $stockremainingbalances = StockDetail::orderBy('stock_name')->get();
-        }
-        else{
-            $stockremainingbalances = StockDetail::orderBy('stock_name')->where('category', $categoryname)->get();
-        }
+
+
+        $stockremainingbalances = StockDetail::orderBy('stock_name')->get();
+
         $stockDetail = StockDetail::where('stock_name', $stockname)->firstOrFail();
         $stockledgers = $stockDetail->stockLedger;
-        $stockCategories = StockCategory::orderBy('stock_category')->get();
-        return view('stocks.stocks', compact('stockremainingbalances', 'stockDetail', 'stockledgers', 'stockCategories'));
+        return view('stocks.stocks', compact('stockremainingbalances', 'stockDetail', 'stockledgers'));
     }
     public function editStockDetails(Request $request)
     {
@@ -151,12 +107,11 @@ class StockController extends Controller
             'limit' => $request->limit ?? 0,
             'opening_balance' => $request->openingbalance ?? 0,
             'date' => $request->date ?? Carbon::now(),
-            'category' => $request->categorytype,
             'purchase_price' => $request->purchaseprice ?? 0,
             'sales_price' => $request->purchaseprice ?? 0
         ]);
         $stockDetail->stockRemainingBalance()->increment('quantity', $request->openingbalance);
-        return redirect('stock/viewStockledger/'.$request->categorytype.'/' . $request->stockname)->with('success', 'Purchase of goods recorded successfully');
+        return redirect('stock/viewStockledger/' . $request->stockname)->with('success', 'Purchase of goods recorded successfully');
     }
     public function editStockLedgerDetails($id, $stockname)
     {
