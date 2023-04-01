@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AccountRemainingBalance;
 use App\Models\CompanyDetails;
 use App\Models\CustomerDetail;
+use App\Models\UserCompany;
 use PDF;
 use Illuminate\Http\Request;
 
@@ -34,7 +35,8 @@ class ConfirmationLetterController extends Controller
         $remainingBalance = $partyDetail->accountRemainingBalance->amount;
         $partyLedgers = $partyDetail->accountLedger;
         $totalAmtWithVat = $partyLedgers->sum('credit');
-        return view('confirmation.partiesconfirmation', compact('totalAmtWithVat', 'partyDetail', 'fiscalYear', 'remainingBalance'));
+        $companyName = UserCompany::first();
+        return view('confirmation.partiesconfirmation', compact('totalAmtWithVat', 'partyDetail', 'fiscalYear', 'remainingBalance','companyName'));
     }
     public function viewCustomersConfirmation($name)
     {
@@ -45,7 +47,8 @@ class ConfirmationLetterController extends Controller
         $remainingBalance = $customerDetail->customerRemainingBalance->amount;
         $customerLedger = $customerDetail->customerledger;
         $totalAmtWithVat = $customerLedger->sum('debit');
-        return view('confirmation.customerconfirmation', compact('totalAmtWithVat', 'remainingBalance', 'customerDetail', 'fiscalYear'));
+        $companyName = UserCompany::first();
+        return view('confirmation.customerconfirmation', compact('totalAmtWithVat', 'remainingBalance', 'customerDetail', 'fiscalYear','companyName'));
     }
 
     public function pdfCustomerDownload($name)

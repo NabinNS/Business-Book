@@ -18,6 +18,24 @@
     <div class="c-grid-item">
         <div class="mx-5 mt-5">
 
+            <div class="d-flex justify-content-between">
+
+                <div>
+                    @if (!empty($companyName->logo_path))
+                        <img style="width:60px; height:50px" src="{{ asset('images/' . $companyName->logo_path) }}">
+                    @endif
+                </div>
+
+                <div class="text-center">
+                    <h5>{{ $companyName->company_name ?? '' }}</h5>
+                    <h6>{{ $companyName->address ?? '' }}</h6>
+                </div>
+                <div>
+                    <h6>{{ $companyName->vat_no ?? '' }}</h6>
+                </div>
+            </div>
+
+            <hr>
             <div class="d-flex justify-content-end m-2">
                 <p class="align-label me-3">Date:</p>
                 <p> {{ date('Y/m/d') }}</p>
@@ -31,7 +49,8 @@
             <p>Dear Sir,</p>
             <p class="ms-4">In connection with captioned matter, we would like to inform you that as per as our account
                 record
-                the credit balance and sales values for the year as follows. We would very much appreciate your cooperation in confirming the following information. Our records indicate the following:</p>
+                the credit balance and sales values for the year as follows. We would very much appreciate your cooperation
+                in confirming the following information. Our records indicate the following:</p>
 
             <table class="confirmationtable">
                 <thead>
@@ -72,7 +91,7 @@
             <div class="d-flex justify-content-between">
                 <div class="mt-5">
                     <p>Authorized Signatory</p>
-                    <p>company name</p>
+                    <p>{{ $companyName->company_name ?? '' }}</p>
                 </div>
                 <div class="mt-5">
                     <p>Authorized Signatory</p>
@@ -86,7 +105,8 @@
             <div class="d-flex justify-content-end">
                 <form method="post" action="{{ route('partiesdownload.pdf', $partyDetail->company_name) }}">
                     @csrf
-                    <button class="btn btn-secondary mt-2 me-4" id="downloadButton">Download</button>                </form>
+                    <button class="btn btn-secondary mt-2 me-4" id="downloadButton">Download</button>
+                </form>
                 <button class="btn btn-danger mt-2 me-2" id="backButton">Back</button>
             </div>
         </div>
@@ -106,6 +126,5 @@
                 window.history.back();
             });
         });
-
     </script>
 @endpush

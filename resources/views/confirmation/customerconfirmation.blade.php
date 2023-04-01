@@ -18,6 +18,23 @@
     <div class="c-grid-item">
         <div class="mx-5 mt-5">
 
+            <div class="d-flex justify-content-between">
+                <div>
+                    @if (!empty($companyName->logo_path))
+                        <img style="width:60px; height:50px" src="{{ asset('images/' . $companyName->logo_path) }}">
+                    @endif
+                </div>
+
+                <div class="text-center">
+                    <h5>{{ $companyName->company_name ?? '' }}</h5>
+                    <h6>{{ $companyName->address ?? '' }}</h6>
+                </div>
+                <div>
+                    <h6>{{ $companyName->vat_no ?? '' }}</h6>
+                </div>
+            </div>
+            <hr>
+
             <div class="d-flex justify-content-end m-2">
                 <p class="align-label me-3">Date:</p>
                 <p> {{ date('Y/m/d') }}</p>
@@ -73,7 +90,7 @@
             <div class="d-flex justify-content-between">
                 <div class="mt-5">
                     <p>Authorized Signatory</p>
-                    <p>company name</p>
+                    <p>{{ $companyName->company_name ?? '' }}</p>
                 </div>
                 <div class="mt-5">
                     <p>Authorized Signatory</p>
