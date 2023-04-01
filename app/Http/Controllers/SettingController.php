@@ -48,7 +48,7 @@ class SettingController extends Controller
             // Update the existing user company record
             $logo = $request->logo;
             if ($request->hasFile('logo')) {
-                $logo = time() . '-' . $request->name . '.' . $request->logo->extension();
+                $logo = $request->name . '.' . $request->logo->extension();
                 $request->logo->move(public_path('images'), $logo);
             }
 
@@ -72,7 +72,7 @@ class SettingController extends Controller
         ]);
         $logo = $request->logo;
         if ($request->hasFile('logo')) {
-            $logo = time() . '-' . $request->name . '.' . $request->logo->extension();
+            $logo = $request->name . '.' . $request->logo->extension();
             $request->logo->move(public_path('images'), $logo);
         }
 

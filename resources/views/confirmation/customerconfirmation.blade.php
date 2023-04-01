@@ -19,6 +19,7 @@
         <div class="mx-5 mt-5">
 
             <div class="d-flex justify-content-between">
+
                 <div>
                     @if (!empty($companyName->logo_path))
                         <img style="width:60px; height:50px" src="{{ asset('images/' . $companyName->logo_path) }}">

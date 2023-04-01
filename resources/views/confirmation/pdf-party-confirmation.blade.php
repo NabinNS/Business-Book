@@ -22,6 +22,7 @@
         .ms-4 {
             margin-left: 1.5rem;
         }
+
         .mt-5 {
             margin-top: 3rem;
         }
@@ -48,6 +49,21 @@
 
     <div class="c-grid-item">
         <div class="mx-5 mt-5">
+            <div style="display: flex; justify-content: space-between;">
+                <div>
+                    @if (!empty($companyName->logo_path))
+                        <img style="width:60px; height:50px; line-height: 0.2;"
+                            src="{{ asset('images/' . $companyName->logo_path) }}">
+                    @endif
+                </div>
+                <div style="text-align: center; line-height: 1;">
+                    <h5 style="line-height: 0.2;">{{ $companyName->company_name ?? '' }}</h5>
+                    <h6 style="line-height: 0.2;">{{ $companyName->address ?? '' }}</h6>
+                    <h6 style="line-height: 0.2;">{{ $companyName->vat_no ?? '' }}</h6>
+                </div>
+                <div>
+                </div>
+            </div>
 
             <div class="d-flex justify-content-end m-2">
                 <p class="align-label">Date: {{ date('Y/m/d') }}</p>

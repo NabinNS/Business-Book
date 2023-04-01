@@ -59,8 +59,9 @@ class ConfirmationLetterController extends Controller
         $remainingBalance = $customerDetail->customerRemainingBalance->amount;
         $customerLedger = $customerDetail->customerledger;
         $totalAmtWithVat = $customerLedger->sum('debit');
+        $companyName = UserCompany::first();
 
-        $pdf = PDF::loadView('confirmation.pdf-customer-confirmation', compact('totalAmtWithVat', 'remainingBalance', 'customerDetail', 'fiscalYear'))->setOptions(['defaultFont' => 'sans-serif']);
+        $pdf = PDF::loadView('confirmation.pdf-customer-confirmation', compact('totalAmtWithVat', 'remainingBalance', 'customerDetail', 'fiscalYear','companyName'))->setOptions(['defaultFont' => 'sans-serif']);
         // return $pdf->download('pdfview.pdf');
         return $pdf->download($customerDetail->customer_name . '.pdf');
     }
@@ -74,8 +75,9 @@ class ConfirmationLetterController extends Controller
         $remainingBalance = $partyDetail->accountRemainingBalance->amount;
         $partyLedgers = $partyDetail->accountLedger;
         $totalAmtWithVat = $partyLedgers->sum('credit');
+        $companyName = UserCompany::first();
 
-        $pdf = PDF::loadView('confirmation.pdf-party-confirmation', compact('totalAmtWithVat', 'remainingBalance', 'partyDetail', 'fiscalYear'))->setOptions(['defaultFont' => 'sans-serif']);
+        $pdf = PDF::loadView('confirmation.pdf-party-confirmation', compact('totalAmtWithVat', 'remainingBalance', 'partyDetail', 'fiscalYear','companyName'))->setOptions(['defaultFont' => 'sans-serif']);
         // return $pdf->download('pdfview.pdf');
         return $pdf->download($partyDetail->company_name . '.pdf');
     }
