@@ -67,7 +67,7 @@
         <div class="d-flex justify-content-between mt-3">
             <div class="dash-bill">
                 <h6 class="text-center mt-1"><u>Unpaid Bill Details</u></h6>
-                <table class="table">
+                <table class="table table-hover" id="billtable">
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -78,7 +78,7 @@
                     </thead>
                     <tbody>
                         @foreach ($customerBills as $customerBill)
-                            <tr class="text-success">
+                            <tr class="text-success" data-record-id="{{ $customerBill->customerledger_id }}">
                                 <td>{{ $customerBill->date }}</td>
                                 <td> {{ $customerBill->CustomerDetail->customer_name }} </td>
                                 <td> {{ $customerBill->receipt_no }}</td>
@@ -193,14 +193,13 @@
                 }
             }
         });
-        
+
+        //unsettled cheque convert to settle jquery code
         $(document).on('click', '.dash-cheque tbody tr', function() {
-            // Get the record ID from the data attribute
+
             var recordId = $(this).data('record-id');
             var from = $(this).data('from');
             var $row = $(this);
-
-            // Show a confirmation dialog
             Swal.fire({
                 title: 'Has this cheque been settled?',
                 text: "You won't be able to revert this!",
@@ -213,13 +212,55 @@
                 if (result.isConfirmed) {
                     // Send an AJAX request to the server to update the record
                     $.ajax({
-                        url: '/update-record/' + from + '/' + recordId,
+                        url: 'dashboard/update-chequerecord/' + from + '/' + recordId,
                         method: 'POST',
                         data: {
                             _token: '{{ csrf_token() }}'
                         },
                         success: function(response) {
-                            $row.remove(); 
+                            $row.remove();
+                            Swal.fire(
+                                'Settled!',
+                                'The record has been settled.',
+                                'success'
+                            )
+                        },
+                        error: function(xhr) {
+                            Swal.fire(
+                                'Error!',
+                                'Something went wrong!',
+                                'error'
+                            )
+                        }
+                    });
+                }
+            });
+        });
+        //unpaid bill jquery code to change it to paid
+        $(document).on('click', '.dash-bill tbody tr', function() {
+
+            var recordId = $(this).data('record-id');
+            var $row = $(this);
+            console.log(recordId);
+            Swal.fire({
+                title: 'Has this bill been cashed?',
+                text: "You won't be able to revert this!",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, it has'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Send an AJAX request to the server to update the record
+                    $.ajax({
+                        url: 'dashboard/update-billrecord/'+recordId,
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            $row.remove();
                             Swal.fire(
                                 'Settled!',
                                 'The record has been settled.',

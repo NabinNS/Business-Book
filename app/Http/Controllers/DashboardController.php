@@ -55,41 +55,51 @@ class DashboardController extends Controller
 
             // unsettled cheque results
             $companyCheque = AccountLedger::where('cheque_status', 'unsettled')
-                ->select('acc_id','date', 'debit', 'company_details_id')
+                ->select('acc_id', 'date', 'debit', 'company_details_id')
                 ->get();
             $customerCheque = CustomerLedger::where('cheque_status', 'unsettled')
-                ->select('customerledger_id','date', 'credit', 'customer_detail_id')
+                ->select('customerledger_id', 'date', 'credit', 'customer_detail_id')
                 ->get();
             $unsettledCheques = $companyCheque->concat($customerCheque)->sortBy('date');
             // dd($unsettledCheques);
             //unsettled bill results
             $customerBills = CustomerLedger::where('bill_status', 'unpaid')
-                ->select('date', 'receipt_no','debit', 'customer_detail_id')
+                ->select('customerledger_id','date', 'receipt_no', 'debit', 'customer_detail_id')
                 ->get();
             //low limit results
             $stocks = StockRemainingBalance::join('stock_details', 'stock_remaining_balances.stock_detail_id', '=', 'stock_details.id')
-            ->select('stock_details.stock_name', 'stock_remaining_balances.quantity', 'stock_details.limit')
-            ->whereRaw('stock_details.limit - stock_remaining_balances.quantity > 0')
-            ->get();
+                ->select('stock_details.stock_name', 'stock_remaining_balances.quantity', 'stock_details.limit')
+                ->whereRaw('stock_details.limit - stock_remaining_balances.quantity > 0')
+                ->get();
 
 
 
-            return view('dashboard', compact('customers', 'parties', 'purchases', 'sales', 'unsettledCheques', 'purchaseData', 'salesData', 'cashOutData', 'cashInData','customerBills','stocks'));
+            return view('dashboard', compact('customers', 'parties', 'purchases', 'sales', 'unsettledCheques', 'purchaseData', 'salesData', 'cashOutData', 'cashInData', 'customerBills', 'stocks'));
         }
 
         return redirect("/")->withSuccess('You are not allowed to access');
     }
-    public function updateRecord($from, $id)
+    public function updateChequeRecord($from, $id)
     {
-        if($from == 'customer'){
+        if ($from == 'customer') {
             $record = CustomerLedger::find($id);
-        }
-        else{
+        } else {
             $record = AccountLedger::find($id);
         }
-        
+
         if ($record) {
             $record->cheque_status = 'settled';
+            $record->save();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'error' => 'Record not found']);
+        }
+    }
+    public function updateBillRecord($id)
+    {
+        $record = CustomerLedger::find($id);
+        if ($record) {
+            $record->bill_status = 'paid';
             $record->save();
             return response()->json(['success' => true]);
         } else {

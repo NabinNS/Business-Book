@@ -68,8 +68,9 @@
 .dash-stock .table th:nth-child(1) {
     width: 50%;
 }
-#chequetable tbody tr{
+#chequetable tbody tr {
     cursor: pointer;
 }
-
-
+#billtable tbody tr {
+    cursor: pointer;
+}

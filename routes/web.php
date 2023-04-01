@@ -41,8 +41,7 @@ Route::get('/partydownload/{name}', [ConfirmationLetterController::class, 'pdfPa
 //Starting of the routes
 Route::get('/', [LoginController::class, 'index'])->name('startingpoint');
 Route::post('/login', [LoginController::class, 'Login'])->name('login');
-Route::get('dashboard', [DashboardController::class, 'dashboard'])->middleware('auth');
-Route::post('/update-record/{from}/{id}', [DashboardController::class, 'updateRecord']);
+
 
 //Forget password routing code starts from here
 Route::get('/forgetpassword', [ForgotPasswordController::class, 'forgetPassword']);
@@ -52,7 +51,9 @@ Route::get('reset-password/{token}', [ForgotPasswordController::class, 'ResetPas
 
 Route::post('reset-password', [ForgotPasswordController::class, 'ResetPasswordStore'])->name('ResetPasswordPost');
 //Dashboard
-// Route::get('dashboard', [DashboardController::class,'dashboard']);
+Route::get('dashboard', [DashboardController::class, 'dashboard'])->middleware('auth');
+Route::post('dashboard/update-chequerecord/{from}/{id}', [DashboardController::class, 'updateChequeRecord']);
+Route::post('dashboard/update-billrecord/{id}', [DashboardController::class, 'updateBillRecord']);
 //Parties route
 Route::get('parties', [AccountController::class, 'partiesHandler'])->name('parties');
 Route::get('addnewparty', [AccountController::class, 'addNewParty'])->name('addnewparty');
