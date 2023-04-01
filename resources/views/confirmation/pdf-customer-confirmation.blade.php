@@ -53,8 +53,8 @@
             <div style="display: flex; justify-content: space-between;">
                 <div>
                     @if (!empty($companyName->logo_path))
-                        <img style="width:60px; height:50px; line-height: 0.2;"
-                            src="{{ asset('images/' . $companyName->logo_path) }}">
+                        <img style="width:30px; height:30px;" src="data:image/png;base64,<?php echo base64_encode(file_get_contents(base_path('public/images/' . $companyName->logo_path))); ?>"
+                            width="120">
                     @endif
                 </div>
                 <div style="text-align: center; line-height: 1;">
