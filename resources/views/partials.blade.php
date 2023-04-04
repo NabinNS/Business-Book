@@ -156,6 +156,18 @@
 
                 </ul>
             </li>
+            @if (Auth::user()->role == 'admin')
+                <li>
+                    <a href="/user">
+                        <i class='bx bx-cart'></i>
+                        <span class="link_name">User Management</span>
+                    </a>
+                    <ul class="sub-menu blank">
+                        <li><a class="link_name" href="/user">User Management</a></li>
+                    </ul>
+                </li>
+            @endif
+
             <li>
                 <div class="profile-details">
                     <div class="name-job">

@@ -12,6 +12,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VatBillController;
 use App\Http\Controllers\VatController;
 use Illuminate\Support\Facades\Route;
@@ -118,6 +119,9 @@ Route::get('/orderdetails/{companyname}',[OrderController::class,'orderDetail'])
 Route::post('/saveorderdetails/{companyname}',[OrderController::class,'saveOrderDetail'])->name('saveorder');
 Route::get('/sendorder/{companyname}',[OrderController::class,'orderMail'])->name('sendorder');
 Route::get('/deleteorder/{id}',[OrderController::class,'destroy']);
+//user routes
+Route::get('/user',[UserController::class,'userPage']);
+Route::post('/user-create',[UserController::class,'createUser'])->name('createuser');
 
 
 

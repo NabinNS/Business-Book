@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'nabinshrestha348@gmail.com',
             'phone_number' => 9869064300,
             'password'=> Hash::make('nabin'),
+            'role'=>'admin',
         ]);
     }
 }
