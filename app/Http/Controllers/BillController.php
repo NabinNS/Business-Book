@@ -65,6 +65,8 @@ class BillController extends Controller
                     'quantity' => $request->quantity[$key],
                     'rate' => $request->rate[$key],
                 ]);
+                $stockInformation->purchase_price = $request->rate[$key];
+                $stockInformation->save();
             }
 
             return redirect('/parties/viewledger/' . $request->billingname)->with('success', 'Purchase bill recorded successfully');
@@ -86,6 +88,16 @@ class BillController extends Controller
                     'receipt_no' => $request->billno,
                     'particulars' => $request->transactiontype,
                     'credit' => $request->totalamt
+                ]);
+            }
+            foreach ($request->productname as $key => $value) {
+                $stockInformation = StockDetail::where('stock_name', $value)->firstOrFail();
+                $stockInformation->stockRemainingBalance()->decrement('quantity', $request->quantity[$key]);
+                $stockInformation->stockledger()->create([
+                    'date' => $request->date ?? Carbon::now(),
+                    'particulars' => 'sales',
+                    'receipt_no' => $request->billno,
+                    'issued_quantity' => $request->quantity[$key],
                 ]);
             }
             return redirect('/customers/viewledger/' . $request->billingname)->with('success', 'Sales bill recorded successfully');

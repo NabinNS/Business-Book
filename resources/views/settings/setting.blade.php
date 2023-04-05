@@ -68,7 +68,7 @@
                 <div class="d-flex justify-content-start mt-4">
 
                     <button class="btn btn-primary me-2">Update</button>
-                    <button class="btn btn-danger" id="backButton">Cancel</button>
+                    <button class="btn btn-danger" id="backButton" type="button">Cancel</button>
                 </div>
             </form>
             @if($userCompany)
@@ -158,8 +158,8 @@
 
                 <div class="d-flex justify-content-start mt-4">
 
-                    <button class="btn btn-primary me-2">Save</button>
-                    <button class="btn btn-danger" id="backButton">Cancel</button>
+                    <button class="btn btn-primary me-2" type="submit">Save</button>
+                    <button type="button" class="btn btn-danger" id="backButton">Cancel</button>
                 </div>
             </form>
             @endif
@@ -170,8 +170,6 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-
-
             $("[data-target]").click(function() {
 
                 var targetId = $(this).data("target");

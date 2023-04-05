@@ -50,21 +50,21 @@
 
             <table class="table table-bordered mt-4">
                 <colgroup>
-                  
+
                     <col style="width: 60%;">
                     <col style="width: 10%;">
                     <col style="width: 10%;">
                     <col style="width: 10%;">
                 </colgroup>
                 <tr class="billhead">
-        
+
                     <th>Particular</th>
                     <th>Quantity</th>
                     <th>Rate</th>
                     <th>Amount</th>
                 </tr>
                 <tr class="billbody">
-                  
+
                     <td>
                         <select class="selectname select-productname" name="productname[]">
                             @foreach ($productnames as $productname)
@@ -116,7 +116,6 @@
 
 
             </div>
-       
             <div class="d-flex justify-content-end m-2 mt-4">
 
                 <button type="submit" class="btn btn-success mt-5 m-2">Save</button>
@@ -130,35 +129,48 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('.selectname').select2({
-
-            });
+            $('.selectname').select2({});
             $('.selectbillingname').select2({
                 width: '300px'
             });
 
-            $("#newbtn").click(function() {
+            // $("#newbtn").click(function() {
 
+            //     var cloneRow = $("table tr.billbody:last").clone();
+
+            //     cloneRow.find("input").each(function() {
+            //         $(this).val('').attr({
+            //             'name': function(_, name) {
+            //                 return name
+            //             },
+            //             'value': ''
+            //         });
+            //     }).end().appendTo("table");
+
+
+            //     $('.selectname').select2({
+            //         width: '850px',
+            //     });
+            //     $('.selectname').last().next().next().remove();
+            // });
+            $("#newbtn").click(function() {
                 var cloneRow = $("table tr.billbody:last").clone();
 
-                cloneRow.find("input").each(function() {
-                    $(this).val('').attr({
-                        // 'id': function(_, id) {
-                        //     return id + x
-                        // },
-                        'name': function(_, name) {
-                            return name
-                        },
-                        'value': ''
-                    });
-                }).end().appendTo("table");
+                cloneRow.find("input").val('');
 
-
-                $('.selectname').select2({
-                    width: '850px',
+                cloneRow.find("select.selectname").each(function() {
+                    $(this).val($(this).find('option:first').val());
+                    $(this).removeAttr('data-select2-id'); // remove the select2 ID attribute
+                    $(this).next('.select2-container').remove(); // remove the select2 container
                 });
-                $('.selectname').last().next().next().remove();
+
+                cloneRow.appendTo("table");
+
+                $(".selectname").select2({
+                    width: '100%'
+                });
             });
+
 
 
             // Add a change event listener to parent element

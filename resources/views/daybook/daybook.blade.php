@@ -51,7 +51,7 @@
 
                     <div>
                         <div class="input-group">
-                            <select class="custom-select select-sizing" name="option">
+                            <select class="custom-select daybook-select-sizing" name="option">
                                 <option value="All">All Transaction</option>
                                 <option value="Parties">Parties Transaction</option>
                                 <option value="Customer">Customer Transaction</option>
