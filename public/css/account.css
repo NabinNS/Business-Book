@@ -137,3 +137,12 @@
 .highlight {
     background-color: red;
 }
+.icon {
+    padding: 8px;
+    font-size: 16px;
+}
+.delete-button {
+    background: none;
+    border: none;
+    color: red;
+}

@@ -9,7 +9,7 @@
             <colgroup>
 
                 <col style="width: 10%;">
-                <col style="width: 30%;">
+                <col style="width: 25%;">
                 <col style="width: 10%;">
                 <col style="width: 10%;">
                 <col style="width: 10%;">
@@ -41,3 +41,10 @@
         </table>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#listingtable').DataTable();
+        });
+    </script>
+@endpush

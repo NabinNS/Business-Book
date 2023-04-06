@@ -35,6 +35,11 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- chartjs cdn --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {{-- datatable cdn --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
@@ -158,12 +163,12 @@
             </li>
             @if (Auth::user()->role == 'admin')
                 <li>
-                    <a href="/user">
+                    <a href="{{ route('userlist') }}">
                         <i class='bx bx-cart'></i>
                         <span class="link_name">User Management</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="/user">User Management</a></li>
+                        <li><a class="link_name" href="{{ route('userlist') }}">User Management</a></li>
                     </ul>
                 </li>
             @endif
@@ -212,7 +217,6 @@
             });
 
         }, 4000);
-    
     </script>
 
     @stack('scripts')

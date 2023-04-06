@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             'phone_number' => 9869064300,
             'password'=> Hash::make('nabin'),
             'role'=>'admin',
+            'gender'=>'male',
+            'birthday'=>'2001-12-23',
         ]);
     }
 }

@@ -19,20 +19,29 @@ class SettingController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'password' => 'required|min:8',
             'location' => 'required',
             'email' => 'required',
             'phone' => 'required',
+            'gender' =>'required',
+            'birthday' =>'required',
         ]);
         $user = User::find($id);
+        $profilephoto = $request->profilephoto;
+        if ($request->hasFile('profilephoto')) {
+            $profilephoto = $request->name . '.' . $request->profilephoto->extension();
+            $request->profilephoto->move(public_path('images'), $profilephoto);
+        }
         $user->update([
             'name' => $request->name,
             'password' => Hash::make($request->password),
             'location' => $request->location,
             'email' => $request->email,
             'phone_number' => $request->phone,
+            'gender' => $request->gender,
+            'birthday' => $request->birthday,
+            'profile' => $profilephoto
         ]);
-        return redirect('setting/' . $id)->with('success', 'User update successful');
+        return redirect()->back()->with('success', 'User update successful');
     }
     public function updatePassword($id, Request $request)
     {

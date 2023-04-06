@@ -121,8 +121,11 @@ Route::post('/saveorderdetails/{companyname}',[OrderController::class,'saveOrder
 Route::get('/sendorder/{companyname}',[OrderController::class,'orderMail'])->name('sendorder');
 Route::get('/deleteorder/{id}',[OrderController::class,'destroy']);
 //user routes
-Route::get('/user',[UserController::class,'userPage']);
+Route::get('/adduser',[UserController::class,'userPage'])->name('adduser');
+Route::get('/user-list',[UserController::class,'userList'])->name('userlist');
 Route::post('/user-create',[UserController::class,'createUser'])->name('createuser');
+Route::get('/viewuserlist/{id}',[UserController::class,'viewUserList'])->name('viewuserlist');
+Route::post('user/delete/{id}',[UserController::class,'deleteUser'])->name('deleteUser');
 
 
 
