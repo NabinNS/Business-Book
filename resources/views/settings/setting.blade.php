@@ -27,17 +27,12 @@
             </div>
             <form id="account-form" method="post" action="{{ route('updatesetting', $user->id) }}">
                 @csrf
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Name"
-                        value="{{ $user->name }}" name="name">
-                    <label for="floatingInput">Name</label>
-                </div>
                 <div class="row">
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="floatingInput" placeholder="Password"
-                                name="password">
-                            <label for="floatingInput">Password</label>
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Name"
+                                value="{{ $user->name }}" name="name">
+                            <label for="floatingInput">Name</label>
                         </div>
                     </div>
                     <div class="col">
@@ -71,97 +66,127 @@
                     <button class="btn btn-danger" id="backButton" type="button">Cancel</button>
                 </div>
             </form>
-            @if($userCompany)
-            <form id="business-info-form" class="hide" method="post" enctype="multipart/form-data" action="{{ route('updatecompany') }}">
+            <hr>
+            <form method="post" action="{{ route('changepassword', $user->id) }}" id="password-form">
                 @csrf
-                <div class="row">
-                    <div class="col">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="Company Name" name="name" value="{{ $userCompany->company_name}}">
-                            <label for="floatingInput">Company Name</label>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-floating">
-                            <input type="text" class="form-control" id="floatingPassword" placeholder="Vat No" name="vatno" value="{{ $userCompany->vat_no}}">
-                            <label for="floatingPassword">VAT No</label>
-                        </div>
-                    </div>
+                <h4 class="m-3 text-center "><u>Change Password Setting</u></h4>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="floatingInput" placeholder="New Password"
+                        name="password1">
+                    <label for="floatingInput">New Password</label>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="Address" name="address" value="{{ $userCompany->address}}">
-                            <label for="floatingInput">Address</label>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-floating">
-                            <input type="number" class="form-control" id="floatingPassword" placeholder="Phone Number" name="phone" value="{{ $userCompany->phone_number}}">
-                            <label for="floatingPassword">Phone Number</label>
-                        </div>
-                    </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="floatingInput" placeholder="Confirm New Password"
+                        name="password2">
+                    <label for="floatingInput">Confirm New Password</label>
                 </div>
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">Logo of company</label>
-                    <input class="form-control" type="file" id="formFile" name="logo" accept="image/*">
-
-                </div>
-
-
                 <div class="d-flex justify-content-start mt-4">
 
-                    <button class="btn btn-primary me-2">Update</button>
-                    <button class="btn btn-danger" id="backButton">Cancel</button>
+                    <button class="btn btn-primary me-2">Update Password</button>
+                    <button class="btn btn-danger" id="backButton" type="button">Cancel</button>
                 </div>
-                <img class="mt-4" style="width:200px" src="{{ asset("images/" . $userCompany->logo_path) }}" >
-                <h6 class="mt-2">logo of the company</h6>
             </form>
+            @if ($userCompany)
+                <form id="business-info-form" class="hide" method="post" enctype="multipart/form-data"
+                    action="{{ route('updatecompany') }}">
+                    @csrf
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Company Name"
+                                    name="name" value="{{ $userCompany->company_name }}">
+                                <label for="floatingInput">Company Name</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="floatingPassword" placeholder="Vat No"
+                                    name="vatno" value="{{ $userCompany->vat_no }}">
+                                <label for="floatingPassword">VAT No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Address"
+                                    name="address" value="{{ $userCompany->address }}">
+                                <label for="floatingInput">Address</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating">
+                                <input type="number" class="form-control" id="floatingPassword"
+                                    placeholder="Phone Number" name="phone" value="{{ $userCompany->phone_number }}">
+                                <label for="floatingPassword">Phone Number</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Logo of company</label>
+                        <input class="form-control" type="file" id="formFile" name="logo" accept="image/*">
+
+                    </div>
+
+
+                    <div class="d-flex justify-content-start mt-4">
+
+                        <button class="btn btn-primary me-2">Update</button>
+                        <button class="btn btn-danger" id="backButton">Cancel</button>
+                    </div>
+                    <img class="mt-4" style="width:200px" src="{{ asset('images/' . $userCompany->logo_path) }}">
+                    <h6 class="mt-2">logo of the company</h6>
+                </form>
             @endif
-            @if(!$userCompany)
-            <form id="business-info-form" class="hide" method="post" enctype="multipart/form-data" action="{{ route('addcompany') }}">
-                @csrf
-                <div class="row">
-                    <div class="col">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="Company Name" name="name">
-                            <label for="floatingInput">Company Name</label>
+            @if (!$userCompany)
+                <form id="business-info-form" class="hide" method="post" enctype="multipart/form-data"
+                    action="{{ route('addcompany') }}">
+                    @csrf
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Company Name"
+                                    name="name">
+                                <label for="floatingInput">Company Name</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="floatingPassword" placeholder="Vat No"
+                                    name="vatno">
+                                <label for="floatingPassword">VAT No</label>
+                            </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="form-floating">
-                            <input type="text" class="form-control" id="floatingPassword" placeholder="Vat No" name="vatno" >
-                            <label for="floatingPassword">VAT No</label>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Address"
+                                    name="address">
+                                <label for="floatingInput">Address</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating">
+                                <input type="number" class="form-control" id="floatingPassword"
+                                    placeholder="Phone Number" name="phone">
+                                <label for="floatingPassword">Phone Number</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="Address" name="address">
-                            <label for="floatingInput">Address</label>
-                        </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Logo of company</label>
+                        <input class="form-control" type="file" id="formFile" name="logo" accept="image/*">
+
                     </div>
-                    <div class="col">
-                        <div class="form-floating">
-                            <input type="number" class="form-control" id="floatingPassword" placeholder="Phone Number" name="phone">
-                            <label for="floatingPassword">Phone Number</label>
-                        </div>
+
+
+                    <div class="d-flex justify-content-start mt-4">
+
+                        <button class="btn btn-primary me-2" type="submit">Save</button>
+                        <button type="button" class="btn btn-danger" id="backButton">Cancel</button>
                     </div>
-                </div>
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">Logo of company</label>
-                    <input class="form-control" type="file" id="formFile" name="logo" accept="image/*">
-
-                </div>
-
-
-                <div class="d-flex justify-content-start mt-4">
-
-                    <button class="btn btn-primary me-2" type="submit">Save</button>
-                    <button type="button" class="btn btn-danger" id="backButton">Cancel</button>
-                </div>
-            </form>
+                </form>
             @endif
         </div>
     </div>
@@ -176,10 +201,12 @@
 
                 if (targetId === "account-form") {
                     $("#account-form").show();
+                    $("#password-form").show();
                     $("#business-info-form").hide();
                 } else if (targetId === "business-info-form") {
                     $("#business-info-form").show();
                     $("#account-form").hide();
+                    $("#password-form").hide();
                 }
                 $("[data-target]").removeClass("setting-heading");
 

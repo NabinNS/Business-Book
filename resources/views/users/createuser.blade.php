@@ -18,6 +18,8 @@
 
     <div class="c-grid-item ">
         <div class="m-5">
+            <h4 class="mb-4 text-center">Settings</h4>
+            <hr>
             <form id="createuser-form" method="post" action="{{ route('createuser') }}">
                 @csrf
                 <div class="form-floating mb-3">

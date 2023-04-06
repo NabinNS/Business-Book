@@ -23,6 +23,7 @@
 
 
             <div class="ms-2">
+                <label for="">Billing Name:</label>
                 <select class="selectbillingname" name="billingname">
                     @if ($billtype == 'purchase')
                         @foreach ($names as $name)
@@ -68,7 +69,9 @@
                     <td>
                         <select class="selectname select-productname" name="productname[]">
                             @foreach ($productnames as $productname)
-                                <option value="{{ $productname->stock_name }}">{{ $productname->stock_name }}
+                                <option value="{{ $productname->stock_name }}"
+                                    data-price="{{ $billtype == 'purchase' ? $productname->purchase_price : $productname->sales_price }}">
+                                    {{ $productname->stock_name }}
                                 </option>
                             @endforeach
                         </select>
@@ -129,34 +132,33 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            function updateRateValue() {
+                $('.select-productname').each(function() {
+                    var price = $(this).find('option:selected').data('price');
+                    $(this).closest('tr').find('[name="rate[]"]').val(price);
+                });
+            }
+            // Call the function on page load
+            updateRateValue();
+            // Call the function on change of product dropdown
+            $(document).on('change', '.select-productname', function() {
+                updateRateValue();
+            });
+
+
+
             $('.selectname').select2({});
             $('.selectbillingname').select2({
                 width: '300px'
             });
 
-            // $("#newbtn").click(function() {
 
-            //     var cloneRow = $("table tr.billbody:last").clone();
-
-            //     cloneRow.find("input").each(function() {
-            //         $(this).val('').attr({
-            //             'name': function(_, name) {
-            //                 return name
-            //             },
-            //             'value': ''
-            //         });
-            //     }).end().appendTo("table");
-
-
-            //     $('.selectname').select2({
-            //         width: '850px',
-            //     });
-            //     $('.selectname').last().next().next().remove();
-            // });
             $("#newbtn").click(function() {
                 var cloneRow = $("table tr.billbody:last").clone();
 
-                cloneRow.find("input").val('');
+                // cloneRow.find("input").val('');
+                cloneRow.find('[name="amount"]').val('');
+                cloneRow.find('[name="quantity[]"]').val('');
 
                 cloneRow.find("select.selectname").each(function() {
                     $(this).val($(this).find('option:first').val());
@@ -169,7 +171,10 @@
                 $(".selectname").select2({
                     width: '100%'
                 });
+
+                cloneRow.find('.select-productname').trigger('change');
             });
+
 
 
 

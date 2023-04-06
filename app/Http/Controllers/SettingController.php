@@ -19,7 +19,7 @@ class SettingController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'password' => 'required',
+            'password' => 'required|min:8',
             'location' => 'required',
             'email' => 'required',
             'phone' => 'required',
@@ -34,6 +34,22 @@ class SettingController extends Controller
         ]);
         return redirect('setting/' . $id)->with('success', 'User update successful');
     }
+    public function updatePassword($id, Request $request)
+    {
+        $request->validate([
+            'password1' => 'required|min:8',
+            'password2' => 'required',
+        ]);
+        if ($request->password1 != $request->password2) {
+            return redirect('setting/' . $id)->with('error', 'Passwords do not match');
+        }
+        $user = User::find($id);
+        $user->update([
+            'password' => Hash::make($request->password1),
+        ]);
+        return redirect('setting/' . $id)->with('success', 'Password update successful');
+    }
+
     public function updateCompany(Request $request)
     {
         $request->validate([
@@ -59,7 +75,7 @@ class SettingController extends Controller
             $userCompany->logo_path = $logo;
             $userCompany->save();
         }
-  
+
         return redirect()->back()->with('success', 'Company update successful');
     }
     public function addCompany(Request $request)
@@ -83,7 +99,7 @@ class SettingController extends Controller
         $userCompany->phone_number = $request->phone;
         $userCompany->logo_path = $logo;
         $userCompany->save();
-        
+
         return redirect()->back()->with('success', 'Company created successfully');
     }
 }

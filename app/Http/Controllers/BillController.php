@@ -104,8 +104,6 @@ class BillController extends Controller
         }
     }
 
-
-
     //     public function updateStock(Request $request)
     // {
     //     $validatedData = $request->validate([

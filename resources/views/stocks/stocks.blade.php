@@ -561,8 +561,7 @@
                     $(this).toggle($(this).find("td").text().toLowerCase().indexOf(
                         value) > -1)
                 });
-            });
-
+            });    
         });
     </script>
 @endpush

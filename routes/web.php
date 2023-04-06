@@ -111,6 +111,7 @@ Route::get('/viewdaybook',[DaybookController::class,'viewDayBook']);
 //Setting Route
 Route::get('/setting/{id}',[SettingController::class,'settingPage'])->name('setting');
 Route::post('/setting/update/{id}',[SettingController::class,'updateUser'])->name('updatesetting');
+Route::post('/setting/passwordupdate/{id}',[SettingController::class,'updatePassword'])->name('changepassword');
 Route::post('/setting/addcompany',[SettingController::class,'addCompany'])->name('addcompany');
 Route::post('/setting/updatecompany',[SettingController::class,'updateCompany'])->name('updatecompany');
 //order route

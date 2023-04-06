@@ -57,7 +57,7 @@
                 </ul>
             </li>
             <li>
-                <div class="iocn-link">
+                <div class="icon-link">
                     <a href="/parties">
                         <i class='bx bxs-user-account'></i>
 
@@ -72,7 +72,7 @@
                 </ul>
             </li>
             <li>
-                <div class="iocn-link">
+                <div class="icon-link">
                     <a href="/stocks-list">
                         <i class='bx bx-line-chart'></i>
                         <span class="link_name">Stock</span>
@@ -83,7 +83,7 @@
                 </div>
             </li>
             <li>
-                <div class="iocn-link">
+                <div class="icon-link">
                     <a href="#">
                         <i class='bx bxs-report'></i>
                         <span class="link_name">Reports</span>
@@ -99,7 +99,7 @@
             </li>
 
             <li>
-                <div class="iocn-link">
+                <div class="icon-link">
                     <a href="#">
                         <i class='bx bxs-coin-stack'></i>
                         <span class="link_name">Vat Bills</span>
@@ -114,7 +114,7 @@
             </li>
 
             <li>
-                <div class="iocn-link">
+                <div class="icon-link">
                     <a href="#">
                         <i class='bx bx-receipt'></i>
                         <span class="link_name">Invoices</span>
@@ -212,6 +212,7 @@
             });
 
         }, 4000);
+    
     </script>
 
     @stack('scripts')
