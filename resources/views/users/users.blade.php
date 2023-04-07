@@ -44,9 +44,11 @@
                             <td>{{ $user->role }}</td>
                             <td>
                                 <a href="{{ route('viewuserlist', $user->id) }}"><i class="fa fa-eye icon"></i></a>
-                                <button type="button" class="delete-button" data-user-id="{{ $user->id }}">
-                                    <i class="fa fa-trash icon"></i>
-                                </button>
+                                @if ($user->id != Auth::user()->id)
+                                    <button type="button" class="delete-button" data-user-id="{{ $user->id }}">
+                                        <i class="fa fa-trash icon"></i>
+                                    </button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

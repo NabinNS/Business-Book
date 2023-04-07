@@ -199,8 +199,16 @@
         <div class="grid-item grid-item-3">
 
 
-            <h5 class="m-2 text">General Ledger</h5>
-            <hr class="text">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h5 class="mt-2 text ms-2">General Ledger</h5>
+
+                </div>
+                <div>
+                    <button class="mt-2 me-2 btn btn-secondary btn-sm" id="download-btn">Download PDF</button>
+                </div>
+            </div>
+            <hr class="text mt-2 mb-1">
 
             <div class="d-flex justify-content-between m-2">
 
@@ -260,8 +268,7 @@
 
     {{-- Modal for sales --}}
     <div>
-        <div class="modal fade" id="AddSales" tabindex="-1" aria-labelledby="AddSalesModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="AddSales" tabindex="-1" aria-labelledby="AddSalesModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -334,9 +341,11 @@
                                 </div>
                             </div>
                             <div class="modal-footer d-flex justify-content-between">
-                                <a href="{{ route('billpage', 'sales') }}" class="btn btn-primary">Add Detail Transaction</a>
+                                <a href="{{ route('billpage', 'sales') }}" class="btn btn-primary">Add Detail
+                                    Transaction</a>
                                 <div>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-success">Save sales</button>
                                 </div>
                             </div>
@@ -512,6 +521,38 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            var table = $('#ledgertable').DataTable({
+                paging: false,
+                searching: false,
+                ordering: false,
+                dom: 'frtip',
+                buttons: [{
+                    extend: 'pdfHtml5',
+                    text: 'Export PDF',
+                    title: '{{ $customerDetail->customer_name }}',
+                    className: 'ms-2 btn btn-primary btn-sm',
+                    customize: function(doc) {
+                        // Set table width to cover the entire page
+                        doc.content[1].table.widths = Array(doc.content[1].table.body[0]
+                            .length + 1).join('*').split('');
+
+                        // Add header content to the PDF
+                        var header = [{
+                            text: 'Business Book pvt ltd',
+                            fontSize: 12,
+                            alignment: 'center',
+                            margin: [0, 0, 0, 10]
+                        }];
+                        doc.content.splice(0, 0, header);
+                    }
+                }],
+                language: {
+                    info: ''
+                }
+            });
+            $('#download-btn').click(function() {
+                $('#ledgertable').DataTable().button('.buttons-pdf').trigger();
+            });
 
             $("#toogleSearchbar").click(function() {
                 $(".searchbar").removeClass("hide");
@@ -519,7 +560,7 @@
                 $('#toogleSearchbar').hide();
                 $('.addbutton').hide();
             });
-            
+
 
             $("tr").dblclick(function() {
                 var id = $(this).attr("id");

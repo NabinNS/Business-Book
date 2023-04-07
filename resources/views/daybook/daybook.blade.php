@@ -47,7 +47,7 @@
             <hr class="mb-3">
             <form action="/viewdaybook" method="get">
                 @csrf
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between mb-3">
 
                     <div>
                         <div class="input-group">
@@ -83,7 +83,7 @@
                 </div>
             </form>
 
-            <table class="table mt-3 table-bordered">
+            <table class="table mt-3 table-bordered" id="listingtable">
                 <colgroup>
                     <col style="width: 10%;">
                     <col style="width: 35%;">
@@ -130,5 +130,9 @@
 
 @endsection
 @push('scripts')
-    <script></script>
+    <script>
+        $(document).ready(function() {
+            $('#listingtable').DataTable();
+        });
+    </script>
 @endpush

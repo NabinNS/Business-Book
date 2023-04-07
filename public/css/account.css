@@ -26,7 +26,10 @@
 .grid-item-3 {
     grid-row: span 1;
     height: 555px;
-    overflow: scroll;
+    overflow: auto;
+}
+.grid-item-1::-webkit-scrollbar {
+    display: none;
 }
 .hide {
     display: none;
@@ -146,3 +149,16 @@
     border: none;
     color: red;
 }
+
+/* button.buttons-pdf {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+button.buttons-pdf:hover {
+    background-color: #0069d9;
+} */

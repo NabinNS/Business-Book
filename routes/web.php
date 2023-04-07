@@ -42,6 +42,7 @@ Route::get('/partydownload/{name}', [ConfirmationLetterController::class, 'pdfPa
 //Starting of the routes
 Route::get('/', [LoginController::class, 'index'])->name('startingpoint');
 Route::post('/login', [LoginController::class, 'Login'])->name('login');
+Route::get('/logout', [LoginController::class, 'logout']);
 
 
 //Forget password routing code starts from here

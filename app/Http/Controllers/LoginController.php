@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -27,5 +28,12 @@ class LoginController extends Controller
         }
 
         return redirect("/")->with('error', 'Username or Password not matched');
+    }
+    public function logout(){
+        Session::flush();
+
+        Auth::logout();
+
+        return redirect('/');
     }
 }

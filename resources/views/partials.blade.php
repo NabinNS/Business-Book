@@ -36,9 +36,18 @@
     {{-- chartjs cdn --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     {{-- datatable cdn --}}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script> --}}
+    <link
+        href="https://cdn.datatables.net/v/bs5/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/r-2.4.1/sl-1.6.2/datatables.min.css"
+        rel="stylesheet" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script
+        src="https://cdn.datatables.net/v/bs5/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/r-2.4.1/sl-1.6.2/datatables.min.js">
+    </script>
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -196,11 +205,36 @@
                 <strong>
                     <div id="clock" onload="currentTime()"></div>
                 </strong>
-                <div>
-                    <h6>Welcome, {{ Auth::user()->name }}</h6>
+                <div class="dropdown me-2 mt-1">
+                    @if (Auth::user()->profile)
+                        <img src="{{ asset('images/' . Auth::user()->profile) }}" width="40" height="40"
+                            class="dropbtn">
+                    @else
+                        <i class='bx bx-user'></i>
+                    @endif
+                    <div class="dropdown-content">
+                        <p class="text-center mt-1">{{  Auth::user()->name }}</p>
+                        <hr>
+                        <a href="{{ route('viewuserlist', Auth::user()->id) }}">View Profile</a>
+                        <a href="{{ route('setting', Auth::user()->id) }}">Settings</a>
+                        <a href="/logout">Logout</a>
+                    </div>
                 </div>
+                {{-- <div class="me-2 mt-1 dropdown">
+                    @if (Auth::user()->profile)
+                        <img src="{{ asset('images/' . Auth::user()->profile ) }}" width="40" height="40" class="dropbtn">
+                    @else
+                        <i class='bx bx-user'></i>
+                    @endif
+                    <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="#">Link 3</a>
+                      </div>
+                </div> --}}
             </div>
         </nav>
+
 
         <!-- codes here -->
         @yield('content')

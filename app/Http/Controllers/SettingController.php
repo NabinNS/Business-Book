@@ -22,8 +22,8 @@ class SettingController extends Controller
             'location' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'gender' =>'required',
-            'birthday' =>'required',
+            'gender' => 'required',
+            'birthday' => 'required',
         ]);
         $user = User::find($id);
         $profilephoto = $request->profilephoto;
@@ -33,7 +33,6 @@ class SettingController extends Controller
         }
         $user->update([
             'name' => $request->name,
-            'password' => Hash::make($request->password),
             'location' => $request->location,
             'email' => $request->email,
             'phone_number' => $request->phone,

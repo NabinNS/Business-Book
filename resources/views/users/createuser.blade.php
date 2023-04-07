@@ -120,7 +120,7 @@
 
                                         <div class="row mt-3">
                                             <div class="col-sm-9 ms-2">
-                                                <button class="btn btn-primary me-2">Update</button>
+                                                <button class="btn btn-primary me-2">Create</button>
                                                 <button class="btn btn-danger" id="backButton"
                                                     type="button">Cancel</button>
                                             </div>
