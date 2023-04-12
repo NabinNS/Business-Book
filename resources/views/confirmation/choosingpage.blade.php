@@ -25,10 +25,10 @@
     <div class="d-flex justify-content-center">
 
         <div class="c-category me-5" data-type="parties">
-            <h3 class="text-center">Parties</h3>
+            <h3 class="text-center text-danger">Parties</h3>
         </div>
         <div class="c-category ms-5" data-type="customers">
-            <h3 class="text-center">Customers</h3>
+            <h3 class="text-center text-success">Customers</h3>
         </div>
     </div>
     </div>

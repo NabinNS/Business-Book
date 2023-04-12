@@ -65,7 +65,7 @@
         </div>
 
         <div class="d-flex justify-content-between mt-3">
-            <div class="dash-bill col-md-6 mb-3">
+            <div class="dash-bill mb-3">
                 <!-- your bill table here -->
                 <h6 class="text-center mt-1"><u>Unpaid Bill Details</u></h6>
                 <table class="table table-hover" id="billtable">
@@ -89,7 +89,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="d-flex flex-column col-md-6">
+            <div class="d-flex flex-column me-2">
                 <div class="dash-stock mb-3">
                     <!-- your stock table here -->
                     <h6 class="text-center mt-1"><u>Low Stock Details</u></h6>

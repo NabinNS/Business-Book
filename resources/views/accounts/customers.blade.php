@@ -216,10 +216,12 @@
                     <input type="text" class="form-control ledgersearch" placeholder="Search" />
                 </div>
                 <div>
-                    <button type="button" class="btn btn-outline-success ms-2" data-bs-toggle="modal"
-                        data-bs-target="#AddSales">Sales</button>
-                    <button type="button" class="btn btn-outline-danger ms-2" data-bs-toggle="modal"
-                        data-bs-target="#AddPayment">Cash In</button>
+                    @if (auth()->user()->role != 'marketing')
+                        <button type="button" class="btn btn-outline-success ms-2" data-bs-toggle="modal"
+                            data-bs-target="#AddSales">Sales</button>
+                        <button type="button" class="btn btn-outline-danger ms-2" data-bs-toggle="modal"
+                            data-bs-target="#AddPayment">Cash In</button>
+                    @endif
                 </div>
             </div>
 

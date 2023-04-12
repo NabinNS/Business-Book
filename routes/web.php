@@ -52,10 +52,7 @@ Route::post('/forgetpassword', [ForgotPasswordController::class, 'forgetPassword
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'ResetPassword'])->name('ResetPasswordGet');
 
 Route::post('reset-password', [ForgotPasswordController::class, 'ResetPasswordStore'])->name('ResetPasswordPost');
-//Dashboard
-Route::get('dashboard', [DashboardController::class, 'dashboard'])->middleware('auth');
-Route::post('dashboard/update-chequerecord/{from}/{id}', [DashboardController::class, 'updateChequeRecord']);
-Route::post('dashboard/update-billrecord/{id}', [DashboardController::class, 'updateBillRecord']);
+
 //Parties route
 Route::get('parties', [AccountController::class, 'partiesHandler'])->name('parties');
 Route::get('addnewparty', [AccountController::class, 'addNewParty'])->name('addnewparty');
@@ -81,53 +78,61 @@ Route::get('stock/sales', [StockController::class, 'stockSales'])->name('stocksa
 Route::get('stock/purchase', [StockController::class, 'stockPurchase'])->name('stockpurchase');
 Route::get('stocks/editstock/{stockname}', [StockController::class, 'editStockDetails'])->name('editstock');
 Route::get('stocks/editstockledger/{id}/{stockname}', [StockController::class, 'editStockLedgerDetails'])->name('editstockledgerdetails');
-//Bill
-Route::get('bill/{billtype}', [BillController::class, 'BillPage'])->where('billtype', 'purchase|sales')->name('billpage');
-Route::get('/billingrecord/{billtype}', [BillController::class, 'billingRecord'])->name('billingrecord');
-Route::get('/returnback', [BillController::class, 'returnBack'])->name('returnback');
-//Confirmation Letters route
-Route::get('/confirmationletters', [ConfirmationLetterController::class, 'indexPage']);
-Route::get('/confirmationletters/{name}', [ConfirmationLetterController::class, 'viewList']);
-Route::get('/confirmationletters/viewpartiesconfirmation/{name}', [ConfirmationLetterController::class, 'viewPartiesConfirmation'])->name('viewpartiesconfirmation');
-Route::get('/confirmationletters/viewcustomersconfirmation/{name}', [ConfirmationLetterController::class, 'viewCustomersConfirmation'])->name('viewcustomersconfirmation');
-Route::post('/customerdownload/{name}', [ConfirmationLetterController::class, 'pdfCustomerDownload'])->name('customersdownload.pdf');
-Route::post('/partydownload/{name}', [ConfirmationLetterController::class, 'pdfPartyDownload'])->name('partiesdownload.pdf');
-//VAT Route
-Route::get('/vat', [VatController::class, 'indexPage']);
-//Purchase And Sales Bill
-Route::get('/purchasebillmonths',[VatBillController::class,'purchaseMonths']);
-Route::get('/salesbillmonths',[VatBillController::class,'salesMonths']);
-Route::get('/purchasebilldetail/{month}',[VatBillController::class,'purchaseDetails'])->name('purchaseDetail');
-Route::get('/salesbilldetail/{month}',[VatBillController::class,'salesDetails'])->name('salesDetail');
-//Inovices Route
-Route::get('/quotation',[InvoiceController::class,'quotation']);
-Route::get('/savequotation',[InvoiceController::class,'saveQuotation'])->name('savequotation');
-Route::get('/updatequotation',[InvoiceController::class,'updateQuotation'])->name('updatequotation');
-Route::get('/quotationrecord',[InvoiceController::class,'quotationRecord'])->name('quotationrecord');
-Route::get('/quotationrecorddetail/{billno}/{customername}',[InvoiceController::class,'quotationRecordDetail'])->name('quotationrecorddetail');
-Route::get('/downloadquotation/{billno}/{customername}',[InvoiceController::class,'pdfQuotation'])->name('downloadquotation');
-//Daybook Route
-Route::get('/daybook',[DaybookController::class,'daybookPage']);
-Route::get('/viewdaybook',[DaybookController::class,'viewDayBook']);
-//Setting Route
-Route::get('/setting/{id}',[SettingController::class,'settingPage'])->name('setting');
-Route::post('/setting/update/{id}',[SettingController::class,'updateUser'])->name('updatesetting');
-Route::post('/setting/passwordupdate/{id}',[SettingController::class,'updatePassword'])->name('changepassword');
-Route::post('/setting/addcompany',[SettingController::class,'addCompany'])->name('addcompany');
-Route::post('/setting/updatecompany',[SettingController::class,'updateCompany'])->name('updatecompany');
-//order route
-Route::get('/order',[OrderController::class,'orderList']);
-Route::get('/orderdetails/{companyname}',[OrderController::class,'orderDetail']);
-Route::post('/saveorderdetails/{companyname}',[OrderController::class,'saveOrderDetail'])->name('saveorder');
-Route::get('/sendorder/{companyname}',[OrderController::class,'orderMail'])->name('sendorder');
-Route::get('/deleteorder/{id}',[OrderController::class,'destroy']);
-//user routes
-Route::get('/adduser',[UserController::class,'userPage'])->name('adduser');
-Route::get('/user-list',[UserController::class,'userList'])->name('userlist');
-Route::post('/user-create',[UserController::class,'createUser'])->name('createuser');
-Route::get('/viewuserlist/{id}',[UserController::class,'viewUserList'])->name('viewuserlist');
-Route::post('user/delete/{id}',[UserController::class,'deleteUser'])->name('deleteUser');
+Route::middleware(['notmaketing'])->group(function () {
+    //Dashboard
+    Route::get('dashboard', [DashboardController::class, 'dashboard'])->middleware('auth');
+    Route::post('dashboard/update-chequerecord/{from}/{id}', [DashboardController::class, 'updateChequeRecord']);
+    Route::post('dashboard/update-billrecord/{id}', [DashboardController::class, 'updateBillRecord']);
+    //Bill
+    Route::get('bill/{billtype}', [BillController::class, 'BillPage'])->where('billtype', 'purchase|sales')->name('billpage');
+    Route::get('/billingrecord/{billtype}', [BillController::class, 'billingRecord'])->name('billingrecord');
+    Route::get('/returnback', [BillController::class, 'returnBack'])->name('returnback');
+    //Confirmation Letters route
+    Route::get('/confirmationletters', [ConfirmationLetterController::class, 'indexPage']);
+    Route::get('/confirmationletters/{name}', [ConfirmationLetterController::class, 'viewList']);
+    Route::get('/confirmationletters/viewpartiesconfirmation/{name}', [ConfirmationLetterController::class, 'viewPartiesConfirmation'])->name('viewpartiesconfirmation');
+    Route::get('/confirmationletters/viewcustomersconfirmation/{name}', [ConfirmationLetterController::class, 'viewCustomersConfirmation'])->name('viewcustomersconfirmation');
+    Route::post('/customerdownload/{name}', [ConfirmationLetterController::class, 'pdfCustomerDownload'])->name('customersdownload.pdf');
+    Route::post('/partydownload/{name}', [ConfirmationLetterController::class, 'pdfPartyDownload'])->name('partiesdownload.pdf');
+    //VAT Route
+    Route::get('/vat', [VatController::class, 'indexPage']);
+    //Purchase And Sales Bill
+    Route::get('/purchasebillmonths', [VatBillController::class, 'purchaseMonths']);
+    Route::get('/salesbillmonths', [VatBillController::class, 'salesMonths']);
+    Route::get('/purchasebilldetail/{month}', [VatBillController::class, 'purchaseDetails'])->name('purchaseDetail');
+    Route::get('/salesbilldetail/{month}', [VatBillController::class, 'salesDetails'])->name('salesDetail');
+    //Inovices Route
+    Route::get('/quotation', [InvoiceController::class, 'quotation']);
+    Route::get('/savequotation', [InvoiceController::class, 'saveQuotation'])->name('savequotation');
+    Route::get('/updatequotation', [InvoiceController::class, 'updateQuotation'])->name('updatequotation');
+    Route::get('/quotationrecord', [InvoiceController::class, 'quotationRecord'])->name('quotationrecord');
+    Route::get('/quotationrecorddetail/{billno}/{customername}', [InvoiceController::class, 'quotationRecordDetail'])->name('quotationrecorddetail');
+    Route::get('/downloadquotation/{billno}/{customername}', [InvoiceController::class, 'pdfQuotation'])->name('downloadquotation');
+    //Daybook Route
+    Route::get('/daybook', [DaybookController::class, 'daybookPage']);
+    Route::get('/viewdaybook', [DaybookController::class, 'viewDayBook']);
+    //Setting Route
+    Route::get('/setting/{id}', [SettingController::class, 'settingPage'])->name('setting');
+    Route::post('/setting/update/{id}', [SettingController::class, 'updateUser'])->name('updatesetting');
+    Route::post('/setting/passwordupdate/{id}', [SettingController::class, 'updatePassword'])->name('changepassword');
+    Route::post('/setting/addcompany', [SettingController::class, 'addCompany'])->name('addcompany');
+    Route::post('/setting/updatecompany', [SettingController::class, 'updateCompany'])->name('updatecompany');
+    //order route
 
+    Route::get('/order', [OrderController::class, 'orderList']);
+    Route::get('/orderdetails/{companyname}', [OrderController::class, 'orderDetail']);
+    Route::post('/saveorderdetails/{companyname}', [OrderController::class, 'saveOrderDetail'])->name('saveorder');
+    Route::get('/sendorder/{companyname}', [OrderController::class, 'orderMail'])->name('sendorder');
+    Route::get('/deleteorder/{id}', [OrderController::class, 'destroy']);
+});
+//user routes
+Route::middleware(['admin'])->group(function () {
+    Route::get('/adduser', [UserController::class, 'userPage'])->name('adduser');
+    Route::get('/user-list', [UserController::class, 'userList'])->name('userlist');
+    Route::post('/user-create', [UserController::class, 'createUser'])->name('createuser');
+    Route::get('/viewuserlist/{id}', [UserController::class, 'viewUserList'])->name('viewuserlist');
+    Route::post('user/delete/{id}', [UserController::class, 'deleteUser'])->name('deleteUser');
+});
 
 
 

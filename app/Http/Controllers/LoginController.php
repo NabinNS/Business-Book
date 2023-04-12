@@ -24,12 +24,20 @@ class LoginController extends Controller
 
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect('dashboard');
+            if (auth()->user()->role == 'marketing') {
+                return redirect('parties');
+            } else {
+                return redirect('dashboard');
+            }
         }
+        // if (Auth::attempt($credentials)) {
+        //     return redirect('dashboard');
+        // }
 
         return redirect("/")->with('error', 'Username or Password not matched');
     }
-    public function logout(){
+    public function logout()
+    {
         Session::flush();
 
         Auth::logout();

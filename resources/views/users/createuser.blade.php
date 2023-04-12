@@ -85,7 +85,7 @@
                                                 <select class="form-select" id="roleselect" name="role">
                                                     <option value="admin">Admin</option>
                                                     <option value="accountant">Accountant</option>
-                                                    <option value="Marketing">Marketing</option>
+                                                    <option value="marketing">Marketing</option>
                                                 </select>
                                             </div>
                                         </div>

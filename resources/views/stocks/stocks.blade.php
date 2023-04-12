@@ -124,10 +124,12 @@
                     <input type="text" class="form-control ledgersearch" placeholder="Search" />
                 </div>
                 <div>
-                    <button type="button" class="btn btn-outline-success ms-2" data-bs-toggle="modal"
-                        data-bs-target="#AddPurchase">Purchase</button>
-                    <button type="button" class="btn btn-outline-danger ms-2" data-bs-toggle="modal"
-                        data-bs-target="#AddSales">Sales</button>
+                    @if (auth()->user()->role != 'marketing')
+                        <button type="button" class="btn btn-outline-success ms-2" data-bs-toggle="modal"
+                            data-bs-target="#AddPurchase">Purchase</button>
+                        <button type="button" class="btn btn-outline-danger ms-2" data-bs-toggle="modal"
+                            data-bs-target="#AddSales">Sales</button>
+                    @endif
                 </div>
             </div>
 
@@ -561,7 +563,7 @@
                     $(this).toggle($(this).find("td").text().toLowerCase().indexOf(
                         value) > -1)
                 });
-            });    
+            });
         });
     </script>
 @endpush

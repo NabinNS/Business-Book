@@ -132,7 +132,11 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#listingtable').DataTable();
+            $('#listingtable').DataTable(
+                language: {
+                    "zeroRecords": " "
+                },
+            );
         });
     </script>
 @endpush

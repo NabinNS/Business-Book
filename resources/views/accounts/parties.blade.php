@@ -102,6 +102,7 @@
                     <button class="btn-custom-grid2 grid2-download">Download <i class="fa fa-download"></i></button>
                     <button class="btn-custom-grid2 grid2-delete">Delete <i class="fa fa-trash"></i></button>
                 </div>
+
             </div>
 
         </div>
@@ -112,7 +113,7 @@
             <div class="d-flex justify-content-between">
                 <div>
                     <h5 class="mt-2 text ms-2">General Ledger</h5>
-                   
+
                 </div>
                 <div>
                     <button class="mt-2 me-2 btn btn-secondary btn-sm" id="download-btn">Download PDF</button>
@@ -125,10 +126,12 @@
                     <input type="text" class="form-control ledgersearch" placeholder="Search" />
                 </div>
                 <div>
-                    <button type="button" class="btn btn-outline-success ms-2" data-bs-toggle="modal"
-                        data-bs-target="#AddPurchase">Purchase</button>
-                    <button type="button" class="btn btn-outline-danger ms-2" data-bs-toggle="modal"
-                        data-bs-target="#AddPayment">Payment</button>
+                    @if (auth()->user()->role != 'marketing')
+                        <button type="button" class="btn btn-outline-success ms-2" data-bs-toggle="modal"
+                            data-bs-target="#AddPurchase">Purchase</button>
+                        <button type="button" class="btn btn-outline-danger ms-2" data-bs-toggle="modal"
+                            data-bs-target="#AddPayment">Payment</button>
+                    @endif
                 </div>
             </div>
 

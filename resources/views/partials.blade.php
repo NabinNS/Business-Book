@@ -61,15 +61,17 @@
             <span class="logo_name">Business Book</span>
         </div>
         <ul class="nav-links">
-            <li>
-                <a href="/dashboard">
-                    <i class="bx bx-grid-alt"></i>
-                    <span class="link_name">Dashboard</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a class="link_name" href="/dashboard">Dashboard</a></li>
-                </ul>
-            </li>
+            @if (Auth::user()->role != 'marketing')
+                <li>
+                    <a href="/dashboard">
+                        <i class="bx bx-grid-alt"></i>
+                        <span class="link_name">Dashboard</span>
+                    </a>
+                    <ul class="sub-menu blank">
+                        <li><a class="link_name" href="/dashboard">Dashboard</a></li>
+                    </ul>
+                </li>
+            @endif
             <li>
                 <div class="icon-link">
                     <a href="/parties">
@@ -96,70 +98,72 @@
                     </ul>
                 </div>
             </li>
-            <li>
-                <div class="icon-link">
-                    <a href="#">
-                        <i class='bx bxs-report'></i>
-                        <span class="link_name">Reports</span>
+            @if (Auth::user()->role != 'marketing')
+                <li>
+                    <div class="icon-link">
+                        <a href="#">
+                            <i class='bx bxs-report'></i>
+                            <span class="link_name">Reports</span>
+                        </a>
+                        <i class="bx bxs-chevron-down arrow"></i>
+                    </div>
+                    <ul class="sub-menu">
+                        <li><a class="link_name" href="#">Reports</a></li>
+                        <li><a href="/vat">VAT</a></li>
+                        <li><a href="/confirmationletters">Confirmation letters</a></li>
+                        <li><a href="/quotationrecord">Quotations Record</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <div class="icon-link">
+                        <a href="#">
+                            <i class='bx bxs-coin-stack'></i>
+                            <span class="link_name">Vat Bills</span>
+                        </a>
+                        <i class='bx bxs-chevron-down arrow'></i>
+                    </div>
+                    <ul class="sub-menu">
+                        <li><a class="link_name" href="#">Vat Bills</a></li>
+                        <li><a href="/purchasebillmonths">Purchase</a></li>
+                        <li><a href="/salesbillmonths">Sales</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <div class="icon-link">
+                        <a href="#">
+                            <i class='bx bx-receipt'></i>
+                            <span class="link_name">Invoices</span>
+                        </a>
+                        <i class="bx bxs-chevron-down arrow"></i>
+                    </div>
+                    <ul class="sub-menu">
+                        <li><a class="link_name" href="#">Invoices</a></li>
+
+                        <li><a href="/quotation">Quotation</a></li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="/daybook">
+                        <i class='bx bxs-book-alt'></i>
+                        <span class="link_name">DayBook</span>
                     </a>
-                    <i class="bx bxs-chevron-down arrow"></i>
-                </div>
-                <ul class="sub-menu">
-                    <li><a class="link_name" href="#">Reports</a></li>
-                    <li><a href="/vat">VAT</a></li>
-                    <li><a href="/confirmationletters">Confirmation letters</a></li>
-                    <li><a href="/quotationrecord">Quotations Record</a></li>
-                </ul>
-            </li>
-
-            <li>
-                <div class="icon-link">
-                    <a href="#">
-                        <i class='bx bxs-coin-stack'></i>
-                        <span class="link_name">Vat Bills</span>
+                    <ul class="sub-menu blank">
+                        <li><a class="link_name" href="/daybook">DayBook</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/order">
+                        <i class='bx bx-cart'></i>
+                        <span class="link_name">Order</span>
                     </a>
-                    <i class='bx bxs-chevron-down arrow'></i>
-                </div>
-                <ul class="sub-menu">
-                    <li><a class="link_name" href="#">Vat Bills</a></li>
-                    <li><a href="/purchasebillmonths">Purchase</a></li>
-                    <li><a href="/salesbillmonths">Sales</a></li>
-                </ul>
-            </li>
-
-            <li>
-                <div class="icon-link">
-                    <a href="#">
-                        <i class='bx bx-receipt'></i>
-                        <span class="link_name">Invoices</span>
-                    </a>
-                    <i class="bx bxs-chevron-down arrow"></i>
-                </div>
-                <ul class="sub-menu">
-                    <li><a class="link_name" href="#">Invoices</a></li>
-
-                    <li><a href="/quotation">Quotation</a></li>
-
-                </ul>
-            </li>
-            <li>
-                <a href="/daybook">
-                    <i class='bx bxs-book-alt'></i>
-                    <span class="link_name">DayBook</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a class="link_name" href="/daybook">DayBook</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="/order">
-                    <i class='bx bx-cart'></i>
-                    <span class="link_name">Order</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a class="link_name" href="/order">Order</a></li>
-                </ul>
-            </li>
+                    <ul class="sub-menu blank">
+                        <li><a class="link_name" href="/order">Order</a></li>
+                    </ul>
+                </li>
+            @endif
             <li>
                 <a href="{{ route('setting', Auth::user()->id) }}">
                     <i class="bx bx-cog"></i>
@@ -210,10 +214,10 @@
                         <img src="{{ asset('images/' . Auth::user()->profile) }}" width="40" height="40"
                             class="dropbtn">
                     @else
-                        <i class='bx bx-user'></i>
+                        <i class='bx bx-user' style="width:40px;"></i>
                     @endif
                     <div class="dropdown-content">
-                        <p class="text-center mt-1">{{  Auth::user()->name }}</p>
+                        <p class="text-center mt-1">{{ Auth::user()->name }}</p>
                         <hr>
                         <a href="{{ route('viewuserlist', Auth::user()->id) }}">View Profile</a>
                         <a href="{{ route('setting', Auth::user()->id) }}">Settings</a>
