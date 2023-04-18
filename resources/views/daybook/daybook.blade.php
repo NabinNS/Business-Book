@@ -101,7 +101,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                <tbody>
 
                     @foreach ($sortedDetails as $detail)
                         <tr>
@@ -132,11 +131,7 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#listingtable').DataTable(
-                language: {
-                    "zeroRecords": " "
-                },
-            );
+            $('#listingtable').DataTable();
         });
     </script>
 @endpush

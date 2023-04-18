@@ -150,22 +150,33 @@
             </form>
             <form method="post" class="hide" action="{{ route('changepassword', $user->id) }}" id="password-form">
                 @csrf
-                <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="floatingInput" placeholder="New Password"
-                        name="password1">
-                    <label for="floatingInput">New Password</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="floatingInput" placeholder="Confirm New Password"
-                        name="password2">
-                    <label for="floatingInput">Confirm New Password</label>
-                </div>
-                <div class="d-flex justify-content-start mt-4">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                    <div class="container">
+                        <div class="card shadow-lg">
+                            <div class="card-header">
+                                <h4 class="fw-bold mb-0 text-center">Change Password</h4>
+                            </div>
+                            <div class="card-body">
 
-                    <button class="btn btn-primary me-2">Update Password</button>
-                    <button class="btn btn-danger" id="backButton" type="button">Cancel</button>
+                                <div class="mb-3">
+                                    <label class="form-label" for="password1">New Password:</label>
+                                    <input class="form-control" type="password" name="password1" id="password1">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="password2">Confirm New Password:</label>
+                                    <input class="form-control" type="password" name="password2" id="password2">
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-primary me-2" type="submit">Update Password</button>
+                                    <button class="btn btn-secondary" id="backButton" type="button">Cancel</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
+
             @if ($userCompany)
                 <form id="business-info-form" class="hide" method="post" enctype="multipart/form-data"
                     action="{{ route('updatecompany') }}">

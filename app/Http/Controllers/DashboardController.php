@@ -26,54 +26,30 @@ class DashboardController extends Controller
             //chat js datas
             // Retrieve purchase data for a given year
             // Retrieve purchase data for a given year
-            $purchaseData = AccountLedger::selectRaw('DATE_FORMAT(date, "%M") as month_name, MONTH(date) as month_number, SUM(credit) as total')
-                ->whereRaw('YEAR(date) = ?', [$currentYear])
-                ->groupBy('month_name', 'month_number')
-                ->orderBy('month_number')
-                ->get();
+            $purchaseData = AccountLedger::selectRaw('DATE_FORMAT(date, "%M") as month_name, MONTH(date) as month_number, SUM(credit) as total')->whereRaw('YEAR(date) = ?', [$currentYear])->groupBy('month_name', 'month_number')->orderBy('month_number')->get();
 
             // Retrieve sales data for a given year
-            $salesData = CustomerLedger::selectRaw('DATE_FORMAT(date, "%M") as month_name, MONTH(date) as month_number, SUM(debit) as total')
-                ->whereRaw('YEAR(date) = ?', [$currentYear])
-                ->groupBy('month_name', 'month_number')
-                ->orderBy('month_number')
-                ->get();
+            $salesData = CustomerLedger::selectRaw('DATE_FORMAT(date, "%M") as month_name, MONTH(date) as month_number, SUM(debit) as total') ->whereRaw('YEAR(date) = ?', [$currentYear]) ->groupBy('month_name', 'month_number') ->orderBy('month_number') ->get();
 
             // Retrieve cash out data for a given year
-            $cashOutData = AccountLedger::selectRaw('DATE_FORMAT(date, "%M") as month_name, MONTH(date) as month_number, SUM(debit) as total')
-                ->whereRaw('YEAR(date) = ?', [$currentYear])
-                ->groupBy('month_name', 'month_number')
-                ->orderBy('month_number')
-                ->get();
+            $cashOutData = AccountLedger::selectRaw('DATE_FORMAT(date, "%M") as month_name, MONTH(date) as month_number, SUM(debit) as total')->whereRaw('YEAR(date) = ?', [$currentYear]) ->groupBy('month_name', 'month_number') ->orderBy('month_number')->get();
 
             // Retrieve cash in data for a given year
-            $cashInData = CustomerLedger::selectRaw('DATE_FORMAT(date, "%M") as month_name, MONTH(date) as month_number, SUM(credit) as total')
-                ->whereRaw('YEAR(date) = ?', [$currentYear])
-                ->groupBy('month_name', 'month_number')
-                ->orderBy('month_number')
-                ->get();
+            $cashInData = CustomerLedger::selectRaw('DATE_FORMAT(date, "%M") as month_name, MONTH(date) as month_number, SUM(credit) as total')->whereRaw('YEAR(date) = ?', [$currentYear])->groupBy('month_name', 'month_number') ->orderBy('month_number')->get();
 
             // unsettled cheque results
-            $companyCheque = AccountLedger::where('cheque_status', 'unsettled')
-                ->select('acc_id', 'date', 'debit', 'company_details_id')
-                ->get();
-            $customerCheque = CustomerLedger::where('cheque_status', 'unsettled')
-                ->select('customerledger_id', 'date', 'credit', 'customer_detail_id')
+            $companyCheque = AccountLedger::where('cheque_status', 'unsettled')->select('acc_id', 'date', 'debit', 'company_details_id')->get();
+            $customerCheque = CustomerLedger::where('cheque_status', 'unsettled')->select('customerledger_id', 'date', 'credit', 'customer_detail_id')
                 ->get();
             $unsettledCheques = $companyCheque->concat($customerCheque)->sortBy('date');
             // dd($unsettledCheques);
             //unsettled bill results
-            $customerBills = CustomerLedger::where('bill_status', 'unpaid')
-                ->select('customerledger_id','date', 'receipt_no', 'debit', 'customer_detail_id')
-                ->get();
+            $customerBills = CustomerLedger::where('bill_status', 'unpaid') ->select('customerledger_id', 'date', 'receipt_no', 'debit', 'customer_detail_id') ->get();
             //low limit results
-            $stocks = StockRemainingBalance::join('stock_details', 'stock_remaining_balances.stock_detail_id', '=', 'stock_details.id')
-                ->select('stock_details.stock_name', 'stock_remaining_balances.quantity', 'stock_details.limit')
-                ->whereRaw('stock_details.limit - stock_remaining_balances.quantity > 0')
-                ->get();
+            $stocks = StockRemainingBalance::join('stock_details', 'stock_remaining_balances.stock_detail_id', '=', 'stock_details.id') ->select('stock_details.stock_name', 'stock_remaining_balances.quantity', 'stock_details.limit') ->whereRaw('stock_details.limit - stock_remaining_balances.quantity > 0') ->get();
             //stock value in company
-            $stockDetails = StockDetail::all();            
-            return view('dashboard', compact('customers', 'parties', 'purchases', 'sales', 'unsettledCheques', 'purchaseData', 'salesData', 'cashOutData', 'cashInData', 'customerBills', 'stocks','stockDetails'));
+            $stockDetails = StockDetail::all();
+            return view('dashboard', compact('customers', 'parties', 'purchases', 'sales', 'unsettledCheques', 'purchaseData', 'salesData', 'cashOutData', 'cashInData', 'customerBills', 'stocks', 'stockDetails'));
         }
 
         return redirect("/")->withSuccess('You are not allowed to access');

@@ -30,10 +30,6 @@ class LoginController extends Controller
                 return redirect('dashboard');
             }
         }
-        // if (Auth::attempt($credentials)) {
-        //     return redirect('dashboard');
-        // }
-
         return redirect("/")->with('error', 'Username or Password not matched');
     }
     public function logout()

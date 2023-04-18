@@ -9,7 +9,7 @@ class CompanyDetails extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'company_name', 'vat_number', 'phone_number', 'address', 'email_address','opening_balance','date'
+        'company_name', 'vat_number', 'phone_number', 'address', 'email_address', 'opening_balance', 'date'
     ];
     public function accountLedger()
     {
@@ -23,5 +23,11 @@ class CompanyDetails extends Model
     public function order()
     {
         return $this->hasMany(Order::class);
+    }
+    public function calculateRemainingBalance()
+    {
+        $debitTotal = $this->accountLedger()->sum('debit');
+        $creditTotal = $this->accountLedger()->sum('credit');
+        return $creditTotal - $debitTotal;
     }
 }

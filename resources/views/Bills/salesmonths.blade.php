@@ -2,7 +2,7 @@
 @section('content')
     <div class="c-grid-item">
         <div class="d-flex justify-content-center">
-            <h3 class="c-heading m-4">Purchase Bills Months</h3>
+            <h3 class="c-heading m-4">Sales Bills Months</h3>
         </div>
 
         <table class="table table-striped mx-auto" id="listingtable">

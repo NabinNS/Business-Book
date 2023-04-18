@@ -21,4 +21,11 @@ class CustomerDetail extends Model
     {
         return $this->hasOne(CustomerRemainingBalance::class);
     }
+    public function calculateRemainingBalance()
+    {
+        $debitTotal = $this->customerledger()->sum('debit');
+        $creditTotal = $this->customerledger()->sum('credit');
+        return  $debitTotal - $creditTotal;
+    }
 }
+

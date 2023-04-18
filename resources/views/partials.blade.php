@@ -22,6 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
     </script>
+
     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
         crossorigin="anonymous"></script>
 
@@ -39,15 +40,11 @@
     {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script> --}}
-    <link
-        href="https://cdn.datatables.net/v/bs5/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/r-2.4.1/sl-1.6.2/datatables.min.css"
-        rel="stylesheet" />
-
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/r-2.4.1/sl-1.6.2/datatables.min.css"rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script
-        src="https://cdn.datatables.net/v/bs5/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/r-2.4.1/sl-1.6.2/datatables.min.js">
-    </script>
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/r-2.4.1/sl-1.6.2/datatables.min.js"></script>
+
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -177,7 +174,7 @@
             @if (Auth::user()->role == 'admin')
                 <li>
                     <a href="{{ route('userlist') }}">
-                        <i class='bx bx-cart'></i>
+                        <i class='bx bx-user-plus'></i>
                         <span class="link_name">User Management</span>
                     </a>
                     <ul class="sub-menu blank">
@@ -224,18 +221,6 @@
                         <a href="/logout">Logout</a>
                     </div>
                 </div>
-                {{-- <div class="me-2 mt-1 dropdown">
-                    @if (Auth::user()->profile)
-                        <img src="{{ asset('images/' . Auth::user()->profile ) }}" width="40" height="40" class="dropbtn">
-                    @else
-                        <i class='bx bx-user'></i>
-                    @endif
-                    <div class="dropdown-content">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                      </div>
-                </div> --}}
             </div>
         </nav>
 

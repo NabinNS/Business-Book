@@ -16,4 +16,6 @@ class AccountLedger extends Model
     public function companyDetails(){
         return $this->belongsTo(CompanyDetails::class);
     }
+  
+
 }

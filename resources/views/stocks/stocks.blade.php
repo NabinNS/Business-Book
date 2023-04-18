@@ -36,8 +36,10 @@
                     </div>
                 </div>
                 <div class="container addbutton">
-                    <button class="btn-custom btn-size ms-5" type="button" data-bs-toggle="modal"
-                        data-bs-target="#AddStockModal">Add Stock</button>
+                    @if (auth()->user()->role != 'marketing')
+                        <button class="btn-custom btn-size ms-5" type="button" data-bs-toggle="modal"
+                            data-bs-target="#AddStockModal">Add Stock</button>
+                    @endif
                 </div>
             </div>
 
@@ -104,13 +106,13 @@
                         </div>
                     </div>
                 @endif
-
-                <div class="d-flex justify-content-between m-1">
-                    <button class="btn-custom-grid2 grid2-edit" type="button" data-bs-toggle="modal"
-                        data-bs-target="#EditStockModal">Edit <i class="fa fa-edit"></i></button>
-                    <button class="btn-custom-grid2 grid2-download">Download <i class="fa fa-download"></i></button>
-                    <button class="btn-custom-grid2 grid2-delete">Delete <i class="fa fa-trash"></i></button>
-                </div>
+                @if (auth()->user()->role != 'marketing')
+                    <div class="d-flex justify-content-end m-1">
+                        <button class="btn btn-outline-success btn-sm me-2" type="button" data-bs-toggle="modal"
+                            data-bs-target="#EditStockModal">Edit <i class="fa fa-edit"></i></button>
+                        <button class="btn btn-outline-danger btn-sm">Delete <i class="fa fa-trash"></i></button>
+                    </div>
+                @endif
             </div>
 
         </div>

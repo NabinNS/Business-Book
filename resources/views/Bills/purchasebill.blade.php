@@ -18,7 +18,7 @@
             <thead>
                 <tr>
                     <th>Date</th>
-                    <th>Name of Buyer</th>
+                    <th>Name of Seller</th>
                     <th>Vat Number</th>
                     <th>Taxable Amount</th>
                     <th>VAT</th>

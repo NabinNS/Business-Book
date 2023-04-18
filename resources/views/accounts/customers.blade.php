@@ -39,8 +39,10 @@
                     </div>
                 </div>
                 <div class="container addbutton">
+                    @if (auth()->user()->role != 'marketing')
                     <button class="btn-custom Cus-btn-size ms-5" type="button" data-bs-toggle="modal"
                         data-bs-target="#AddCustomerModal">Add Customer</button>
+                    @endif
                 </div>
             </div>
 
@@ -184,13 +186,13 @@
                         <p class="d-inline">{{ $customerDetail->phone_number }}</p>
                     </div>
                 </div>
-
-                <div class="d-flex justify-content-between m-1">
-                    <button class="btn-custom-grid2 grid2-edit" type="button" data-bs-toggle="modal"
+                @if (auth()->user()->role != 'marketing')
+                <div class="d-flex justify-content-end m-1">
+                    <button class="btn btn-outline-success btn-sm me-2" type="button" data-bs-toggle="modal"
                         data-bs-target="#EditCustomerModal">Edit <i class="fa fa-edit"></i></button>
-                    <button class="btn-custom-grid2 grid2-download">Download <i class="fa fa-download"></i></button>
-                    <button class="btn-custom-grid2 grid2-delete">Delete <i class="fa fa-trash"></i></button>
+                    <button class="btn btn-outline-danger btn-sm">Delete <i class="fa fa-trash"></i></button>
                 </div>
+                @endif
             </div>
 
         </div>
@@ -250,7 +252,7 @@
 
                     </tr>
                     @foreach ($customerledgers as $customerledger)
-                        <tr id="{{ $customerledger->acc_id }}" data-company-name="{{ $customerledger->customer_name }}">
+                        <tr id="{{ $customerledger->customerledger_id }}" data-company-name="{{ $customerledger->customer_name }}">
                             @php
                                 $balance += $customerledger->debit - $customerledger->credit;
                             @endphp
@@ -267,7 +269,66 @@
 
         </div>
     </div>
+    {{-- Edit transaction --}}
+    <div>
+        <div class="modal fade" id="EditTransaction" tabindex="-1" aria-labelledby="AddPurchaseModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title font text-success" id="exampleModalLabel">Edit Transaction Information</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="get" action="{{ route('editcustomertransaction') }}" id="purchaserecordform">
+                        <div class="modal-body">
+                            <input type="hidden" name="id" id="transactionid">
+                            <input type="hidden" name="type" id="transactiontype">
+                            <div class="input-group mb-3">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control fieldcompanyname" id="floatingInput"
+                                        placeholder="Company Name" name="customername" readonly
+                                        value="{{ $customerDetail->customer_name }}">
+                                    <label for="floatingInput">Customer Name</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="date" class="form-control" id="date" placeholder="date"
+                                            name="date">
+                                        <label for="floatingInput">Date</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control" id="voucherNo"
+                                            placeholder="Vat Number" name="billno">
+                                        <label for="floatingInput">Bill Number</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control" id="amount"
+                                            placeholder="Total Amount" name="amount">
+                                        <label for="floatingInput">Total Amount</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
+    </div>
     {{-- Modal for sales --}}
     <div>
         <div class="modal fade" id="AddSales" tabindex="-1" aria-labelledby="AddSalesModalLabel" aria-hidden="true">
@@ -523,6 +584,35 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+
+            $('#ledgertable tr:gt(1) td').dblclick(function() {
+                // Retrieve the data from the corresponding row
+                var tr_id = $(this).closest('tr').attr('id');
+                var date = $(this).closest('tr').find('td:nth-child(1)').text();
+                var voucherNo = $(this).closest('tr').find('td:nth-child(3)').text();
+                var debit = $(this).closest('tr').find('td:nth-child(4)').text();
+                var credit = $(this).closest('tr').find('td:nth-child(5)').text();
+                var balance = $(this).closest('tr').find('td:nth-child(6)').text();
+
+                // Populate the modal with the retrieved data
+                $('#EditTransaction #date').val(date);
+                $('#EditTransaction #voucherNo').val(voucherNo);
+                if (debit) {
+                    $('#EditTransaction #amount').val(debit);
+                    $('#EditTransaction #transactiontype').val('sales');
+                }
+                if (credit) {
+                    $('#EditTransaction #amount').val(credit);
+                    $('#EditTransaction #transactiontype').val('cash');
+                }
+
+                $('#EditTransaction #transactionid').val(tr_id);
+
+                // Open the modal
+                $('#EditTransaction').modal('show');
+            });
+
+
             var table = $('#ledgertable').DataTable({
                 paging: false,
                 searching: false,
@@ -564,16 +654,16 @@
             });
 
 
-            $("tr").dblclick(function() {
-                var id = $(this).attr("id");
-                var companyName = $(this).data("company-name");
-                if (id) {
+            // $("tr").dblclick(function() {
+            //     var id = $(this).attr("id");
+            //     var companyName = $(this).data("company-name");
+            //     if (id) {
 
-                    window.location.href = '/parties/editledger/' + id + '/' + companyName;
-                } else {
-                    // $('#AddCustomerModal').modal('show');
-                }
-            });
+            //         window.location.href = '/parties/editledger/' + id + '/' + companyName;
+            //     } else {
+            //         // $('#AddCustomerModal').modal('show');
+            //     }
+            // });
 
             // $(".changecompany").click(function() {
             //     $(".selectcompany").toggleClass("hide");

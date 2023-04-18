@@ -57,7 +57,7 @@
     <div class="c-grid-item ">
         <div>
             <div class="center">
-                <h5>Company name</h5>
+                <h5>Business Book pvt ltd</h5>
             </div>
             <div class="d-flex justify-content-end m">
                 <label>Date:</label>
@@ -66,7 +66,7 @@
             <div class="m">
                 <label>Name:</label>
                 <input type="text" class="align-name p-1" placeholder="Name of the company" name="name"
-                    value={{ "$customername" }}>
+                    value="{{ $customername }}">
             </div>
 
             <div class="d-flex justify-content-end m">

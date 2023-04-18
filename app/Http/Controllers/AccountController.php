@@ -7,6 +7,7 @@ use App\Models\AccountRemainingBalance;
 use App\Models\AccountsSummary;
 use App\Models\CompanyDetails;
 use App\Models\CustomerDetail;
+use App\Models\CustomerLedger;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -91,15 +92,21 @@ class AccountController extends Controller
             'particulars' => 'purchase by ' . $request->Purchasetype,
             'credit' => $request->amount
         ]);
-
         if ($request->Purchasetype == "cash") {
-            $companyInformation->accountRemainingBalance()->decrement('amount', $request->amount);
-            $companyInformation->accountLedger()->create([
+            $data = [
                 'date' => $request->date ?? Carbon::now(),
                 'receipt_no' => $request->voucherno,
                 'particulars' => $request->Paymenttype,
-                'debit' => $request->amount
-            ]);
+                'debit' => $request->amount,
+            ];
+
+            if ($request->Paymenttype == 'cheque') {
+                $data['cheque_status'] = 'unsettled';
+            }
+
+
+            $companyInformation->accountRemainingBalance()->decrement('amount', $request->amount);
+            $companyInformation->accountLedger()->create($data);
         }
         return redirect('/parties/viewledger/' . $request->companyname)->with('success', 'Purchase bill recorded successfully');
     }
@@ -119,7 +126,7 @@ class AccountController extends Controller
     public function editPartyDetails(Request $request)
     {
         $request->validate([
-            'companyname' => 'required|unique:company_details,company_name',
+
             'vatnumber' => 'nullable|min:7|max:9',
             'phonenumber' => 'nullable|min:7',
             'emailaddress' => 'nullable|email'
@@ -140,6 +147,37 @@ class AccountController extends Controller
         $partydetails->accountRemainingBalance()->increment('amount', $request->openingbalance);
         return redirect('/parties/viewledger/' . $request->companyname)->with('success', 'Party detail updated succesfully');
     }
+    public function deleteParty($id)
+    {
+        CompanyDetails::find($id)->delete();
+        return redirect()->route('parties');
+    }
+    public function editPartyTransaction(Request $request)
+    {
+        $accountledger = AccountLedger::find($request->id);
+        $partydetails = CompanyDetails::where('company_name', $request->companyname)->first();
+
+        if ($request->type == 'purchase') {
+            $accountledger->update([
+                'receipt_no' => $request->billno,
+                'date' => $request->date,
+                'credit' => $request->amount,
+            ]);
+        } else {
+            $accountledger->update([
+                'receipt_no' => $request->billno,
+                'date' => $request->date,
+                'debit' => $request->amount,
+            ]);
+        }
+
+        $remainingBalance = $partydetails->calculateRemainingBalance() + $partydetails->opening_balance;
+
+        $partydetails->accountRemainingBalance()->update(['amount' => $remainingBalance]);
+
+        return redirect()->back()->with('success', 'Update Successful');
+    }
+
 
     /*
     *
@@ -228,15 +266,25 @@ class AccountController extends Controller
             'debit' => $request->amount,
             'bill_status' => $request->Salestype == "cash" ? "paid" : "unpaid"
         ]);
-
         if ($request->Salestype == "cash") {
-            $customerDetail->customerRemainingBalance()->decrement('amount', $request->amount);
-            $customerDetail->customerledger()->create([
+
+
+            $data = [
                 'date' => $request->date ?? Carbon::now(),
                 'receipt_no' => $request->billno,
                 'particulars' => $request->Paymenttype,
-                'credit' => $request->amount
-            ]);
+                'credit' => $request->amount,
+            ];
+
+            if ($request->Paymenttype == 'cheque') {
+                $data['cheque_status'] = 'unsettled';
+            }
+
+
+            $customerDetail->customerRemainingBalance()->decrement('amount', $request->amount);
+
+
+            $customerDetail->customerledger()->create($data);
         }
         return redirect('/customers/viewledger/' . $request->customername)->with('success', 'Sales bill recorded successfully');
     }
@@ -263,5 +311,35 @@ class AccountController extends Controller
 
         $customerDetail->customerRemainingBalance()->increment('amount',  $request->openingbalance);
         return redirect('/customers/viewledger/' . $request->customername)->with('success', 'Party detail updated succesfully');
+    }
+    public function deleteCustomer($id)
+    {
+        CustomerDetail::find($id)->delete();
+        return redirect()->route('customers');
+    }
+    public function editCustomerTransaction(Request $request)
+    {
+        $accountledger = CustomerLedger::find($request->id);
+        $customerdetails = CustomerDetail::where('customer_name', $request->customername)->first();
+
+        if ($request->type == 'sales') {
+            $accountledger->update([
+                'receipt_no' => $request->billno,
+                'date' => $request->date,
+                'debit' => $request->amount,
+            ]);
+        } else {
+            $accountledger->update([
+                'receipt_no' => $request->billno,
+                'date' => $request->date,
+                'credit' => $request->amount,
+            ]);
+        }
+
+        $remainingBalance = $customerdetails->calculateRemainingBalance() + $customerdetails->opening_balance;
+
+        $customerdetails->customerRemainingBalance()->update(['amount' => $remainingBalance]);
+
+        return redirect()->back()->with('success', 'Update Successful');
     }
 }
